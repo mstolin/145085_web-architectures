@@ -132,6 +132,32 @@ After the \texttt{RequestParser} has successfully parsed the clients request, it
 \end{figure}
 
 % Start the requestes process
+If the client has send a valid request for a process, the next step is to generate the command to launch the requested process. To keep the TinyHttpd implementation extensible, a new class called CommandFactory is added to the project, which is implemented using the Factory pattern.
+
+
+% CommandFactory
+The CommandFactory class is responsible to generate the command for the given request. It has a public static method called generateCommand, which takes the requested process name and the query of the request path as arguments.
+% Explain the method
+According to the given process name, it generate the command to execute the .jar artifact with the given query as input parameter.
+% Example
+As example for the given path \texttt{/process/reverse?param=roma}, the generated command is \texttt{java -jar /Users/marcel/workspace/web-architectures/assignment\_1/MiniHTTPD/jars/StringReverser.jar "roma"}. In addition, the CommandFactory is also responsible for check if the requested process is available and if the given query is a valid parameter for the process. If not, it will throw an exception.
+
+
+% Run process
+Next, after the command has been generated it can be performed using the ProcessBuilder class.
+% How it is executed
+FIG XY shows the executing of the requested process using ProcessBuilder. It is important to mention, that the result has to be saved as string instead of printing it directly to the output stream. The reason is, because the HTTP header of the server response needs the length of the process output.
+
+
+% Error handling
+During the procedure of handling the path, generating the requested process command, and executing the process command, the following error cases can appear:
+% The errors
+\begin{itemize}
+\item The process path is invalid (process name missing or no process with this name exists)
+\item The query is invalid (query is missing or the given parameters are invalid)
+\end{itemize}
+% What happens
+If any of these cases appear, the server will response with an 400 Bad Request HTTP response.
 
 
 \subsection{Conclusion}\label{subsec:01_part1_concl}

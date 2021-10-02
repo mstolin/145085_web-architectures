@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  2 OCT 2021 17:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  2 OCT 2021 19:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -373,51 +373,46 @@ Overfull \hbox (14.52838pt too wide) in paragraph at lines 119--120
 ]NAME?PROCESS[]PARAMETERS\OT1/cmr/m/n/10 .
  []
 
-
-LaTeX Warning: Reference `fig:01_part1_impl_tinyhttpd_parsing' on page 3 undefi
-ned on input line 125.
-
-
-Overfull \hbox (2.24753pt too wide) in paragraph at lines 123--126
-\OT1/cmtt/m/n/10 /process/reverse?param=roma HTTP/1.1\OT1/cmr/m/n/10 , it is co
-m-posed of the HTTP method
- []
-
-<images/TinyHttpdParsing.png, id=106, 1021.8175pt x 730.73pt>
+<images/TinyHttpdParsing.png, id=107, 1021.8175pt x 730.73pt>
 File: images/TinyHttpdParsing.png Graphic file (type png)
 <use images/TinyHttpdParsing.png>
-Package pdftex.def Info: images/TinyHttpdParsing.png  used on input line 130.
+Package pdftex.def Info: images/TinyHttpdParsing.png  used on input line 129.
 (pdftex.def)             Requested size: 408.71976pt x 292.28682pt.
 
-Overfull \hbox (63.71976pt too wide) in paragraph at lines 130--131
+Overfull \hbox (63.71976pt too wide) in paragraph at lines 129--130
  [][] 
+ []
+
+
+Overfull \hbox (2.24753pt too wide) in paragraph at lines 123--133
+\OT1/cmtt/m/n/10 /process/reverse?param=roma HTTP/1.1\OT1/cmr/m/n/10 , it is co
+m-posed of the HTTP method
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3 <./images/StringReverserStrct.png>]
+
+Overfull \hbox (168.02551pt too wide) in paragraph at lines 139--144
+\OT1/cmtt/m/n/10 java -jar /Users/marcel/workspace/web-architectures/assignment
+[]1/MiniHTTPD/jars/StringReverser.jar
+ []
+
+[3 <./images/StringReverserStrct.png>] [4 <./images/StringReverserImpl.png>]
 No file Report.bbl.
-[4 <./images/StringReverserImpl.png>] [5 <./images/StringReverserExec.png> <./i
-mages/StringReverserExecFail.png> <./images/TinyHttpdParsing.png>]
-(./Report.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+[5 <./images/StringReverserExec.png> <./images/StringReverserExecFail.png>]
+[6 <./images/TinyHttpdParsing.png>] (./Report.aux)
 Package rerunfilecheck Info: File `Report.out' has not changed.
 (rerunfilecheck)             Checksum: 33E8A84DBBB6E37D20CF274BF79F2EE1;1589.
  ) 
 Here is how much of TeX's memory you used:
- 7923 strings out of 478994
- 118639 string characters out of 5858185
- 418491 words of memory out of 5000000
- 25286 multiletter control sequences out of 15000+600000
- 409271 words of font info for 47 fonts, out of 8000000 for 9000
+ 7927 strings out of 478994
+ 118681 string characters out of 5858185
+ 419576 words of memory out of 5000000
+ 25288 multiletter control sequences out of 15000+600000
+ 409606 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,8n,74p,698b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,8n,74p,698b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -432,11 +427,12 @@ e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 21/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/202
 1/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2021/
-texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (5 pages, 607964 bytes).
+texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Report.pdf (6 pages, 616469 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
+ 193 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
  138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
