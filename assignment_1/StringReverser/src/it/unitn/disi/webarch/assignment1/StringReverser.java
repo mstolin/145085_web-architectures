@@ -12,11 +12,16 @@ public class StringReverser {
             }
         } else {
             System.out.println("A string to reverse is required.");
-            System.out.println("Usage: java Main.java [STRING]");
             System.exit(0);
         }
     }
 
+    /**
+     * This method reverses the given string.
+     *
+     * @param text
+     * @return Reversed text
+     */
     private static String reverseString(String text) {
         StringBuilder stringBuilder = new StringBuilder(text);
         stringBuilder.reverse();
