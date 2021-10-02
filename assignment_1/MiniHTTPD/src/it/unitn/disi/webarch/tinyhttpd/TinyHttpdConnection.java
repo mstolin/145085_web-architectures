@@ -43,6 +43,7 @@ class TinyHttpdConnection extends Thread {
             } while (head!=null && head.length()>0);
 
             // Parse the request
+            System.out.println();
             RequestParser requestParser = new RequestParser(req);
             String method = requestParser.getMethod();
             System.out.println("Method: " + method);
@@ -54,6 +55,7 @@ class TinyHttpdConnection extends Thread {
 
             if (method.equals("GET")) {
                 StringTokenizer pathTokenizer = new StringTokenizer(path, "/");
+                // Check if client requested a java process
                 if (pathTokenizer.hasMoreTokens() && pathTokenizer.nextToken().equals("process")) {
                     // user wants to start a java process
                     String processName = pathTokenizer.nextToken();
@@ -64,7 +66,7 @@ class TinyHttpdConnection extends Thread {
 
                         try {
                             String processResponse = this.launchJavaProcess(processName, query);
-                            System.out.println("OUTPUT IS: " + processResponse);
+                            System.out.println("Output for \"" + processName + "\": " + processResponse);
                             this.sendSuccessResponseHeader(processResponse.length());
                             this.ps.print(processResponse);
                         } catch (Exception e) {
@@ -79,7 +81,7 @@ class TinyHttpdConnection extends Thread {
                         System.out.println("400 Bad Request: " + path);
                     }
                 } else {
-                    // OPEN REQUESTED FILE AND COPY IT TO CLIENT
+                    // Otherwise, try to open the requested HTML file
                     if (path.endsWith("/")) {
                         path = path + "index.html";
                     }
@@ -96,6 +98,8 @@ class TinyHttpdConnection extends Thread {
             }
         } catch (IOException e) { // Let's catch all generic I/O troubles
             System.out.println("Generic I/O error " + e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally { // the following code is ALWAYS executed
             try {
                 // let's close all channels
@@ -109,6 +113,8 @@ class TinyHttpdConnection extends Thread {
 
     private String launchJavaProcess(String processName, String query) throws Exception {
         String command = CommandFactory.generateCommand(processName, query);
+
+        System.out.println("Command for process \"" + processName + "\": " + command);
 
         ProcessBuilder processBuilder = new ProcessBuilder();
         processBuilder.command("bash", "-c", command);

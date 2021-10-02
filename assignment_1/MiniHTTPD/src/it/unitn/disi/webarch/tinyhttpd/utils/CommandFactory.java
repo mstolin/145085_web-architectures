@@ -4,6 +4,13 @@ import java.util.StringTokenizer;
 
 public class CommandFactory {
 
+    /**
+     *
+     * @param process
+     * @param parameters
+     * @return
+     * @throws Exception
+     */
     public static String generateCommand(String process, String parameters) throws Exception {
         if (process.equals("reverse")) {
             return generateReverseProcessCommand(parameters);
@@ -12,6 +19,12 @@ public class CommandFactory {
         }
     }
 
+    /**
+     *
+     * @param parameters
+     * @return
+     * @throws Exception
+     */
     private static String generateReverseProcessCommand(String parameters) throws Exception {
         StringTokenizer paramTokenizer = new StringTokenizer(parameters, "&");
         // first check if there are any parameters
@@ -23,9 +36,8 @@ public class CommandFactory {
         if (paramKeyValue.length >= 2) {
             // We need at least 2 elements
             String textToReverse = paramKeyValue[1];
-            String classPath = "/Users/marcel/workspace/web-architectures/assignment_1/StringReverser/out/production/StringReverser";
-            String className = "it.unitn.disi.webarch.assignment1.StringReverser";
-            String command = "java" + " -cp " + classPath + " " + className + " " + textToReverse;
+            String artifactPath = System.getProperty("user.dir") + "/jars/StringReverser.jar";
+            String command = "java" + " -jar " + artifactPath + " \"" + textToReverse + "\"";
 
             return command;
         } else {

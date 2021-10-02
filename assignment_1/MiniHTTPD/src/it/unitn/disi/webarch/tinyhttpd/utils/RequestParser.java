@@ -11,17 +11,22 @@ public class RequestParser {
     private String path;
     private String queryString;
 
-    public RequestParser(String request) {
+    /**
+     * The RequestParser is able to parse a HTTP request
+     * into its single parts
+     *
+     * @param request
+     */
+    public RequestParser(String request) throws Exception {
         this.request = request;
         this.parseRequest();
         this.parsePath();
     }
 
-
-    private void parseRequest() {
+    private void parseRequest() throws Exception {
         StringTokenizer tokenizer = new StringTokenizer(this.request);
         if (tokenizer.countTokens() < 3) {
-            //throw new Exception("The request \"" + this.request + "\" is invalid");
+            throw new Exception("The request \"" + this.request + "\" is invalid");
         }
 
         this.method = tokenizer.nextToken();
