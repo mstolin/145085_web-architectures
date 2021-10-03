@@ -1,14 +1,15 @@
-\documentclass{article}
+\documentclass[12pt]{article}
+\usepackage[a4paper, left=3.17cm, right=3.17cm, top=2.54cm, bottom=2.54cm]{geometry}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{float}
-\usepackage{hyperref}
 \usepackage{listings}
-%\usepackage[latin1]{inputenc} 
-%\usepackage[T1]{fontenc}
-%\usepackage{english}
-\title{Batch and Stream Processing: Realtime Analysis of Big Data}
-\date{}
-\author{Marcel Stolin \\ marcelpascal.stolin@studenti.unitn.it}
+\usepackage{url}
+\usepackage[colorlinks, linkcolor=black, anchorcolor=black, citecolor=black]{hyperref}
+\setlength{\parskip}{0.5em}
+\title{Assignment 1}
+\author{\textup{Marcel Pascal Stolin}}
 
 \def\Eq#1{\eqref{#1}}
 \def\Sec#1{Section~\ref{#1}}
@@ -22,53 +23,48 @@
 \def\Page#1{Page~\pageref{#1}}
 
 % Listings
-%\definecolor{codegreen}{rgb}{0,0.6,0}
-%\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-%\definecolor{codepurple}{rgb}{0.58,0,0.82}
-%\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-%\lstdefinestyle{codestyle}{
-%    backgroundcolor=\color{backcolour},   
-%    commentstyle=\color{codegreen},
-%    keywordstyle=\color{magenta},
-%    numberstyle=\tiny\color{codegray},
-%    stringstyle=\color{codepurple},
-%    basicstyle=\ttfamily\footnotesize,
-%    breakatwhitespace=false,         
-%    breaklines=true,                 
-%    captionpos=b,                    
-%    keepspaces=true,                 
-%    numbers=left,                    
-%    numbersep=5pt,                  
-%    showspaces=false,                
-%    showstringspaces=false,
-%    showtabs=false,                  
-%    tabsize=2,
-%    frame=lines
-%}
-%\lstset{style=codestyle}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=lines
+}
+\lstset{style=codestyle}
 
 \begin{document}
+	% Title
+	\input{title/title.tex}
+	\newpage
+	
+    % Contents
+    \input{content/Part1}
+    \newpage
+    \input{content/Part2}
 
+    % References
+    %\bibliographystyle{plain}
+    %\bibliography{mybib}
 
-\maketitle
-
-
-\begin{abstract}
-Since the beginning of Big Data, batch processing was the most popular choice for processing large amounts of generated data. These existing processing technologies are not suitable to process the large amount of data we face today. Research works developed a variety of technologies that focus on stream processing. Stream processing technologies bring significant performance improvements and new opportunities to handle Big Data. In this paper, we discuss the differences of batch and stream processing and we explore existing batch and stream processing technologies. We also explain the new possibilities that stream processing make possible.
-\end{abstract}
-
-% Contents
-\input{content/Part1}
-\input{content/Part2}
-
-% References
-\bibliographystyle{plain}
-\bibliography{mybib}
-
-% Appendix
-\pagebreak
-\appendix
-\phantomsection
-\input{content/Appendix}
-
+    % Appendix
+    \newpage
+    \appendix
+    \phantomsection
+    \input{content/Appendix}
 \end{document}

@@ -4,7 +4,7 @@
 
 \subsubsection{StringReverser}
 
-\begin{lstlisting}[label=lst:01_part1_impl_stringreverser_code, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+\begin{lstlisting}[label=lst:01_part1_impl_stringreverser_code, caption=\texttt{StringReverser} class implementation, language=java]
 package it.unitn.disi.webarch.assignment1;
 
 public class StringReverser {
@@ -38,9 +38,10 @@ public class StringReverser {
 }
 \end{lstlisting}
 
+\newpage
 \subsubsection{TinyHttpd}
 
-\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_requestparser, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_requestparser, caption=\texttt{RequestParser} class implementation, language=java]
 package it.unitn.disi.webarch.tinyhttpd.utils;
 
 import java.util.StringTokenizer;
@@ -104,7 +105,8 @@ public class RequestParser {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_commandfactory, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+\newpage
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_commandfactory, caption=\texttt{CommandFactory} class implementation, language=java]
 package it.unitn.disi.webarch.tinyhttpd.utils;
 
 import java.util.StringTokenizer;
@@ -150,7 +152,8 @@ public class CommandFactory {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_launchprocess, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+\newpage
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_launchprocess, caption=Implementation of the \texttt{launchProcess} method, language=java]
 private String launchProcess(String command) throws Exception {
     ProcessBuilder processBuilder = new ProcessBuilder();
     processBuilder.command("bash", "-c", command);
@@ -169,7 +172,7 @@ private String launchProcess(String command) throws Exception {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader, caption=Implementation of the \texttt{sendSuccessResponseHeader} method, language=java]
 private void sendSuccessResponseHeader(int responseLength, String mimeType) {
     ps.print("HTTP/1.1 200 OK\r\n");
     ps.print("Content-Length: " + responseLength + "\r\n");
@@ -178,11 +181,28 @@ private void sendSuccessResponseHeader(int responseLength, String mimeType) {
 }
 \end{lstlisting}
 
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_implsteps, caption=Implementation of the steps 2 to 4, language=java]
+try {
+    String command = CommandFactory.generateCommand(processName, query);
+    System.out.println("Command for process \"" + processName + "\": " + command);
+    String processResponse = this.launchProcess(command);
+    System.out.println("Output for \"" + processName + "\": " + processResponse);
+    this.sendSuccessResponseHeader(processResponse.length(), "text/plain");
+    this.ps.print(processResponse);
+} catch (Exception e) {
+    System.out.println("Error: " + e.getMessage());
+    this.sendErrorResponseHeader("400 Bad Request");
+    System.out.println("400 Bad Request: " + path);
+}
+\end{lstlisting}
+
+
+\newpage
 \section{Part 2}
 
 \subsection{Implementation}
 
-\begin{lstlisting}[label=lst:02_part2_impl_script, caption=CLI command to start a GitLab runner in a Docker container, language=bash, numbers=none]
+\begin{lstlisting}[label=lst:02_part2_impl_script, caption=Implementation of the cgi-bin script, language=bash]
 #!/bin/sh
 
 send_response () {
