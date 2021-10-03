@@ -5,11 +5,12 @@ import java.util.StringTokenizer;
 public class CommandFactory {
 
     /**
+     * Generates the command for the given process name.
      *
-     * @param process
-     * @param parameters
-     * @return
-     * @throws Exception
+     * @param process Name of the requested process
+     * @param parameters Probably the query string
+     * @return Command as string
+     * @throws Exception If the process name is unknown
      */
     public static String generateCommand(String process, String parameters) throws Exception {
         if (process.equals("reverse")) {
@@ -19,12 +20,6 @@ public class CommandFactory {
         }
     }
 
-    /**
-     *
-     * @param parameters
-     * @return
-     * @throws Exception
-     */
     private static String generateReverseProcessCommand(String parameters) throws Exception {
         StringTokenizer paramTokenizer = new StringTokenizer(parameters, "&");
         // first check if there are any parameters

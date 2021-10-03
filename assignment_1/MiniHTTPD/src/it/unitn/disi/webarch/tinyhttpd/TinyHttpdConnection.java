@@ -65,9 +65,11 @@ class TinyHttpdConnection extends Thread {
                         System.out.println("Java process name: " + processName);
 
                         try {
-                            String processResponse = this.launchJavaProcess(processName, query);
+                            String command = CommandFactory.generateCommand(processName, query);
+                            System.out.println("Command for process \"" + processName + "\": " + command);
+                            String processResponse = this.launchProcess(command);
                             System.out.println("Output for \"" + processName + "\": " + processResponse);
-                            this.sendSuccessResponseHeader(processResponse.length());
+                            this.sendSuccessResponseHeader(processResponse.length(), "text/plain");
                             this.ps.print(processResponse);
                         } catch (Exception e) {
                             System.out.println("Error: " + e.getMessage());
@@ -111,11 +113,7 @@ class TinyHttpdConnection extends Thread {
         }
     }
 
-    private String launchJavaProcess(String processName, String query) throws Exception {
-        String command = CommandFactory.generateCommand(processName, query);
-
-        System.out.println("Command for process \"" + processName + "\": " + command);
-
+    private String launchProcess(String command) throws Exception {
         ProcessBuilder processBuilder = new ProcessBuilder();
         processBuilder.command("bash", "-c", command);
         Process process = processBuilder.start();
@@ -137,7 +135,7 @@ class TinyHttpdConnection extends Thread {
         FileInputStream fis = new FileInputStream("Documents/" + path);
         int responseLength = fis.available();
         // LET'S SEND THE RESPONSE HEADERS
-        this.sendSuccessResponseHeader(responseLength);
+        this.sendSuccessResponseHeader(responseLength, "text/html");
         // LET'S SEND THE CONTENT
         byte[] data = new byte[responseLength];
         fis.read(data);
@@ -145,10 +143,10 @@ class TinyHttpdConnection extends Thread {
         fis.close();
     }
 
-    private void sendSuccessResponseHeader(int responseLength) {
+    private void sendSuccessResponseHeader(int responseLength, String mimeType) {
         ps.print("HTTP/1.1 200 OK\r\n");
         ps.print("Content-Length: " + responseLength + "\r\n");
-        ps.print("Content-Type: text/html\r\n");
+        ps.print("Content-Type: " + mimeType + "\r\n");
         ps.print("\r\n");
     }
 

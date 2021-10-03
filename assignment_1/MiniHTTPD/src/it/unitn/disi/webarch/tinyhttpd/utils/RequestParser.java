@@ -12,8 +12,8 @@ public class RequestParser {
     private String queryString;
 
     /**
-     * The RequestParser is able to parse a HTTP request
-     * into its single parts
+     * The RequestParser is able to parse an HTTP request
+     * into its single parts.
      *
      * @param request
      */
