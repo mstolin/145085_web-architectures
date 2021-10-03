@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  2 OCT 2021 19:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  3 OCT 2021 13:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -189,47 +189,71 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
 \Hy@SectionHShift=\skip49
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count198
+\lst@gtempboxa=\box49
+\lst@token=\toks18
+\lst@length=\count199
+\lst@currlwidth=\dimen145
+\lst@column=\count266
+\lst@pos=\count267
+\lst@lostspace=\dimen146
+\lst@width=\dimen147
+\lst@newlines=\count268
+\lst@lineno=\count269
+\lst@maxwidth=\dimen148
+
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count270
+\lst@skipnumbers=\count271
+\lst@framebox=\box50
 )
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
 (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count198
-\l__pdf_internal_box=\box49
+\l__color_backend_stack_int=\count272
+\l__pdf_internal_box=\box51
 )
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count199
-\scratchdimen=\dimen145
-\scratchbox=\box50
-\nofMPsegments=\count266
-\nofMParguments=\count267
-\everyMPshowfont=\toks18
-\MPscratchCnt=\count268
-\MPscratchDim=\dimen146
-\MPnumerator=\count269
-\makeMPintoPDFobject=\count270
-\everyMPtoPDFconversion=\toks19
+\scratchcounter=\count273
+\scratchdimen=\dimen149
+\scratchbox=\box52
+\nofMPsegments=\count274
+\nofMParguments=\count275
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count276
+\MPscratchDim=\dimen150
+\MPnumerator=\count277
+\makeMPintoPDFobject=\count278
+\everyMPtoPDFconversion=\toks20
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -239,7 +263,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 23.
+Package hyperref Info: Link coloring OFF on input line 50.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -251,29 +275,30 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count271
+\c@section@level=\count279
 )
-LaTeX Info: Redefining \ref on input line 23.
-LaTeX Info: Redefining \pageref on input line 23.
-LaTeX Info: Redefining \nameref on input line 23.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
  (./Report.out) (./Report.out)
 \@outlinefile=\write3
 \openout3 = `Report.out'.
 
+\c@lstlisting=\count280
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 27.
+(Font)              <12> on input line 54.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 27.
+(Font)              <8> on input line 54.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 27.
+(Font)              <6> on input line 54.
 
-Overfull \hbox (114.99701pt too wide) in paragraph at lines 42--43
+Overfull \hbox (114.99701pt too wide) in paragraph at lines 69--70
 \OT1/cmr/m/n/10 There-fore, the client sends a re-quest via the URL \OT1/cmtt/m
 /n/10 http://localhost:8000/process/reverse?par1=ROMA\OT1/cmr/m/n/10 .
  []
 
 
-Overfull \hbox (137.11188pt too wide) in paragraph at lines 49--50
+Overfull \hbox (137.11188pt too wide) in paragraph at lines 76--77
 \OT1/cmr/m/n/10 re-quested by client via the URL \OT1/cmtt/m/n/10 http://localh
 ost:8000/process/PROCESS[]NAME?PROCESS[]PARAMETERS\OT1/cmr/m/n/10 . 
  []
@@ -282,157 +307,313 @@ ost:8000/process/PROCESS[]NAME?PROCESS[]PARAMETERS\OT1/cmr/m/n/10 .
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-57.
+85.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-Overfull \hbox (33.3589pt too wide) in paragraph at lines 57--58
-\OT1/cmr/m/n/10 ex-e-cuted via the con-sole, for ex-am-ple the com-mand \TS1/cm
-tt/m/n/10 $ \OT1/cmtt/m/n/10 java -jar StringReverser.jar
- []
-
-
-Overfull \hbox (187.47305pt too wide) in paragraph at lines 61--66
+Overfull \hbox (187.47305pt too wide) in paragraph at lines 89--94
 \OT1/cmr/m/n/10 Whenever the client makes a re-quest via the URL \OT1/cmtt/m/n/
 10 http://localhost:8000/process/PROCESS[]NAME?PROCESS[]PARAMETERS\OT1/cmr/m/n/
 10 ,
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 68.
+(Font)              <7> on input line 96.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 68.
+(Font)              <5> on input line 96.
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--78
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
 [][][]\OT1/cmr/m/n/8 StringBuilder - []$\OT1/cmtt/m/n/8 https : / / docs . orac
 le . com / javase / 7 / docs / api / java / lang /
  []
 
-<images/StringReverserStrct.png, id=82, 311.1625pt x 240.9pt>
+<images/StringReverserStrct.png, id=99, 311.1625pt x 240.9pt>
 File: images/StringReverserStrct.png Graphic file (type png)
 <use images/StringReverserStrct.png>
-Package pdftex.def Info: images/StringReverserStrct.png  used on input line 83.
-
+Package pdftex.def Info: images/StringReverserStrct.png  used on input line 111
+.
 (pdftex.def)             Requested size: 124.46278pt x 96.35828pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/StringReverserImpl.png, id=84, 692.5875pt x 896.34875pt>
-File: images/StringReverserImpl.png Graphic file (type png)
-<use images/StringReverserImpl.png>
-Package pdftex.def Info: images/StringReverserImpl.png  used on input line 91.
-(pdftex.def)             Requested size: 277.03009pt x 358.53316pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--97
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 117--117
 [][][]\OT1/cmr/m/n/8 Create your first Java ap-pli-ca-tion - []$\OT1/cmtt/m/n/8
  https : / / www . jetbrains . com / help / idea /
  []
 
 
-Overfull \hbox (24.65152pt too wide) in paragraph at lines 97--100
+Overfull \hbox (24.65152pt too wide) in paragraph at lines 117--120
 \OT1/cmr/m/n/10 ti-fact was cre-ated us-ing the In-tel-liJ IDEA[][][]. If the i
 n-put is in-valid, the \OT1/cmtt/m/n/10 StringReverser
  []
 
-[2]
-<images/StringReverserExec.png, id=104, 974.64125pt x 87.32625pt>
+<images/StringReverserExec.png, id=119, 974.64125pt x 87.32625pt>
 File: images/StringReverserExec.png Graphic file (type png)
 <use images/StringReverserExec.png>
-Package pdftex.def Info: images/StringReverserExec.png  used on input line 104.
+Package pdftex.def Info: images/StringReverserExec.png  used on input line 124.
 
 (pdftex.def)             Requested size: 389.8496pt x 34.92987pt.
 
-Overfull \hbox (44.8496pt too wide) in paragraph at lines 104--105
+Overfull \hbox (44.8496pt too wide) in paragraph at lines 124--125
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/StringReverserExecFail.png, id=105, 974.64125pt x 86.3225pt>
+<images/StringReverserExecFail.png, id=120, 974.64125pt x 86.3225pt>
 File: images/StringReverserExecFail.png Graphic file (type png)
 <use images/StringReverserExecFail.png>
 Package pdftex.def Info: images/StringReverserExecFail.png  used on input line 
-112.
+132.
 (pdftex.def)             Requested size: 389.8496pt x 34.52837pt.
 
-Overfull \hbox (44.8496pt too wide) in paragraph at lines 112--113
+Overfull \hbox (44.8496pt too wide) in paragraph at lines 132--133
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (14.52838pt too wide) in paragraph at lines 119--120
-\OT1/cmr/m/n/10 the URL \OT1/cmtt/m/n/10 http://localhost:8000/process/PROCESS[
-]NAME?PROCESS[]PARAMETERS\OT1/cmr/m/n/10 .
+[3 <./images/StringReverserStrct.png> <./images/StringReverserExec.png> <./imag
+es/StringReverserExecFail.png>]
+Overfull \hbox (11.93407pt too wide) in paragraph at lines 154--155
+\OT1/cmr/m/n/10 quest into its parts. For ex-am-ple, the re-quest \OT1/cmtt/m/n
+/10 GET /process/reverse?param=roma
  []
 
-<images/TinyHttpdParsing.png, id=107, 1021.8175pt x 730.73pt>
+
+Overfull \hbox (64.74753pt too wide) in paragraph at lines 154--155
+\OT1/cmtt/m/n/10 HTTP/1.1 \OT1/cmr/m/n/10 is com-posed of the HTTP method (\OT1
+/cmtt/m/n/10 GET\OT1/cmr/m/n/10 ), the path (\OT1/cmtt/m/n/10 /process/reverse?
+param=roma\OT1/cmr/m/n/10 ),
+ []
+
+
+Overfull \hbox (10.1852pt too wide) in paragraph at lines 154--155
+\OT1/cmr/m/n/10 tional query at-tached (?param=roma). The im-ple-men-ta-tion of
+ the \OT1/cmtt/m/n/10 RequestParser
+ []
+
+<images/TinyHttpdParsing.png, id=138, 1021.8175pt x 730.73pt>
 File: images/TinyHttpdParsing.png Graphic file (type png)
 <use images/TinyHttpdParsing.png>
-Package pdftex.def Info: images/TinyHttpdParsing.png  used on input line 129.
+Package pdftex.def Info: images/TinyHttpdParsing.png  used on input line 162.
 (pdftex.def)             Requested size: 408.71976pt x 292.28682pt.
 
-Overfull \hbox (63.71976pt too wide) in paragraph at lines 129--130
+Overfull \hbox (63.71976pt too wide) in paragraph at lines 162--163
  [][] 
- []
-
-
-Overfull \hbox (2.24753pt too wide) in paragraph at lines 123--133
-\OT1/cmtt/m/n/10 /process/reverse?param=roma HTTP/1.1\OT1/cmr/m/n/10 , it is co
-m-posed of the HTTP method
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (168.02551pt too wide) in paragraph at lines 139--144
-\OT1/cmtt/m/n/10 java -jar /Users/marcel/workspace/web-architectures/assignment
-[]1/MiniHTTPD/jars/StringReverser.jar
+Overfull \hbox (115.52597pt too wide) in paragraph at lines 171--178
+\OT1/cmtt/m/n/10 /Users/marcel/workspace/web-architectures/assignment[]1/MiniHT
+TPD/jars/StringReverser.jar
  []
 
-[3 <./images/StringReverserStrct.png>] [4 <./images/StringReverserImpl.png>]
+
+LaTeX Warning: Reference `lst:01_part1_impl_tinyhttpd_launchprocess' on page 4 
+undefined on input line 182.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--182
+[][][]\OT1/cmr/m/n/8 ProcessBuilder - []$\OT1/cmtt/m/n/8 https : / / docs . ora
+cle . com / javase / 7 / docs / api / java / lang /
+ []
+
+[4]
+<images/implementationOutput.png, id=157, 1405.25pt x 87.32625pt>
+File: images/implementationOutput.png Graphic file (type png)
+<use images/implementationOutput.png>
+Package pdftex.def Info: images/implementationOutput.png  used on input line 19
+1.
+(pdftex.def)             Requested size: 421.57826pt x 26.19807pt.
+
+Overfull \hbox (76.57826pt too wide) in paragraph at lines 191--192
+ [][] 
+ []
+
+
+LaTeX Warning: Reference `lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader
+' on page 5 undefined on input line 201.
+
+[5 <./images/TinyHttpdParsing.png> <./images/implementationOutput.png>]
+<images/wholeProcess.png, id=171, 878.28125pt x 347.2975pt>
+File: images/wholeProcess.png Graphic file (type png)
+<use images/wholeProcess.png>
+Package pdftex.def Info: images/wholeProcess.png  used on input line 208.
+(pdftex.def)             Requested size: 395.22292pt x 156.28242pt.
+
+Overfull \hbox (50.22292pt too wide) in paragraph at lines 208--209
+ [][] 
+ []
+
+<images/part1Success.png, id=172, 478.78876pt x 116.435pt>
+File: images/part1Success.png Graphic file (type png)
+<use images/part1Success.png>
+Package pdftex.def Info: images/part1Success.png  used on input line 216.
+(pdftex.def)             Requested size: 287.27547pt x 69.86153pt.
+[6 <./images/wholeProcess.png> <./images/part1Success.png>]
 No file Report.bbl.
-[5 <./images/StringReverserExec.png> <./images/StringReverserExecFail.png>]
-[6 <./images/TinyHttpdParsing.png>] (./Report.aux)
+[7] (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 269.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
+72.
+
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 272.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
+75.
+
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 275.
+
+Overfull \hbox (15.00366pt too wide) in paragraph at lines 279--280
+[][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (57.00409pt too wide) in paragraph at lines 283--284
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (27.00378pt too wide) in paragraph at lines 295--296
+[][][][][][][][][][][][][][][][] 
+ []
+
+[8]
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 325--326
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (75.00427pt too wide) in paragraph at lines 332--333
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (153.00507pt too wide) in paragraph at lines 334--335
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (111.00464pt too wide) in paragraph at lines 343--345
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[9]
+Overfull \hbox (219.00574pt too wide) in paragraph at lines 384--385
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (21.00372pt too wide) in paragraph at lines 386--387
+[][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (153.00507pt too wide) in paragraph at lines 388--389
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (213.00568pt too wide) in paragraph at lines 392--393
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (123.00476pt too wide) in paragraph at lines 393--394
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (285.00641pt too wide) in paragraph at lines 396--397
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[10]
+Overfull \hbox (219.00574pt too wide) in paragraph at lines 403--404
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (213.00568pt too wide) in paragraph at lines 404--406
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][] 
+ []
+
+
+Overfull \hbox (279.00635pt too wide) in paragraph at lines 408--409
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (33.00385pt too wide) in paragraph at lines 416--417
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (21.00372pt too wide) in paragraph at lines 423--425
+[][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (117.0047pt too wide) in paragraph at lines 435--436
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 437--438
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[11] (./Report.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: 33E8A84DBBB6E37D20CF274BF79F2EE1;1589.
+(rerunfilecheck)             Checksum: E08B82EACEADCE1811E0B028FCA7D553;2047.
  ) 
 Here is how much of TeX's memory you used:
- 7927 strings out of 478994
- 118681 string characters out of 5858185
- 419576 words of memory out of 5000000
- 25288 multiletter control sequences out of 15000+600000
- 409606 words of font info for 48 fonts, out of 8000000 for 9000
+ 9931 strings out of 478994
+ 145755 string characters out of 5858185
+ 674876 words of memory out of 5000000
+ 27083 multiletter control sequences out of 15000+600000
+ 409983 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,8n,74p,698b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,8n,74p,819b,1815s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
 /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></u
-sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
-al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
-live/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
-e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
-021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
-21/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/202
-1/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2021/
-texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/te
-xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (6 pages, 616469 bytes).
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loca
+l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/202
+1/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texm
+f-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Report.pdf (11 pages, 696208 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 138 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 472 PDF objects out of 1000 (max. 8388607)
+ 422 compressed objects within 5 object streams
+ 215 named destinations out of 1000 (max. 500000)
+ 180 words of extra memory for PDF output out of 10000 (max. 10000000)
 

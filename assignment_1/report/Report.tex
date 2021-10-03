@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{listings}
 %\usepackage[latin1]{inputenc} 
 %\usepackage[T1]{fontenc}
 %\usepackage{english}
@@ -20,6 +21,32 @@
 \def\Alg#1{Algorithm~\ref{#1}}
 \def\Page#1{Page~\pageref{#1}}
 
+% Listings
+%\definecolor{codegreen}{rgb}{0,0.6,0}
+%\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+%\definecolor{codepurple}{rgb}{0.58,0,0.82}
+%\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+%\lstdefinestyle{codestyle}{
+%    backgroundcolor=\color{backcolour},   
+%    commentstyle=\color{codegreen},
+%    keywordstyle=\color{magenta},
+%    numberstyle=\tiny\color{codegray},
+%    stringstyle=\color{codepurple},
+%    basicstyle=\ttfamily\footnotesize,
+%    breakatwhitespace=false,         
+%    breaklines=true,                 
+%    captionpos=b,                    
+%    keepspaces=true,                 
+%    numbers=left,                    
+%    numbersep=5pt,                  
+%    showspaces=false,                
+%    showstringspaces=false,
+%    showtabs=false,                  
+%    tabsize=2,
+%    frame=lines
+%}
+%\lstset{style=codestyle}
+
 \begin{document}
 
 
@@ -35,11 +62,11 @@ Since the beginning of Big Data, batch processing was the most popular choice fo
 \subsection{Introduction}\label{subsec:01_part1_intro}
 % Intro to the HTTP server
 In the second lecture of the course, an implementation of a basic HTTP server with the name \textit{TinyHttpd} was introduced.
-The functionality of the HTTP server is limited to opening \texttt{.html} files and delivering the content via the HTTP 1.1 protocol to the client.
+The functionality of \textit{TinyHttpd} is limited to opening \texttt{.html} files and delivering the content via the HTTP 1.1 protocol to the client.
 
 
 % Problem statement
-The task of part 1 of the first assignment, is to extend the \textit{TinyHttpd} implementation by implementing the functionality to launch an external process. Therefore, the client sends a request via the URL \texttt{http://localhost:8000/process/reverse?par1=ROMA}. Then, the server executes an external Java process, which reverses the string \texttt{ROMA}, given in the query \texttt{?par1=ROMA}, and responses the result of the external Java process to the client via HTTP 1.1.
+The task of part 1 of the first assignment, is to extend the \textit{TinyHttpd} implementation by implementing the functionality to launch an external process. Therefore, the client sends a request via the URL \texttt{http://localhost:8000/process/reverse?par1=ROMA}. Then, the server executes an external Java process, which reverses the string \texttt{ROMA}, given in the query \texttt{?par1=ROMA}, and responses the result (\texttt{AMOR}) of the external Java process to the client via HTTP 1.1.
 
 
 % Domain description
@@ -47,16 +74,17 @@ Given the above mentioned task description, the following steps have to be imple
 \begin{enumerate}
 \item Create a Java application, called \textit{StringReverser}, which takes a valid String as input and returns the reversed string
 \item Extend the \textit{TinyHttpd} implementation to launch external processes when requested by client via the URL \texttt{http://localhost:8000/process/PROCESS\_NAME?PROCESS\_PARAMETERS}.
+\item Execute the requested process on the server and deliver the process output to the client via the HTTP protocol.
 \end{enumerate}
 
 \subsection{Conceptual Design}\label{subsec:01_part1_design}
 Given the problem statement introduced in \Sec{subsec:01_part1_intro}, a new application called \textit{StringReverser} needs to be implemented, and the \textit{TinyHttpd} server has to be extended in a way to launch an external Java process.
 
-\subsubsection{StringReverser}
+\subsubsection{StringReverser}\label{subsubsec:01_part1_design_stringreverser}
 % Design of the StringReverser
-The \textit{StringReverser} application is a simple terminal application. It takes any valid String as an input and returns the reversed String as the output. It can be executed via the console, for example the command \texttt{\$ java -jar StringReverser.jar ROMA} should responses the string \textit{AMOR}.
+The \textit{StringReverser} application is a simple terminal application. It takes any valid String as an input and returns the reversed String as the output. It can be executed via the console. For example the command \texttt{\$ java -jar StringReverser.jar ROMA} should responses the string \textit{AMOR}.
 
-\subsubsection{TinyHttpd}
+\subsubsection{TinyHttpd}\label{subsubsec:01_part1_design_tinyhttpd}
 % Extension of TinyHttpd
 Whenever the client makes a request via the URL \texttt{http://localhost:8000/process/PROCESS\_NAME?PROCESS\_PARAMETERS}, the server is supposed to start an external Java process, waits for the output of the process, and responses the process output to the user.
 % URL
@@ -65,17 +93,17 @@ The client has the possibilities to specify which process has to be executed. Gi
 It is important to mention, that each process takes individual parameters as input. For the above mentioned \texttt{StringReverser}, only the value of the first parameter in the given query is important. All other parameters, and the parameter key, are therefore ignored.
 
 \subsection{Implementation}\label{subsec:01_part1_impl}
-To implement given conceptual design, The Java programming language is used in version OpenJDK 17\footnote{JDK 17 - \url{https://openjdk.java.net/projects/jdk/17/} (Accessed: 02/10/2021)}.
+To implement the given conceptual design mentioned in \Sec{subsec:01_part1_design}, the OpenJDK 17\footnote{JDK 17 - \url{https://openjdk.java.net/projects/jdk/17/} (Accessed: 02/10/2021)} is used.
 
-\subsubsection{StringReverser}
+\subsubsection{StringReverser}\label{subsubsec:01_part1_impl_stringreverser}
 % Implementation of StringReverser
 The application \textit{StringReverser} is a simple Java project. It is composed of a single Java class called \texttt{StringReverser} as shown in \Fig{fig:01_part1_impl_stringreverser_structure}.
 % Implementation of StringReverser
-The source code is shown in \Fig{fig:01_part1_impl_stringreverser_implementation}, and it consists of a \texttt{main} method and a method called \texttt{reverseString}.
+The source code is shown in \Lst{lst:01_part1_impl_stringreverser_code}, and it consists of a \texttt{main} method and a method called \texttt{reverseString}.
 % The main method
-The main method will be executed, when the application is launched via the terminal. Additionally, it checks if a String is been given as input, and if the input is valid. Otherwise, it will return an error message and exists with system code 0. If the input is a valid string, it will call the \texttt{reverseString} method, and returns the result as the output.
+The main method will be executed, when the application is launched via the terminal. Additionally, it checks if the given input string is valid. Otherwise, it will return an error message and exits with system code 0. If the input is a valid string, it will call the \texttt{reverseString} method, and returns the result as the output.
 % The reverse method
-The \texttt{reverseMethod} is responsible to reverse the given input. Therefore, it uses the \texttt{StringBuilder}\footnote{StringBuilder - \url{https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html} (Accessed: 02/10/2021)} class to reverse the String.
+The \texttt{reverseMethod} is responsible to reverse the given input. To achieve this, it uses the \texttt{StringBuilder}\footnote{StringBuilder - \url{https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html} (Accessed: 02/10/2021)} class to reverse the String.
 
 % StringReverser project structure
 \begin{figure}[h]
@@ -85,18 +113,10 @@ The \texttt{reverseMethod} is responsible to reverse the given input. Therefore,
 \label{fig:01_part1_impl_stringreverser_structure}
 \end{figure}
 
-% StringReverser implementation
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.4]{images/StringReverserImpl}
-\caption{Implementation of the \texttt{StringReverser} class}
-\label{fig:01_part1_impl_stringreverser_implementation}
-\end{figure}
-
 % Execution
 \Fig{fig:01_part1_impl_stringreverser_execution} shows the execution of the \textit{StringReverser} application. The \texttt{.jar} artifact was created using the IntelliJ IDEA\footnote{Create your first Java application - \url{https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-application.html} (Accessed: 02/10/2021)}.
 % Failure execution
-If the input is invalid, the \texttt{StringReverser} will print an error message to the terminal and exit with system code 0, as shown in \Fig{fig:01_part1_impl_stringreverser_execution_fail}.
+If the input is invalid, the \texttt{StringReverser} will print an error message to the terminal and exits with system code 0, as shown in \Fig{fig:01_part1_impl_stringreverser_execution_fail}.
 
 % StringReverser execution
 \begin{figure}[h]
@@ -116,13 +136,26 @@ If the input is invalid, the \texttt{StringReverser} will print an error message
 
 \subsubsection{TinyHttpd}
 % Extension of TinyHttpd
-The foundation of the TinyHttpd project is provided by the Professor. It has to be extended to launch external Java processes, and deliver the process output to the client. As mentioned in SEC DESIGN, the client sends a HTTP request via the URL \texttt{http://localhost:8000/process/PROCESS\_NAME?PROCESS\_PARAMETERS}. Currently, the implementation responses with the content of the requested HTML file, if available. Otherwise, an 404 HTTP response is send to the client.
+The foundation of the \textit{TinyHttpd} project is provided by the Professor. It has to be extended to launch an external Java process, and deliver the process output to the client as a HTTP response.
+% The steps
+To implement the conceptual design mentioned in \Sec{subsubsec:01_part1_design_tinyhttpd}, the \textit{TinyHttpd} project has to be extended in the following way:
+% impl details
+\begin{enumerate}
+\item Parse the HTTP request to check if a process has been requested
+\item Generate the command to execute the requested process
+\item Launch an external process, using the generated command
+\item Response the process output to the client via HTTP
+\end{enumerate}
+In the following, the single steps are described in detail.
 
 
 % Parse request
-To be able to detect, if the client wants to launch an external Java process, the request has to be parsed accordingly. Therefore, the first step is to extend the existing code base with a \texttt{RequestParser} class. The \texttt{RequestParser} class is able to parse a HTTP request into its parts. Given the request \texttt{GET /process/reverse?param=roma HTTP/1.1}, it is composed of the HTTP method (\texttt{GET}), the path (\texttt{/process/reverse?param=roma}), and the HTTP protocol version (\texttt{HTTP/1.1}). Furthermore, the path has an additional query attached (?param=roma). FIG XY shows the implementation of the \texttt{RequestParser} class.
+\paragraph{Step 1:}
+The first step of the implementation, is to check if the client requested the execution of a process. Therefore, the HTTP request has to be parsed accordingly. For this task, a new Java class called \texttt{RequestParser} is introduced to the \textit{TinyHttpd} project. The \texttt{RequestParser} class is able to parse a HTTP request into its parts. For example, the request \texttt{GET /process/reverse?param=roma HTTP/1.1} is composed of the HTTP method (\texttt{GET}), the path (\texttt{/process/reverse?param=roma}), and the HTTP protocol version (\texttt{HTTP/1.1}). Furthermore, the path has an additional query attached (?param=roma). The implementation of the \texttt{RequestParser} class is attached at \Lst{lst:01_part1_impl_tinyhttpd_requestparser}.
+
+
 % Then start process
-After the \texttt{RequestParser} has successfully parsed the clients request, it is possible to check, via an \texttt{if} statement, if the user requested the path \textit{/request/PROCESS\_NAME}. If yes, the server executes the requested process, and sends a response accordingly. Otherwise, if the client has not requested to perform a Java process, the server tries to open the HTML file according to the given path and responses the HTML content to the client. The implementation of this procedure is shown in \Fig{fig:01_part1_impl_tinyhttpd_parsing}.
+After the \texttt{RequestParser} has successfully parsed the clients request, it is possible to check, by using an \texttt{if} statement, if the user requested the path \textit{/request/PROCESS\_NAME}. If yes, the server executes the requested process, and sends a response accordingly. Otherwise, if the client has not requested to perform a Java process, the server tries to open the HTML file according to the given path and responses the HTML content to the client. The implementation of this procedure is shown in \Fig{fig:01_part1_impl_tinyhttpd_parsing}.
 % Parsign Implementation
 \begin{figure}[h]
 \centering
@@ -131,33 +164,71 @@ After the \texttt{RequestParser} has successfully parsed the clients request, it
 \label{fig:01_part1_impl_tinyhttpd_parsing}
 \end{figure}
 
+
+
 % Start the requestes process
-If the client has send a valid request for a process, the next step is to generate the command to launch the requested process. To keep the TinyHttpd implementation extensible, a new class called CommandFactory is added to the project, which is implemented using the Factory pattern.
-
-
+\paragraph{Step 2:}
+If the client has send a valid request for a process, the next step is to generate the command to launch the requested process. To keep the \textit{TinyHttpd} implementation extensible, a new class called \texttt{CommandFactory} is added to the project, which is implemented using the Factory pattern. The implementation of this class is attached at \Lst{lst:01_part1_impl_tinyhttpd_commandfactory}.
 % CommandFactory
-The CommandFactory class is responsible to generate the command for the given request. It has a public static method called generateCommand, which takes the requested process name and the query of the request path as arguments.
+The \texttt{CommandFactory} class is responsible to generate the command for the given request. It has a public static method called \texttt{generateCommand}, which takes the requested process name and the query of the request path as arguments.
 % Explain the method
-According to the given process name, it generate the command to execute the .jar artifact with the given query as input parameter.
+According to the given process name, it generates the command to execute the \texttt{.jar} artifact with the given query as input parameter.
 % Example
-As example for the given path \texttt{/process/reverse?param=roma}, the generated command is \texttt{java -jar /Users/marcel/workspace/web-architectures/assignment\_1/MiniHTTPD/jars/StringReverser.jar "roma"}. In addition, the CommandFactory is also responsible for check if the requested process is available and if the given query is a valid parameter for the process. If not, it will throw an exception.
+As example for the given path \texttt{/process/reverse?param=roma}, the generated command is \texttt{java -jar /Users/marcel/workspace/web-architectures/assignment\_1/MiniHTTPD/jars/StringReverser.jar "roma"}. In addition, the \texttt{CommandFactory} is also responsible for checking, if the requested process is available and if the given query is a valid parameter for the process. If not, it will throw an exception.
 
 
-% Run process
-Next, after the command has been generated it can be performed using the ProcessBuilder class.
+% Launch process
+\paragraph{Step 3:}
+After the command has been generated, it needs to be executed in a shell. To achieve this, the \texttt{TinyHttpd} class is extended with a new new method called \texttt{launchProcess}. The implementation of this method is available at \Lst{lst:01_part1_impl_tinyhttpd_launchprocess}. This method takes the generated command as an argument and executes it using the \texttt{ProcessBuilder}\footnote{ProcessBuilder - \url{https://docs.oracle.com/javase/7/docs/api/java/lang/ProcessBuilder.html} (Accessed: 02/10/2021)} class.
 % How it is executed
-FIG XY shows the executing of the requested process using ProcessBuilder. It is important to mention, that the result has to be saved as string instead of printing it directly to the output stream. The reason is, because the HTTP header of the server response needs the length of the process output.
+The method executes the given command in the bash shell using \texttt{bash -c COMMAND} and returns the process output as a string. It is important, that the process output is returned as a string, instead of printing it directly to the HTTP output stream. The reason is, that the HTTP header of the server response needs the length of the process output.
+% Show the execution
+\Fig{fig:01_part1_impl_all_steps} shows the execution of the \texttt{launchProcess} method and \Fig{fig:01_part1_impl_output} shows the output to the console, after the process has been executed successfully.
+
+% steps implementation
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{images/implementationOutput}
+\caption{Console output after the generated command has been launched successfully}
+\label{fig:01_part1_impl_output}
+\end{figure}
+
+
+% Response to the client
+\paragraph{Step 4:}
+The last step, is to response the process output as a HTTP response to the client.
+% How its send
+A method called \texttt{sendSuccessResponseHeader} is added to the \textit{TinyHttpd} class, which is responsible to send a \texttt{200 OK} HTTP response. Additionally, the method takes the length of the output as an argument, which was mentioned before, as well as the MIME type of the response content. The implementation of the \texttt{sendSuccessResponseHeader} is attached at \Lst{lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader}.
+% Send
+\Fig{fig:01_part1_impl_all_steps} shows the whole process of generating the process command, launching the command, and sending the reponse to the client. First a header with the process output length and the MIME type \texttt{text/plain} is written to the output stream, then the process output. \Fig{fig:01_part1_impl_success} shows the response in the browser for a successful process request.
+
+% steps implementation
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{images/wholeProcess}
+\caption{Implementation of the steps 2 to 4}
+\label{fig:01_part1_impl_all_steps}
+\end{figure}
+
+% successful response
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{images/part1Success}
+\caption{A successful process request}
+\label{fig:01_part1_impl_success}
+\end{figure}
 
 
 % Error handling
-During the procedure of handling the path, generating the requested process command, and executing the process command, the following error cases can appear:
+%\paragraph{Error handling:}
+%During the procedure of handling the path, generating the requested process command, and executing the process command, the following error cases can appear:
 % The errors
-\begin{itemize}
-\item The process path is invalid (process name missing or no process with this name exists)
-\item The query is invalid (query is missing or the given parameters are invalid)
-\end{itemize}
+%\begin{itemize}
+%\item The process path is invalid (process name missing or no process with this name exists)
+%\item The query is invalid (query is missing or the given parameters are invalid)
+%\end{itemize}
 % What happens
-If any of these cases appear, the server will response with an 400 Bad Request HTTP response.
+%If any of these cases appear, the server will response with an 400 Bad Request HTTP response.
 
 
 \subsection{Conclusion}\label{subsec:01_part1_concl}
@@ -176,8 +247,197 @@ If any of these cases appear, the server will response with an 400 Bad Request H
 \subsection{Implementation}\label{subsec:02_part2_impl}
 
 \subsection{Conclusion}\label{subsec:02_part2_concl}
+Was war einfacher? PArt1 oder Part 2
 
+
+% References
 \bibliographystyle{plain}
 \bibliography{mybib}
+
+
+% Appendix
+\pagebreak
+\appendix
+\phantomsection
+
+\section{Part 1}
+
+\subsection{Implementation}
+
+\subsubsection{StringReverser}
+
+\begin{lstlisting}[label=lst:01_part1_impl_stringreverser_code, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+package it.unitn.disi.webarch.assignment1;
+
+public class StringReverser {
+
+    public static void main(String[] args) {
+        if (args.length >= 1) {
+            String text = args[0];
+
+            if (text != null) {
+                String reversedString = reverseString(text);
+                System.out.println(reversedString);
+            }
+        } else {
+            System.out.println("A string to reverse is required.");
+            System.exit(0);
+        }
+    }
+
+    /**
+     * This method reverses the given string.
+     *
+     * @param text
+     * @return Reversed text
+     */
+    private static String reverseString(String text) {
+        StringBuilder stringBuilder = new StringBuilder(text);
+        stringBuilder.reverse();
+        return stringBuilder.toString();
+    }
+
+}
+\end{lstlisting}
+
+\subsubsection{TinyHttpd}
+
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_requestparser, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+package it.unitn.disi.webarch.tinyhttpd.utils;
+
+import java.util.StringTokenizer;
+
+public class RequestParser {
+
+    private String request;
+    private String method;
+    private String protocol;
+    private String fullPath;
+    private String path;
+    private String queryString;
+
+    /**
+     * The RequestParser is able to parse an HTTP request
+     * into its single parts.
+     *
+     * @param request
+     */
+    public RequestParser(String request) throws Exception {
+        this.request = request;
+        this.parseRequest();
+        this.parsePath();
+    }
+
+    private void parseRequest() throws Exception {
+        StringTokenizer tokenizer = new StringTokenizer(this.request);
+        if (tokenizer.countTokens() < 3) {
+            throw new Exception("The request \"" + this.request + "\" is invalid");
+        }
+
+        this.method = tokenizer.nextToken();
+        this.fullPath = tokenizer.nextToken();
+        this.protocol = tokenizer.nextToken();
+    }
+
+    private void parsePath() {
+        StringTokenizer tokenizer = new StringTokenizer(this.fullPath, "?");
+
+        this.path = tokenizer.nextToken();
+        if (tokenizer.hasMoreTokens()) {
+            this.queryString = tokenizer.nextToken();
+        }
+    }
+
+    public String getMethod() {
+        return this.method;
+    }
+
+    public String getProtocol() {
+        return this.protocol;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public String getQueryString() {
+        return this.queryString;
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_commandfactory, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+package it.unitn.disi.webarch.tinyhttpd.utils;
+
+import java.util.StringTokenizer;
+
+public class CommandFactory {
+
+    /**
+     * Generates the command for the given process name.
+     *
+     * @param process Name of the requested process
+     * @param parameters Probably the query string
+     * @return Command as string
+     * @throws Exception If the process name is unknown
+     */
+    public static String generateCommand(String process, String parameters) throws Exception {
+        if (process.equals("reverse")) {
+            return generateReverseProcessCommand(parameters);
+        } else {
+            throw new Exception("No process called \"" + process + "\" available");
+        }
+    }
+
+    private static String generateReverseProcessCommand(String parameters) throws Exception {
+        StringTokenizer paramTokenizer = new StringTokenizer(parameters, "&");
+        // first check if there are any parameters
+        if (!paramTokenizer.hasMoreTokens()) {
+            throw new Exception("No parameters given. The reverse process needs at least one parameter");
+        }
+        String firstParam = paramTokenizer.nextToken();
+        String[] paramKeyValue = firstParam.split("=");
+        if (paramKeyValue.length >= 2) {
+            // We need at least 2 elements
+            String textToReverse = paramKeyValue[1];
+            String artifactPath = System.getProperty("user.dir") + "/jars/StringReverser.jar";
+            String command = "java" + " -jar " + artifactPath + " \"" + textToReverse + "\"";
+
+            return command;
+        } else {
+            throw new Exception("No valid parameter input given for parameters \"" + parameters + "\"");
+        }
+    }
+
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_launchprocess, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+private String launchProcess(String command) throws Exception {
+    ProcessBuilder processBuilder = new ProcessBuilder();
+    processBuilder.command("bash", "-c", command);
+    Process process = processBuilder.start();
+
+    StringBuilder output = new StringBuilder();
+    BufferedReader reader = new BufferedReader(
+            new InputStreamReader(process.getInputStream()));
+
+    String line;
+    while ((line = reader.readLine()) != null) {
+        output.append(line + "\n");
+    }
+
+    return output.toString();
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader, caption=CLI command to start a GitLab runner in a Docker container, language=java, numbers=none]
+private void sendSuccessResponseHeader(int responseLength, String mimeType) {
+    ps.print("HTTP/1.1 200 OK\r\n");
+    ps.print("Content-Length: " + responseLength + "\r\n");
+    ps.print("Content-Type: " + mimeType + "\r\n");
+    ps.print("\r\n");
+}
+\end{lstlisting}
 
 \end{document}
