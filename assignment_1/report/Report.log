@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  3 OCT 2021 13:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.5.6)  3 OCT 2021 19:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -328,7 +328,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--106
 le . com / javase / 7 / docs / api / java / lang /
  []
 
-<images/StringReverserStrct.png, id=99, 311.1625pt x 240.9pt>
+<images/StringReverserStrct.png, id=107, 311.1625pt x 240.9pt>
 File: images/StringReverserStrct.png Graphic file (type png)
 <use images/StringReverserStrct.png>
 Package pdftex.def Info: images/StringReverserStrct.png  used on input line 111
@@ -346,7 +346,7 @@ Overfull \hbox (24.65152pt too wide) in paragraph at lines 117--120
 n-put is in-valid, the \OT1/cmtt/m/n/10 StringReverser
  []
 
-<images/StringReverserExec.png, id=119, 974.64125pt x 87.32625pt>
+<images/StringReverserExec.png, id=127, 974.64125pt x 87.32625pt>
 File: images/StringReverserExec.png Graphic file (type png)
 <use images/StringReverserExec.png>
 Package pdftex.def Info: images/StringReverserExec.png  used on input line 124.
@@ -357,7 +357,7 @@ Overfull \hbox (44.8496pt too wide) in paragraph at lines 124--125
  [][] 
  []
 
-<images/StringReverserExecFail.png, id=120, 974.64125pt x 86.3225pt>
+<images/StringReverserExecFail.png, id=128, 974.64125pt x 86.3225pt>
 File: images/StringReverserExecFail.png Graphic file (type png)
 <use images/StringReverserExecFail.png>
 Package pdftex.def Info: images/StringReverserExecFail.png  used on input line 
@@ -388,7 +388,7 @@ Overfull \hbox (10.1852pt too wide) in paragraph at lines 154--155
  the \OT1/cmtt/m/n/10 RequestParser
  []
 
-<images/TinyHttpdParsing.png, id=138, 1021.8175pt x 730.73pt>
+<images/TinyHttpdParsing.png, id=146, 1021.8175pt x 730.73pt>
 File: images/TinyHttpdParsing.png Graphic file (type png)
 <use images/TinyHttpdParsing.png>
 Package pdftex.def Info: images/TinyHttpdParsing.png  used on input line 162.
@@ -408,17 +408,13 @@ TPD/jars/StringReverser.jar
  []
 
 
-LaTeX Warning: Reference `lst:01_part1_impl_tinyhttpd_launchprocess' on page 4 
-undefined on input line 182.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 182--182
 [][][]\OT1/cmr/m/n/8 ProcessBuilder - []$\OT1/cmtt/m/n/8 https : / / docs . ora
 cle . com / javase / 7 / docs / api / java / lang /
  []
 
 [4]
-<images/implementationOutput.png, id=157, 1405.25pt x 87.32625pt>
+<images/implementationOutput.png, id=167, 1405.25pt x 87.32625pt>
 File: images/implementationOutput.png Graphic file (type png)
 <use images/implementationOutput.png>
 Package pdftex.def Info: images/implementationOutput.png  used on input line 19
@@ -429,12 +425,8 @@ Overfull \hbox (76.57826pt too wide) in paragraph at lines 191--192
  [][] 
  []
 
-
-LaTeX Warning: Reference `lst:01_part1_impl_tinyhttpd_sendSuccessResponseHeader
-' on page 5 undefined on input line 201.
-
 [5 <./images/TinyHttpdParsing.png> <./images/implementationOutput.png>]
-<images/wholeProcess.png, id=171, 878.28125pt x 347.2975pt>
+<images/wholeProcess.png, id=182, 878.28125pt x 347.2975pt>
 File: images/wholeProcess.png Graphic file (type png)
 <use images/wholeProcess.png>
 Package pdftex.def Info: images/wholeProcess.png  used on input line 208.
@@ -444,153 +436,180 @@ Overfull \hbox (50.22292pt too wide) in paragraph at lines 208--209
  [][] 
  []
 
-<images/part1Success.png, id=172, 478.78876pt x 116.435pt>
+<images/part1Success.png, id=183, 478.78876pt x 116.435pt>
 File: images/part1Success.png Graphic file (type png)
 <use images/part1Success.png>
 Package pdftex.def Info: images/part1Success.png  used on input line 216.
 (pdftex.def)             Requested size: 287.27547pt x 69.86153pt.
 [6 <./images/wholeProcess.png> <./images/part1Success.png>]
+Overfull \hbox (54.64066pt too wide) in paragraph at lines 253--256
+\OT1/cmr/m/n/10 re-quest via the url \OT1/cmtt/m/n/10 http://localhost:80/cgi-b
+in/run[]reverse[]process.sh?param=ROMA\OT1/cmr/m/n/10 .
+ []
+
+<images/part2Failure1.png, id=198, 458.71375pt x 120.45pt>
+File: images/part2Failure1.png Graphic file (type png)
+<use images/part2Failure1.png>
+Package pdftex.def Info: images/part2Failure1.png  used on input line 279.
+(pdftex.def)             Requested size: 275.23038pt x 72.27054pt.
+[7 <./images/part2Failure1.png>]
+<images/part2Failure2.png, id=212, 513.92pt x 120.45pt>
+File: images/part2Failure2.png Graphic file (type png)
+<use images/part2Failure2.png>
+Package pdftex.def Info: images/part2Failure2.png  used on input line 290.
+(pdftex.def)             Requested size: 308.35437pt x 72.27054pt.
+<images/part2Success.png, id=214, 553.06625pt x 121.45375pt>
+File: images/part2Success.png Graphic file (type png)
+<use images/part2Success.png>
+Package pdftex.def Info: images/part2Success.png  used on input line 301.
+(pdftex.def)             Requested size: 331.8423pt x 72.87279pt.
+
 No file Report.bbl.
-[7] (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+[8 <./images/part2Failure2.png> <./images/part2Success.png>]
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 269.
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
-72.
+nput line 326.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 3
+29.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 272.
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2
-75.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 329.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 3
+32.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 275.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 332.
 
-Overfull \hbox (15.00366pt too wide) in paragraph at lines 279--280
+Overfull \hbox (15.00366pt too wide) in paragraph at lines 336--337
 [][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (57.00409pt too wide) in paragraph at lines 283--284
+Overfull \hbox (57.00409pt too wide) in paragraph at lines 340--341
 [][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (27.00378pt too wide) in paragraph at lines 295--296
+Overfull \hbox (27.00378pt too wide) in paragraph at lines 352--353
 [][][][][][][][][][][][][][][][] 
  []
 
-[8]
-Overfull \hbox (9.0036pt too wide) in paragraph at lines 325--326
+[9]
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 382--383
 [][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (75.00427pt too wide) in paragraph at lines 332--333
+Overfull \hbox (75.00427pt too wide) in paragraph at lines 389--390
 [][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (153.00507pt too wide) in paragraph at lines 334--335
+Overfull \hbox (153.00507pt too wide) in paragraph at lines 391--392
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (111.00464pt too wide) in paragraph at lines 343--345
+Overfull \hbox (111.00464pt too wide) in paragraph at lines 400--402
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[9]
-Overfull \hbox (219.00574pt too wide) in paragraph at lines 384--385
+[10]
+Overfull \hbox (219.00574pt too wide) in paragraph at lines 441--442
 [][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (21.00372pt too wide) in paragraph at lines 386--387
+Overfull \hbox (21.00372pt too wide) in paragraph at lines 443--444
 [][][][][][][][][][] 
  []
 
 
-Overfull \hbox (153.00507pt too wide) in paragraph at lines 388--389
+Overfull \hbox (153.00507pt too wide) in paragraph at lines 445--446
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (213.00568pt too wide) in paragraph at lines 392--393
+Overfull \hbox (213.00568pt too wide) in paragraph at lines 449--450
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (123.00476pt too wide) in paragraph at lines 393--394
+Overfull \hbox (123.00476pt too wide) in paragraph at lines 450--451
 [][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (285.00641pt too wide) in paragraph at lines 396--397
+Overfull \hbox (285.00641pt too wide) in paragraph at lines 453--454
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[10]
-Overfull \hbox (219.00574pt too wide) in paragraph at lines 403--404
+[11]
+Overfull \hbox (219.00574pt too wide) in paragraph at lines 460--461
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (213.00568pt too wide) in paragraph at lines 404--406
+Overfull \hbox (213.00568pt too wide) in paragraph at lines 461--463
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][] 
  []
 
 
-Overfull \hbox (279.00635pt too wide) in paragraph at lines 408--409
+Overfull \hbox (279.00635pt too wide) in paragraph at lines 465--466
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (33.00385pt too wide) in paragraph at lines 416--417
+Overfull \hbox (33.00385pt too wide) in paragraph at lines 473--474
 [][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (21.00372pt too wide) in paragraph at lines 423--425
+Overfull \hbox (21.00372pt too wide) in paragraph at lines 480--482
 [][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (117.0047pt too wide) in paragraph at lines 435--436
+Overfull \hbox (117.0047pt too wide) in paragraph at lines 492--493
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (9.0036pt too wide) in paragraph at lines 437--438
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 494--495
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[11] (./Report.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) [12]
+Overfull \hbox (111.00464pt too wide) in paragraph at lines 533--535
+[][][][][][][][][][][][][][][][][] 
+ []
 
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+[13] (./Report.aux)
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: E08B82EACEADCE1811E0B028FCA7D553;2047.
+(rerunfilecheck)             Checksum: 4CF7A074416001055EB4FB4A663BB914;2312.
  ) 
 Here is how much of TeX's memory you used:
- 9931 strings out of 478994
- 145755 string characters out of 5858185
- 674876 words of memory out of 5000000
- 27083 multiletter control sequences out of 15000+600000
+ 10103 strings out of 478994
+ 148335 string characters out of 5858185
+ 678112 words of memory out of 5000000
+ 27200 multiletter control sequences out of 15000+600000
  409983 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,8n,74p,819b,1815s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,8n,74p,819b,1877s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -610,10 +629,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2021/te
 xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texm
 f-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2021/texmf-
 dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Report.pdf (11 pages, 696208 bytes).
+Output written on Report.pdf (13 pages, 773221 bytes).
 PDF statistics:
- 472 PDF objects out of 1000 (max. 8388607)
- 422 compressed objects within 5 object streams
- 215 named destinations out of 1000 (max. 500000)
- 180 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 561 PDF objects out of 1000 (max. 8388607)
+ 502 compressed objects within 6 object streams
+ 263 named destinations out of 1000 (max. 500000)
+ 211 words of extra memory for PDF output out of 10000 (max. 10000000)
 

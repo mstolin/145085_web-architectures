@@ -25,7 +25,7 @@ if [ $REQUEST_METHOD == "GET" ]; then
     if [ ! $STRING_TO_REVERSE ]; then
       send_response "No valid string to reverse is given"
     else
-      REVERSE_JAVA_ARTIFACT="/Users/marcel/workspace/web-architectures/assignment_1/MiniHTTPD/jars/StringReverser.jar"
+      REVERSE_JAVA_ARTIFACT="$(pwd)/StringReverser.jar"
       REVERSED_STRING=$(java -jar $REVERSE_JAVA_ARTIFACT $STRING_TO_REVERSE)
 
       send_response $REVERSED_STRING
