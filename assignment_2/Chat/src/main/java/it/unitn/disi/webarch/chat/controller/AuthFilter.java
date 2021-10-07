@@ -4,8 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebFilter(filterName = "AuthenticationFilter")
-public class AuthenticationFilter implements Filter {
+public class AuthFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
 
