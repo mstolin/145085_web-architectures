@@ -8,6 +8,9 @@ import java.util.Map;
 
 public class AuthLoginServlet extends HttpServlet {
 
+    private final String SESSION_KEY_USERNAME = "username";
+    private final String SESSION_KEY_IS_AUTHENTICATED = "is_authenticated";
+
     private Map<String, String> authorizedUsers = new HashMap<String, String>() {{
         put("user1", "pw1");
         put("user2", "pw2");
@@ -22,23 +25,35 @@ public class AuthLoginServlet extends HttpServlet {
         System.out.println("Login attempt for user " + username);
 
         if (username != null && password != null) {
-            if (this.authorizedUsers.containsKey(username)) {
-                System.out.println("USER " + username + " EXISTS");
+            if (this.authorizedUsers.containsKey(username) || username.equals("admin")) {
                 String userPassword = this.authorizedUsers.get(username);
 
                 if (userPassword.equals(password)) {
                     // user is authenticated
-                    this.updateUserAuthStatus(request, true);
+                    HttpSession session = request.getSession();
+                    this.updateUserAuthStatus(session, username, true);
                     // redirect to user page
                     response.sendRedirect(request.getContextPath() + "/user");
+                } else {
+                    // Wrong password -> Back to login
+                    System.out.println("ERROR (AuthLogin) - Wrong password for user " + username);
+                    response.sendRedirect(request.getContextPath() + "/login");
                 }
+            } else {
+                // The user does not exists -> Back to login
+                System.out.println("ERROR (AuthLogin) - User '" + username + "' does not exist");
+                response.sendRedirect(request.getContextPath() + "/login");
             }
+        } else {
+            // No username or password given -> Send error
+            System.out.println("ERROR (AuthLogin) - Bad Request, no username or password provided");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
-    private void updateUserAuthStatus(HttpServletRequest request, boolean isAuthenticated) {
-        HttpSession session = request.getSession();
-        session.setAttribute("is_authenticated", isAuthenticated);
+    private void updateUserAuthStatus(HttpSession session, String username, boolean isAuthenticated) {
+        session.setAttribute(SESSION_KEY_IS_AUTHENTICATED, isAuthenticated);
+        session.setAttribute(SESSION_KEY_USERNAME, username);
     }
 
 }
