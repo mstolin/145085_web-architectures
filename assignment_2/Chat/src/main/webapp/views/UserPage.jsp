@@ -5,6 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-  <a href="<% request.getContextPath(); %>/auth/logout">Logout</a>
+    <jsp:include page="Banner.jsp" />
+    <div>
+        <h1>Available Rooms</h1>
+
+        <div>
+            <a href="">Create a new room</a>
+        </div>
+
+        <div>
+            <ul>
+                <li><a href="">Room 1</a></li>
+            </ul>
+        </div>
+    </div>
+
 </body>
 </html>
