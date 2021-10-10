@@ -5,7 +5,7 @@
         <title>Login</title>
     </head>
     <body>
-        <form action="<% request.getContextPath(); %>/auth" method="post">
+        <form action="<% request.getContextPath(); %>/auth/login" method="POST">
 
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" />
