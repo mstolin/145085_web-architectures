@@ -22,6 +22,10 @@
         <servlet-class>it.unitn.disi.webarch.chat.controller.RoomServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RoomCreateServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.chat.controller.room.RoomCreateServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.chat.controller.LoginServlet</servlet-class>
     </servlet>
@@ -40,6 +44,10 @@
     <servlet-mapping>
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/room/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomCreateServlet</servlet-name>
+        <url-pattern>/room/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
