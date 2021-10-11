@@ -19,7 +19,7 @@
     </servlet>
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.chat.controller.RoomServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.chat.controller.room.RoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomCreateServlet</servlet-name>
