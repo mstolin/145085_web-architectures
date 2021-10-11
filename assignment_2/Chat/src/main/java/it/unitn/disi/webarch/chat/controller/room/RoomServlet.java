@@ -1,5 +1,7 @@
 package it.unitn.disi.webarch.chat.controller.room;
 
+import it.unitn.disi.webarch.chat.helper.RoomStore;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -22,12 +24,16 @@ public class RoomServlet extends HttpServlet {
             String requestedRoom = uriTokenizer.nextToken();
             System.out.println("RoomServlet - The requested room is " + requestedRoom);
 
-            request.setAttribute(this.KEY_REQUESTED_ROOM, requestedRoom);
-
-            RequestDispatcher requestDispatcher = this.getServletContext()
-                    .getRequestDispatcher("/views/Room.jsp");
-
-            requestDispatcher.forward(request, response);
+            if (RoomStore.hasRoom(requestedRoom)) {
+                request.setAttribute(this.KEY_REQUESTED_ROOM, requestedRoom);
+                this.getServletContext()
+                        .getRequestDispatcher("/views/Room.jsp")
+                        .forward(request, response);
+            } else {
+                // Room does not exist
+                System.out.println("RoomServlet - Room " + requestedRoom + " does not exist");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            }
         }
     }
 

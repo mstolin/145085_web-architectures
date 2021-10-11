@@ -1,5 +1,7 @@
 package it.unitn.disi.webarch.chat.controller.room;
 
+import it.unitn.disi.webarch.chat.helper.RoomStore;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class RoomCreateServlet extends HttpServlet {
             // safe room as a model
             System.out.println("RoomCreate: User wants to create a room " + roomName);
             // create room
+            RoomStore.addRoom(roomName);
             // after success redirect to user page
             response.sendRedirect(request.getContextPath() + "/user");
         } else {
