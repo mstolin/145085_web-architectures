@@ -21,8 +21,10 @@ public class RoomCreateServlet extends HttpServlet {
         if(roomName != null && roomName.length() >= 1) {
             // safe room as a model
             System.out.println("RoomCreate: User wants to create a room " + roomName);
-            // create room
-            RoomStore.addRoom(roomName);
+            // create room, only if it does not exist
+            if (!RoomStore.hasRoom(roomName)) {
+                RoomStore.addRoom(roomName);
+            }
             // after success redirect to user page
             response.sendRedirect(request.getContextPath() + "/user");
         } else {

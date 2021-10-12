@@ -1,3 +1,8 @@
+<%@ page import="java.util.Set" %>
+<%@ page import="it.unitn.disi.webarch.chat.helper.RoomStore" %>
+<%
+    Set<String> rooms = RoomStore.getAllRooms();
+%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -10,12 +15,14 @@
         <h1>Available Rooms</h1>
 
         <div>
-            <a href="">Create a new room</a>
+            <a href="<% request.getContextPath(); %>/room/create">Create a new room</a>
         </div>
 
         <div>
             <ul>
-                <li><a href="">Room 1</a></li>
+                <% for(String room: rooms) { %>
+                <li><a href="<% request.getContextPath(); %>/room/<%= room.toLowerCase() %>"><%= room %></a></li>
+                <% } %>
             </ul>
         </div>
     </div>
