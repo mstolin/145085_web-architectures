@@ -4,22 +4,25 @@ import it.unitn.disi.webarch.chat.models.room.Room;
 
 import java.util.*;
 
-public class RoomStore {
+public class RoomStore extends ObjectStore<Room> {
 
-    private static Set<Room> roomStore = new HashSet<Room>();
+    private static RoomStore instance = null;
 
-    public static void addRoom(String roomName) {
-        Room room = new Room(roomName);
-        roomStore.add(room);
+    public static RoomStore getInstance() {
+        if (instance == null) {
+            instance = new RoomStore();
+        }
+        return instance;
     }
 
-    public static Set<Room> getAllRooms() {
-        return roomStore;
-    }
+    public Room getRoom(String roomName) {
+        Optional<Room> firstRoom = this.get(room -> room.getName().equals(roomName));
 
-    public static boolean hasRoom(String roomName) {
-        Room room = new Room(roomName);
-        return roomStore.contains(room);
+        if (firstRoom.isPresent()) {
+            return firstRoom.get();
+        } else {
+            return null;
+        }
     }
 
 }
