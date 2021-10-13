@@ -9,7 +9,7 @@ import java.io.*;
 
 public class AuthLoginServlet extends HttpServlet {
 
-    private final String SESSION_KEY_USERNAME = "username";
+    private final String SESSION_KEY_USER = "activeUser";
     private final String SESSION_KEY_IS_AUTHENTICATED = "is_authenticated";
 
     @Override
@@ -27,7 +27,7 @@ public class AuthLoginServlet extends HttpServlet {
                 if (user.isPasswordCorrect(password)) {
                     // user is authenticated
                     HttpSession session = request.getSession();
-                    this.updateUserAuthStatus(session, username, true);
+                    this.updateUserAuthStatus(session, user, true);
                     // redirect to user page
                     response.sendRedirect(request.getContextPath() + "/user");
                 } else {
@@ -47,9 +47,9 @@ public class AuthLoginServlet extends HttpServlet {
         }
     }
 
-    private void updateUserAuthStatus(HttpSession session, String username, boolean isAuthenticated) {
+    private void updateUserAuthStatus(HttpSession session, User user, boolean isAuthenticated) {
         session.setAttribute(SESSION_KEY_IS_AUTHENTICATED, isAuthenticated);
-        session.setAttribute(SESSION_KEY_USERNAME, username);
+        session.setAttribute(SESSION_KEY_USER, user);
     }
 
 }
