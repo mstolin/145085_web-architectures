@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="it.unitn.disi.webarch.chat.models.room.Message" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="activeRoom" class="it.unitn.disi.webarch.chat.models.room.Room" scope="request" />
 <html>
@@ -10,7 +12,15 @@
         <h1><jsp:getProperty name="activeRoom" property="name"/></h1>
 
         <div>
-
+            <%
+                List<Message> messages = activeRoom.getAllMessages();
+            %>
+            <% for(Message message: messages) { %>
+                <div>
+                    <p><strong><%= message.getUser() %></strong> at <em><%= message.getTimestamp() %></em></p>
+                    <p><%= message.getMessage() %></p>
+                </div>
+            <% } %>
         </div>
 
         <form action="<% request.getContextPath(); %>/room/<jsp:getProperty name="activeRoom" property="name"/>" method="post">

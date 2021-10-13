@@ -3,6 +3,7 @@ package it.unitn.disi.webarch.chat.controller.room;
 import it.unitn.disi.webarch.chat.helper.RoomStore;
 import it.unitn.disi.webarch.chat.models.room.Message;
 import it.unitn.disi.webarch.chat.models.room.Room;
+import it.unitn.disi.webarch.chat.models.user.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -53,8 +54,11 @@ public class RoomServlet extends HttpServlet {
 
                 if (messageText != null && messageText.length() >= 1) {
                     // add message to chat and reload
-                    Message message = new Message(messageText, "", "user1");
+                    User activeUser = this.getActiveUser(request.getSession());
+                    Message message = new Message(messageText, "", activeUser.getName());
                     room.addMessage(message);
+                    // just reload the page
+                    this.doGet(request, response);
                 }
             } else {
                 // Room does not exist
@@ -78,6 +82,11 @@ public class RoomServlet extends HttpServlet {
         } else {
             return null;
         }
+    }
+
+    private User getActiveUser(HttpSession session) {
+        User activeUser = (User)session.getAttribute("activeUser");
+        return activeUser;
     }
     
 }
