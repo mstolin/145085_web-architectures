@@ -17,7 +17,7 @@ public class AuthLoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        System.out.println("AuthLoginServlet - Login attempt for user " + username);
+        System.out.println("INFO (AuthLoginServlet) - Login attempt for user " + username);
 
         if (username != null && password != null) {
             UserStore userStore = new UserStore();
