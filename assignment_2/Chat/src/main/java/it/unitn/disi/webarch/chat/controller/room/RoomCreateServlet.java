@@ -1,6 +1,7 @@
 package it.unitn.disi.webarch.chat.controller.room;
 
 import it.unitn.disi.webarch.chat.helper.RoomStore;
+import it.unitn.disi.webarch.chat.models.room.Room;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,11 +21,12 @@ public class RoomCreateServlet extends HttpServlet {
 
         if(roomName != null && roomName.length() >= 1) {
             // safe room as a model
-            System.out.println("RoomCreateServlet - User wants to create a room " + roomName);
+            System.out.println("INFO (RoomCreateServlet) - User wants to create a room " + roomName);
             // create room, only if it does not exist
-            if (!RoomStore.hasRoom(roomName)) {
-                System.out.println("RoomCreateServlet - " + roomName + " does not exist");
-                RoomStore.addRoom(roomName);
+            Room room = new Room(roomName);
+            if (!RoomStore.getInstance().has(room)) {
+                System.out.println("INFO (RoomCreateServlet) - " + roomName + " does not exist and will be created");
+                RoomStore.getInstance().add(room);
             }
             // after success redirect to user page
             response.sendRedirect(request.getContextPath() + "/user");

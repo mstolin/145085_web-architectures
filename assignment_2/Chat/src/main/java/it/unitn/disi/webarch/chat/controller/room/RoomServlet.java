@@ -23,8 +23,8 @@ public class RoomServlet extends HttpServlet {
         if (requestedRoom != null && requestedRoom.length() >= 1) {
             System.out.println("INFO (RoomServlet) - The requested room is " + requestedRoom);
 
-            if (RoomStore.hasRoom(requestedRoom)) {
-                Room room = RoomStore.getRoom(requestedRoom);
+            Room room = RoomStore.getInstance().getRoom(requestedRoom);
+            if (room != null) {
                 request.setAttribute(this.KEY_ACTIVE_ROOM, room);
                 this.getServletContext()
                         .getRequestDispatcher("/views/Room.jsp")
@@ -47,9 +47,9 @@ public class RoomServlet extends HttpServlet {
         String requestedRoom = this.getRequestedRoomName(requestedURI);
 
         if (requestedRoom != null && requestedRoom.length() >= 1) {
-            if (RoomStore.hasRoom(requestedRoom)) {
+            Room room = RoomStore.getInstance().getRoom(requestedRoom);
+            if (room != null) {
                 String messageText = request.getParameter("message");
-                Room room = RoomStore.getRoom(requestedRoom);
 
                 if (messageText != null && messageText.length() >= 1) {
                     // add message to chat and reload
