@@ -5,14 +5,39 @@ import it.unitn.disi.webarch.chat.models.user.User;
 import java.io.*;
 import java.util.*;
 
-public class UserStore {
+public class UserStore extends ObjectStore<User> {
+
+    private static UserStore instance = null;
 
     private final String USERS_FILE_PATH = "users.txt";
-    private Set<User> users;
 
-    public UserStore() {
+    private UserStore() {
         File usersFile = this.getUsersFile();
-        this.users = this.readUsersFromFile(usersFile);
+        this.store = this.readUsersFromFile(usersFile);
+    }
+
+    public static UserStore getInstance() {
+        if (instance == null) {
+            instance = new UserStore();
+        }
+        return instance;
+    }
+
+    public User getUser(String userName) {
+        Optional<User> firstUser = this.get(user -> user.getName().equals(userName));
+
+        if (firstUser.isPresent()) {
+            return firstUser.get();
+        } else {
+            return null;
+        }
+    }
+
+    public List<String> getAllUsernames() {
+        // Map set uf users to an array of usernames
+        String[] usernameArray = this.store.stream().map(user -> user.getName()).toArray(String[]::new);
+        List<String> usernames = Arrays.asList(usernameArray);
+        return usernames;
     }
 
     private File getUsersFile() {
@@ -56,31 +81,6 @@ public class UserStore {
         }
 
         return userSet;
-    }
-
-    public boolean isUserAvailable(String username) {
-        List<String> usernames = this.getAllUsers();
-        return usernames.contains(username);
-    }
-
-    public List<String> getAllUsers() {
-        // Map set uf users to an array of usernames
-        String[] usernameArray = this.users.stream().map(user -> user.getName()).toArray(String[]::new);
-        List<String> usernames = Arrays.asList(usernameArray);
-        return usernames;
-    }
-
-    public User getUser(String name) {
-        if (this.isUserAvailable(name)) {
-            User firstUser = this.users
-                    .stream()
-                    .filter(user -> user.getName().equals(name))
-                    .findFirst()
-                    .get();
-            return firstUser;
-        } else {
-            return null;
-        }
     }
 
 }

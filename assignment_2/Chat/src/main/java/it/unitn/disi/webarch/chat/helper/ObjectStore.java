@@ -9,7 +9,7 @@ public abstract class ObjectStore<T> {
 
     protected Set<T> store;
 
-    public ObjectStore() {
+    protected ObjectStore() {
         this.store = new HashSet<>();
     }
 
