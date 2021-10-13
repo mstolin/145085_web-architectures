@@ -1,15 +1,35 @@
 package it.unitn.disi.webarch.chat.models.room;
 
-public class Room {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Room implements Serializable {
 
     private final String name;
 
+    private List<Message> messages;
+
+    public Room() {
+        this.name = null;
+        this.messages = null;
+    }
+
     public Room(String name) {
         this.name = name;
+        this.messages = new ArrayList<>();
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public List<Message> getAllMessages() {
+        return this.messages;
+    }
+
+    public void addMessage(Message message) {
+        this.messages.add(message);
     }
 
     @Override

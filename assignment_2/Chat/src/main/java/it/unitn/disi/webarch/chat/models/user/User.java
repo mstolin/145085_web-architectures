@@ -1,9 +1,16 @@
 package it.unitn.disi.webarch.chat.models.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private final String name;
     private final String password;
+
+    public User() {
+        this.name = null;
+        this.password = null;
+    }
 
     public User(String name, String password) {
         this.name = name;
