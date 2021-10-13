@@ -20,10 +20,8 @@ public class AuthLoginServlet extends HttpServlet {
         System.out.println("INFO (AuthLoginServlet) - Login attempt for user " + username);
 
         if (username != null && password != null) {
-            UserStore userStore = new UserStore();
-            if (userStore.isUserAvailable(username) || username.equals("admin")) {
-                User user = userStore.getUser(username);
-
+            User user = UserStore.getInstance().getUser(username);
+            if (user != null || username.equals("admin")) {
                 if (user.isPasswordCorrect(password)) {
                     // user is authenticated
                     HttpSession session = request.getSession();
