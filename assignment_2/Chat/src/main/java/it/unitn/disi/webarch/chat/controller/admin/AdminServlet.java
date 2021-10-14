@@ -21,23 +21,30 @@ public class AdminServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if (username != null && password != null) {
-            // valid request
-            if (this.areUsernamePasswordValid(username, password)) {
-                // valid credentials, add user
-                User user = new User(username, password);
-                UserStore.getInstance().add(user);
+            // valid request, check if user already exists
+            User user = UserStore.getInstance().getUser(username);
+            if (user == null) {
+                // user does not exist
+                if (this.areUsernamePasswordValid(username, password)) {
+                    // valid credentials, add user
+                    User newUser = new User(username, password);
 
-                try {
-                    UserStore.getInstance().addUser(user);
-                } catch (Exception exception) {
-                    System.out.println("ERROR (AdminServlet) - " + exception.getMessage());
-                } finally {
-                    // forward
+                    try {
+                        UserStore.getInstance().addUser(newUser);
+                    } catch (Exception exception) {
+                        System.out.println("ERROR (AdminServlet) - " + exception.getMessage());
+                    } finally {
+                        // forward
+                        this.doGet(request, response);
+                    }
+                } else {
+                    // invalid credentials -> reload page
+                    System.out.println("ERROR (AdminServlet) - Credentials are invalid: username: " + username + ", password: " + password);
                     this.doGet(request, response);
                 }
             } else {
-                // invalid credentials -> reload page
-                System.out.println("ERROR (AdminServlet) - Credentials are invalid: username: " + username + ", password: " + password);
+                // user already exist -> Reload
+                System.out.println("ERROR (AdminServlet) - User " + username + " already exist");
                 this.doGet(request, response);
             }
         } else {
