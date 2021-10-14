@@ -8,7 +8,8 @@
     <jsp:include page="Banner.jsp" />
     <div>
         <form action="<% request.getContextPath(); %>/room/create" method="post">
-            <input type="text" name="name" />
+            <label for="name">Name:</label><br />
+            <input type="text" id="name" name="name" /><br />
             <input type="submit" />
         </form>
     </div>

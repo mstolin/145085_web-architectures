@@ -15,9 +15,11 @@
     <div>
         <h2>Add new user</h2>
         <form action="<% request.getContextPath(); %>/admin" method="post">
-            <input type="text" name="username" />
-            <input type="password" name="password" />
-            <input type="submit" />
+            <label for="username">Username:</label><br />
+            <input type="text" id="username" name="username" /><br />
+            <label for="password">Password:</label><br />
+            <input type="password" id="password" name="password" /><br />
+            <input type="submit" value="Create user" />
         </form>
     </div>
     <div>
