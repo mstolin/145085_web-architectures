@@ -3,17 +3,25 @@ package it.unitn.disi.webarch.chat.helper;
 import it.unitn.disi.webarch.chat.models.user.User;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class UserStore extends ObjectStore<User> {
 
     private static UserStore instance = null;
 
-    private final String USERS_FILE_PATH = "users.txt";
+    private final String USERS_FILE_NAME = "users.txt";
+    private final String USERS_FILE_PATH;
+
+    private File usersFile;
 
     private UserStore() {
-        File usersFile = this.getUsersFile();
-        this.store = this.readUsersFromFile(usersFile);
+        this.USERS_FILE_PATH = this.getClass().getClassLoader().getResource(this.USERS_FILE_NAME).getPath();
+        System.out.println("UserStore - Read users from " + this.USERS_FILE_PATH);
+        this.usersFile = new File(this.USERS_FILE_PATH);
+        this.store = this.readUsersFromFile();
     }
 
     public static UserStore getInstance() {
@@ -33,6 +41,17 @@ public class UserStore extends ObjectStore<User> {
         }
     }
 
+    public void addUser(User user) throws Exception {
+        try {
+            this.writeUserToFile(user);
+        } catch (IOException exception) {
+            System.out.println("ERROR (UserStore) - " + exception.getMessage());
+            throw new Exception("Could not write user " + user.getName() + " to the file");
+        } finally {
+            this.store = this.readUsersFromFile();
+        }
+    }
+
     public List<String> getAllUsernames() {
         // Map set uf users to an array of usernames
         String[] usernameArray = this.store.stream().map(user -> user.getName()).toArray(String[]::new);
@@ -40,21 +59,14 @@ public class UserStore extends ObjectStore<User> {
         return usernames;
     }
 
-    private File getUsersFile() {
-        String userFilePath = this.getClass().getClassLoader().getResource(this.USERS_FILE_PATH).getPath();
-        System.out.println("UserStore - Read users from " + userFilePath);
-        File userFile = new File(userFilePath);
-        return userFile;
-    }
-
-    private Set<User> readUsersFromFile(File userFile) {
+    private Set<User> readUsersFromFile() {
         Set<User> userSet = new HashSet<>();
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
 
         try {
             // init all the stuff
-            fileReader = new FileReader(userFile);
+            fileReader = new FileReader(this.usersFile);
             bufferedReader = new BufferedReader(fileReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -81,6 +93,11 @@ public class UserStore extends ObjectStore<User> {
         }
 
         return userSet;
+    }
+
+    private void writeUserToFile(User user) throws IOException {
+        String lineToWrite = "\n" + user.getName() + ": " + user.getPassword();
+        Files.write(Paths.get(this.USERS_FILE_PATH), lineToWrite.getBytes(), StandardOpenOption.APPEND);
     }
 
 }
