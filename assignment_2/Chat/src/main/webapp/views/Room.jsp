@@ -14,10 +14,10 @@
         <div>
             <%
                 List<Message> messages = activeRoom.getAllMessages();
+                for(Message message: messages) {
             %>
-            <% for(Message message: messages) { %>
                 <div>
-                    <p><strong><%= message.getUser() %></strong> at <em><%= message.getTimestamp() %></em></p>
+                    <p><em><%= message.getUser() %> at <%= message.getFormattedDate() %></em></p>
                     <p><%= message.getMessage() %></p>
                 </div>
             <% } %>
