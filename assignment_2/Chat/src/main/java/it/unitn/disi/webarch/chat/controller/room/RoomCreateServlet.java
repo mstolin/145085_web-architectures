@@ -6,6 +6,8 @@ import it.unitn.disi.webarch.chat.models.room.Room;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class RoomCreateServlet extends HttpServlet {
     @Override
@@ -21,15 +23,21 @@ public class RoomCreateServlet extends HttpServlet {
 
         if(roomName != null && roomName.length() >= 1) {
             // safe room as a model
-            System.out.println("INFO (RoomCreateServlet) - User wants to create a room " + roomName);
-            // create room, only if it does not exist
-            Room room = new Room(roomName);
-            if (!RoomStore.getInstance().has(room)) {
-                System.out.println("INFO (RoomCreateServlet) - " + roomName + " does not exist and will be created");
-                RoomStore.getInstance().add(room);
+            try {
+                String cleanedRoomName = URLEncoder.encode(roomName, "UTF-8");
+                System.out.println("INFO (RoomCreateServlet) - User wants to create a room " + cleanedRoomName);
+                // create room, only if it does not exist
+                Room room = new Room(cleanedRoomName);
+                if (!RoomStore.getInstance().has(room)) {
+                    System.out.println("INFO (RoomCreateServlet) - " + cleanedRoomName + " does not exist and will be created");
+                    RoomStore.getInstance().add(room);
+                }
+                // after success redirect to user page
+                response.sendRedirect(request.getContextPath() + "/user");
+            } catch (UnsupportedEncodingException exception) {
+                System.out.println("ERROR (RoomCreateServlet) - " + exception.getMessage());
+                this.doGet(request, response);
             }
-            // after success redirect to user page
-            response.sendRedirect(request.getContextPath() + "/user");
         } else {
             // no valid room name -> send error
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
