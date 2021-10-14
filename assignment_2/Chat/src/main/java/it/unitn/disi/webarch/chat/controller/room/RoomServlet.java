@@ -55,7 +55,7 @@ public class RoomServlet extends HttpServlet {
                 if (messageText != null && messageText.length() >= 1) {
                     // add message to chat and reload
                     User activeUser = this.getActiveUser(request.getSession());
-                    Message message = new Message(messageText, "", activeUser.getName());
+                    Message message = new Message(messageText, activeUser.getName());
                     room.addMessage(message);
                     // just reload the page
                     this.doGet(request, response);

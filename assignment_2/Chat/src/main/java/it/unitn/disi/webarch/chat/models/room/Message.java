@@ -1,22 +1,24 @@
 package it.unitn.disi.webarch.chat.models.room;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Message implements Serializable {
 
     private final String message;
-    private final String timestamp;
+    private final Date date;
     private final String user;
 
     public Message() {
         this.message = null;
-        this.timestamp = "";
+        this.date = new Date();
         this.user = null;
     }
 
-    public Message(String message, String timestamp, String user) {
+    public Message(String message, String user) {
         this.message = message;
-        this.timestamp = timestamp;
+        this.date = new Date();
         this.user = user;
     }
 
@@ -24,12 +26,18 @@ public class Message implements Serializable {
         return this.message;
     }
 
-    public String getTimestamp() {
-        return this.timestamp;
+    public Date getDate() {
+        return this.date;
     }
 
     public String getUser() {
         return this.user;
+    }
+
+    public String getFormattedDate() {
+        String formattedDate = new SimpleDateFormat("HH:mm")
+                .format(this.date);
+        return formattedDate;
     }
 
 }
