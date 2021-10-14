@@ -5,12 +5,17 @@
 <html>
 <head>
     <title>Room - <jsp:getProperty name="activeRoom" property="name"/></title>
+    <meta http-equiv="refresh" content="15">
 </head>
 <body>
     <jsp:include page="Banner.jsp" />
     <div>
         <h1><jsp:getProperty name="activeRoom" property="name"/></h1>
-
+        <p>
+            <a href="<% request.getContextPath(); %>/room/<jsp:getProperty name="activeRoom" property="name"/>">Reload this room</a>
+             or
+            <a href="<% request.getContextPath(); %>/user">Leave room</a>
+        </p>
         <div>
             <%
                 List<Message> messages = activeRoom.getAllMessages();
