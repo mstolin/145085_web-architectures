@@ -8,6 +8,10 @@
     <servlet>
         <servlet-name>AuthLoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.chat.controller.auth.AuthLoginServlet</servlet-class>
+        <init-param>
+            <param-name>AdminPassword</param-name>
+            <param-value>root</param-value>
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>AuthLogoutServlet</servlet-name>
@@ -29,6 +33,14 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.chat.controller.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.chat.controller.admin.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AuthLoginServlet</servlet-name>
         <url-pattern>/auth/login</url-pattern>
