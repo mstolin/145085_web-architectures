@@ -37,15 +37,18 @@ public class AdminServlet extends HttpServlet {
                 }
             } else {
                 // invalid credentials -> reload page
+                System.out.println("ERROR (AdminServlet) - Credentials are invalid: username: " + username + ", password: " + password);
                 this.doGet(request, response);
             }
         } else {
             // invalid request
+            System.out.println("ERROR (AdminServlet) - Invalid request");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private boolean areUsernamePasswordValid(String username, String password) {
-        return username.length() >= 1 && password.length() >= 1;
+        // username is not allowed to be admin
+        return username.length() >= 1 && password.length() >= 1 && !username.equals("admin");
     }
 }
