@@ -14,17 +14,23 @@
     <jsp:include page="Banner.jsp" />
     <div>
         <h1>Available Rooms</h1>
-
         <div>
-            <a href="<% request.getContextPath(); %>/room/create">Create a new room</a>
-        </div>
-
-        <div>
-            <ul>
-                <% for(Room room: rooms) { %>
-                <li><a href="<% request.getContextPath(); %>/room/<%= room.getName() %>"><%= room.getName() %></a></li>
-                <% } %>
-            </ul>
+            <%
+                if (rooms.isEmpty()) {
+            %>
+                <p>Sorry, no rooms are available, but you can create one. <a href="<% request.getContextPath(); %>/room/create">Create a new room</a></p>
+            <%
+                } else {
+            %>
+                <p>Enter in a room or create a new one. <a href="<% request.getContextPath(); %>/room/create">Create a new room</a></p>
+                <ul>
+                    <% for(Room room: rooms) { %>
+                    <li><a href="<% request.getContextPath(); %>/room/<%= room.getName() %>"><%= room.getName() %></a></li>
+                    <% } %>
+                </ul>
+            <%
+                }
+            %>
         </div>
     </div>
 
