@@ -1,0 +1,32 @@
+\section{Introduction}\label{sec:01_intro}
+% Intro to the Task
+The task of this assignment is to implement a chat system using Java Servlets.
+Different users can login at the same time, create different rooms, and chat in a room with each other.
+In addition, an admin user can login as well, and create new user from the \textit{admin-page}.
+
+
+\subsection{Problem Statement}\label{subsec:01_intro_problemstatement}
+For this assignment, it is necessary to implement a custom storage system, because using a Database is not part of the assignment.
+Therefore, a custom storage system has to be implemented, which is able to store users, and rooms, fir as long as the HTTP server is running. The users are supposed to be stored in a text file.
+% Authentication
+Additionally, a authentication system has to implemented. It should restrict unauthorized users to use the chat. If a request of an
+unauthorized user has been made, the user should be forwarded to the login page first.
+% Admin
+However, there exists a special user called \textit{admin}, which is allowed to request the \textit{admin-page} where user can be created.
+
+
+\subsection{Domain Description}\label{subsec:01_intro_domaindescription}
+
+
+% What is what, user room, etc
+
+Given the above mentioned problem statement, the following steps have to be implemented:
+\begin{enumerate}
+\item Create a temporal object storage
+\item Implement an authentication system
+\item Develop controller and views for all needed routes
+\end{enumerate}
+
+
+
+% MVC PAttern !!!!

@@ -1,0 +1,56 @@
+\section{Conceptual Design}\label{sec:02_design}
+% From problem statement
+The conceptual design which is introduced below, is based on the problem statement introduced in \Sec{subsec:01_intro_problemstatement}.
+
+
+\subsection{Data Storage}\label{subsec:02_design_datastorage}
+% Rooms
+As mentioned in the problem statement, the user has the ability to create multiple rooms. When the user opens a room, the user can send messages inside the selected room. A room should only exist as long as the server is running. Therefore, a store system has to be implemented to store rooms and messages temporarily.
+
+FIG XY shows the design of a \textit{RoomStore}. The \textit{RoomStore} has the ability to save rooms and messages exists within the room.
+
+
+% Users
+Additionally, the \textit{admin} user has the ability to create new users. Users are saved consistently in a text file and should be available after the server has restarted.
+Given this, a \textit{UserStore} has to be implemented, which is able to read and write user object from a text file.
+
+
+\subsection{Routes}\label{subsec:02_design_routes}
+% Which routes
+The following pages are available in the chat system:
+\begin{itemize}
+\item \textit{Login-page}, route: \url{http://localhost/login}
+\item \textit{User-page}, route: \url{http://localhost/user}
+\item \textit{Room-page}, route: \url{http://localhost/room/ROOM_NAME}
+\item \textit{Create-room-page}, route: \url{http://localhost/room/create}
+\item \textit{Admin-page}, route: \url{http://localhost/admin}
+\end{itemize}
+
+% Banner
+It is important to mention, that each page, except the \textit{Login-page}, includes a \textit{Banner} where the user can see a logout link and the username. If the active user is the \textit{admin} user, there will also be an \textit{Admin-page} link available.
+
+\subsubsection{Login-Page}\label{subsubsec:02_design_routes_login}
+At the \textit{Login-page}, the user sees an HTML-form where the user can insert a username, and a password. If the credentials are correct, the user will be forwarded to the \textit{User-page} after the form has been submitted.
+
+\subsubsection{User-Page}\label{subsubsec:02_design_routes_userpage}
+After the user has logged in successfully, the user will be forwarded to the User-page. There, the user sees all available rooms which are clickable, a link to the \textit{Create-room-page}, and the above mentioned \textit{Banner}.
+
+\subsubsection{Room-Page}\label{subsubsec:02_design_routes_room}
+When the user clicks on the name of a room, the user opens the \textit{Room-page} where authenticated users can chat which each other.
+
+\subsubsection{Create-Room-Page}\label{subsubsec:02_design_routes_createroom}
+At the \textit{Create-room-page}, an authenticated user can create a new room through an HTML-form. After the form has been send successfully, the user will be redirected back to the \textit{User-page}, where the user sees the newly created room.
+
+\subsubsection{Admin-Page}\label{subsubsec:02_design_routes_admin}
+If the active user is the \textit{admin} user, the user can access the \textit{Admin-page}. There, the \textit{admin} user sees the name of all available user, and create new users through an HTML-form which will be saved to the text file mentioned in \Sec{subsec:02_design_datastorage}.
+
+
+\subsection{Authentication}\label{subsec:02_design_authentication}
+% Filter needed
+User needs to authenticate first to be able to access the above mentioned pages of the chat system, except the \textit{Login-page}. Therefore, a filter has to be implemented which is responsible to check the authentication status of the user, every time a request has been made.
+% Session
+The authentication status of the user is saved as an attribute in the session. The session will be created, after a user has been logged-in successfully.
+
+
+% Admin
+As mentioned in \Sec{subsec:02_design_routes}, a special page called \textit{Admin-page} exist, which can only be accessed by the \textit{admin} user. Therefore, an additional filter is needed to check if a request has been made to the \textit{Admin-page} route, and check if the user is authenticated and if the user is the \textit{admin} user. Otherwise, the server responds with an HTTP error.

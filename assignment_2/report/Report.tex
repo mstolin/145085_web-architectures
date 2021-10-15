@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, left=3.17cm, right=3.17cm, top=2.54cm, bottom=2.54cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{hyperref}
+\setlength{\parskip}{0.5em}
+\title{Assignment 2}
+\author{\textup{Marcel Pascal Stolin}}
+
+\def\Eq#1{\eqref{#1}}
+\def\Sec#1{Section~\ref{#1}}
+\def\Ex#1{Example~\ref{#1}}
+\def\Chap#1{Chapter~\ref{#1}}
+\def\Part#1{Part~\ref{#1}}
+\def\Fig#1{Figure~\ref{#1}}
+\def\Lst#1{Listing~\ref{#1}}
+\def\Tab#1{Table~\ref{#1}}
+\def\Alg#1{Algorithm~\ref{#1}}
+\def\Page#1{Page~\pageref{#1}}
+
+% Listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=lines
+}
+\lstset{style=codestyle}
+
+\begin{document}
+	% Title
+	\input{title/title.tex}
+	\newpage
+	
+    % Contents
+    \input{content/1-Intro}
+    \newpage
+    \input{content/2-Design}
+    \newpage
+    \input{content/3-Impl}
+    \newpage
+    \input{content/4-Conclusion}
+
+    % References
+    %\bibliographystyle{plain}
+    %\bibliography{mybib}
+
+    % Appendix
+    \newpage
+    \appendix
+    \phantomsection
+    \input{content/Appendix}
+\end{document}
