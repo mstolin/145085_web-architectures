@@ -10,7 +10,7 @@ public class UserPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext()
-                .getRequestDispatcher("/views/UserPage.jsp")
+                .getRequestDispatcher("/views/user/UserPage.jsp")
                 .forward(request, response);
     }
 }

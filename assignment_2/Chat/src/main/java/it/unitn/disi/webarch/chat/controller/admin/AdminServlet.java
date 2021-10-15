@@ -11,7 +11,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext()
-                .getRequestDispatcher("/views/Admin.jsp")
+                .getRequestDispatcher("/views/admin/Admin.jsp")
                 .forward(request, response);
     }
 

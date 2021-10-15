@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <jsp:include page="Banner.jsp" />
+    <jsp:include page="../Banner.jsp" />
     <div>
         <h1>Available Rooms</h1>
         <div>

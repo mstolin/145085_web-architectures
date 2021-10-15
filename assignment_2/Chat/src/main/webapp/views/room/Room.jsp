@@ -8,7 +8,7 @@
     <meta http-equiv="refresh" content="15">
 </head>
 <body>
-    <jsp:include page="Banner.jsp" />
+    <jsp:include page="../Banner.jsp" />
     <div>
         <h1><jsp:getProperty name="activeRoom" property="name"/></h1>
         <p>

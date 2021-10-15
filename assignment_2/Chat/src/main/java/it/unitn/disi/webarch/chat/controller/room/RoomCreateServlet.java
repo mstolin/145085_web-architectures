@@ -13,7 +13,7 @@ public class RoomCreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext()
-                .getRequestDispatcher("/views/RoomCreate.jsp")
+                .getRequestDispatcher("/views/room/RoomCreate.jsp")
                 .forward(request, response);
     }
 

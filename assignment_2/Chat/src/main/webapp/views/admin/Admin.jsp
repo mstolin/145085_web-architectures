@@ -10,7 +10,7 @@
     <title>Admin Page</title>
 </head>
 <body>
-    <jsp:include page="Banner.jsp" />
+    <jsp:include page="../Banner.jsp" />
     <h1>Admin Page</h1>
     <div>
         <h2>Add new user</h2>

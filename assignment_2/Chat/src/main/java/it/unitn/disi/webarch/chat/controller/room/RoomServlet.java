@@ -28,7 +28,7 @@ public class RoomServlet extends HttpServlet {
             if (room != null) {
                 request.setAttribute(this.KEY_ACTIVE_ROOM, room);
                 this.getServletContext()
-                        .getRequestDispatcher("/views/Room.jsp")
+                        .getRequestDispatcher("/views/room/Room.jsp")
                         .forward(request, response);
             } else {
                 // Room does not exist
