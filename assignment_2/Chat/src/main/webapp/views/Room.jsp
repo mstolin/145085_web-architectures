@@ -16,22 +16,22 @@
              or
             <a href="<% request.getContextPath(); %>/user">Leave room</a>
         </p>
+        <form action="<% request.getContextPath(); %>/room/<jsp:getProperty name="activeRoom" property="name"/>" method="post">
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message" />
+            <input type="submit" value="Send Message" />
+        </form>
         <div>
             <%
                 List<Message> messages = activeRoom.getAllMessages();
                 for(Message message: messages) {
             %>
                 <div>
-                    <p><em><%= message.getUser() %> at <%= message.getFormattedDate() %></em></p>
+                    <p><em><%= message.getUser() %> at <%= message.getFormattedDate() %>:</em></p>
                     <p><%= message.getMessage() %></p>
                 </div>
             <% } %>
         </div>
-
-        <form action="<% request.getContextPath(); %>/room/<jsp:getProperty name="activeRoom" property="name"/>" method="post">
-            <input type="text" name="message" />
-            <input type="submit" />
-        </form>
     </div>
 </body>
 </html>

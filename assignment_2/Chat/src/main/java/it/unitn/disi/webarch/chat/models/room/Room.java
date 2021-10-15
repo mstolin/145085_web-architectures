@@ -2,6 +2,7 @@ package it.unitn.disi.webarch.chat.models.room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Room implements Serializable {
@@ -30,6 +31,8 @@ public class Room implements Serializable {
 
     public void addMessage(Message message) {
         this.messages.add(message);
+        // always sort
+        this.messages.sort(Comparator.comparing(Message::getDate).reversed());
     }
 
     @Override
