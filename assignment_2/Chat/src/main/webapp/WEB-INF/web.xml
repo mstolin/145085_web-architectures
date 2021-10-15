@@ -19,7 +19,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserPageServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.chat.controller.UserPageServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.chat.controller.user.UserPageServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
@@ -31,7 +31,7 @@
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.chat.controller.LoginServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.chat.controller.login.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
@@ -69,7 +69,7 @@
     <!-- Filters -->
     <filter>
         <filter-name>AuthFilter</filter-name>
-        <filter-class>it.unitn.disi.webarch.chat.controller.AuthFilter</filter-class>
+        <filter-class>it.unitn.disi.webarch.chat.controller.admin.AuthFilter</filter-class>
     </filter>
     <filter>
         <filter-name>AdminFilter</filter-name>
