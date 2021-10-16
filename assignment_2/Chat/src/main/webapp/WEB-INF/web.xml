@@ -59,7 +59,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RoomCreateServlet</servlet-name>
-        <url-pattern>/room/create</url-pattern>
+        <url-pattern>/room-create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

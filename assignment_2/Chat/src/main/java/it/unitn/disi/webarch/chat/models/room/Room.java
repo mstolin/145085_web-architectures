@@ -25,7 +25,7 @@ public class Room implements Serializable {
         return this.name;
     }
 
-    public List<Message> getAllMessages() {
+    public List<Message> getMessages() {
         return this.messages;
     }
 

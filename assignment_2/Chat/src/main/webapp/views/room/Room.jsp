@@ -23,7 +23,7 @@
         </form>
         <div>
             <%
-                List<Message> messages = activeRoom.getAllMessages();
+                List<Message> messages = activeRoom.getMessages();
                 for(Message message: messages) {
             %>
                 <div>

@@ -38,8 +38,7 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession();
         Object authSessionAttr = session.getAttribute("is_authenticated");
         if (authSessionAttr != null) {
-            boolean isAuthenticated = (boolean)authSessionAttr;
-            return isAuthenticated;
+            return (boolean)authSessionAttr;
         }
 
         return false;
