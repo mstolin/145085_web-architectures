@@ -63,18 +63,49 @@ The lifetime of an object saved to a store, is equal to the lifetime of the runn
 % Lifetime of user
 Except for the \texttt{UserStore}, which reads all \texttt{User} models from a text file, and write Users to a text file. Therefore, when the server restarts, all previously added \texttt{User} modes are available again.
 
+%
+% SINGLETON PATTERN !!!
+%
+
 
 % ==============
 % ==============
 \subsection{Servlets}\label{subsec:03_impl_servlets}
+Fig XY shows the architecture of the in SEC DESIGN introduced routes. To implement this architecture, the following Servlets are implemented:
+\begin{itemize}
+\item \texttt{AuthLoginServlet}
+\item \texttt{AuthLogoutServlet}
+\item \texttt{LoginServlet}
+\item \texttt{UserPageServlet}
+\item \texttt{RoomServlet}
+\item \texttt{RoomCreateServlet}
+\item \texttt{AdminServlet}
+\end{itemize}
+% Views
+Most of the mentioned servlets, own a specific view (a JSP file) which is saved in \path{Chat/src/main/webapp/views}.
+
 
 \subsubsection{Authentication}\label{subsubsec:03_impl_servlets_auth}
+For authentication, the AuthLoginServlet and the AuthLogoutServlet are created.
+% Login
+The \texttt{AuthLoginServlet} requires a \texttt{POST} request, and validates the request accordingly. If the given username and password are valid credentials (the user with the given name exist, and the password is correct), the \texttt{AuthLoginServlet} create a new \texttt{HTTPSession}, sets the active user, and the attribute \texttt{is\_authenticated} to \texttt{true}. This property is important for the \texttt{AuthFilter} introduced in SEC FILTER.]
+
+% Logout
+To logout, the AuthLogoutServlet exist. It invalidates the HTTPSession of an active user
+
 
 \subsubsection{Login}\label{subsubsec:03_impl_servlets_login}
+The LoginServlet shows a view called Login.jsp, which includes an HTML-form. The user has to insert the username and the password. Then the credentials are submitted to the AuthLoginServlet via a POST request.
+If the credentials are parsed correctly by the AuthLoginServlet, the user is being redicrected to the user page, otherwise the servlet reloads itself.
+
 
 \subsubsection{User}\label{subsubsec:03_impl_servlets_user}
+The user servlet is responsible to list all available rooms. If the user clicks on a room link, the user will be redirected to the room.
+% Empty rooms
+If no rooms are available, the view shows a text and refers to the create-room page via a link. 
 
 \subsubsection{Room}\label{subsubsec:03_impl_servlets_room}
+When a user enters a room, the user can send messages. All user who are logged in and have entered the same room are able to see the messages. The room is saved as a attribute, called activeRoom, in the request. Therefore it is available as a Java Bean in the corresponding view. LST shows bla bla.
 
 \subsubsection{Admin}\label{subsubsec:03_impl_servlets_admin}
 
