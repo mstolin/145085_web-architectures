@@ -96,6 +96,10 @@ this.getServletContext()
 For authentication, the \texttt{AuthLoginServlet} and the \texttt{AuthLogoutServlet} are created.
 % Login
 The \texttt{AuthLoginServlet} requires a \texttt{POST} request, and validates the request accordingly. If the given username and password are valid credentials (the user with the given name exist, and the password is correct), the \texttt{AuthLoginServlet} creates a new \texttt{HTTPSession}, sets the active user, and the attribute \texttt{is\_authenticated} to \texttt{true}. This property is important for the \texttt{AuthFilter} introduced in \Sec{subsubsec:03_impl_filters_auth}. After that, the \texttt{AuthLoginServlet} redirects the user to the \textit{User-Page}.
+% Whre does the data come from
+The users are received using the \texttt{getUser} method of the \texttt{UserStore}.
+% Admin
+However, the admin user is not stored in the \texttt{UserStore}. If the username is equal to \texttt{admin}, the \texttt{AuthLoginServlet} checks if the password is equal to the init property \texttt{AdminPassword}, which is set in the \texttt{web.xml} (equals to \texttt{root}).
 % Invalid credentials
 If the \texttt{POST} request is invalid (no username and password set), the \texttt{AuthLoginServlet} sends a \texttt{400 - Bad Request} HTTP error. Otherwise, if the request is valid, but the credentials are invalid (wrong username or wrong password), the \texttt{AuthLoginServlet} redirects back to the \textit{Login-Page}.
 
