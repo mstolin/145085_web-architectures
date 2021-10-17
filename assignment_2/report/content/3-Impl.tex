@@ -2,19 +2,18 @@
 % Explain section
 This section explains the implementation based on the conceptual design introduced in \Sec{sec:02_design}. 
 % MVC
-As mentioned in PROBLM, the MVC architecture is used to implement this application.
+As mentioned in \Sec{sec:01_intro}, the MVC architecture is used to implement this application. \Fig{fig:03_impl_structure} present the project folder structure of the MVC implementation.
 % What is what
 The models are introduced in \Sec{subsec:03_impl_models}, the views and controllers in \Sec{subsec:03_impl_servlets}.
 % Others
 Additionally, this implementation uses custom object stores (introduced in \Sec{subsec:03_impl_objstores}) and filters (introduced in \Sec{subsec:03_impl_filters}).
-
-
-% !!!!
-% MVC
-% JAVA BEANS
-% ...
-
-% Object Store (User, Rooms, all Models + Beans)
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{images/03_impl/structure}
+\caption{Project folder structure}
+\label{fig:03_impl_structure}
+\end{figure}
 
 
 \subsection{Models}\label{subsec:03_impl_models}
@@ -22,7 +21,6 @@ Additionally, this implementation uses custom object stores (introduced in \Sec{
 As being mentioned, this project is implemented using the MVC pattern. Therefore, each entity of the chat system is represented by a model.
 % Beans
 Each model is implemented using the Java Bean specification. This enables to reuse models in \texttt{JSP} files.
-
 % Figure
 \begin{figure}[h]
 \centering
@@ -30,7 +28,6 @@ Each model is implemented using the Java Bean specification. This enables to reu
 \caption{Used models for the chat system}
 \label{fig:03_impl_models_models}
 \end{figure}
-
 % Explain Figure
 \Fig{fig:03_impl_models_models} shows all models used in the implementation of the chat system.
 % Room and message
@@ -43,7 +40,7 @@ Each user is represented by a \texttt{User} model. This model is identified by t
 % ==============
 \subsection{Object Stores}\label{subsec:03_impl_objstores}
 % Why
-As being mentioned in SEC DESIGN STORAGE, a custom store is needed to save the in \Sec{subsec:03_impl_models} introduced models.
+As being mentioned in \Sec{subsec:02_design_datastorage}, a custom store is needed to save models introduced in \Sec{subsec:03_impl_models}.
 
 Therefore, the following stores are being implemented:
 \begin{itemize}
@@ -51,7 +48,7 @@ Therefore, the following stores are being implemented:
 \item \texttt{RoomStore}, saves \texttt{Room} models
 \end{itemize}
 % Store functionality
-Because a user and room can only exists once, a \texttt{Set}\footnote{Set (Java Platform SE 8) - \url{https://docs.oracle.com/javase/8/docs/api/java/util/Set.html}} data structure is used to save both Users, and Rooms. Furthermore, a store needs to provide the functionality to add an object to the store, get all objects from the store, or a specific one, and to check if an object has already been added to the store.
+Because a user and room can only exists once, a \texttt{Set}\footnote{Set (Java Platform SE 8) - \url{https://docs.oracle.com/javase/8/docs/api/java/util/Set.html}} data structure is used to save both \texttt{Users}, and \texttt{Rooms}. Furthermore, a store needs to provide the functionality to add an object to the store, get all objects from the store, or a specific one, and to check if an object has already been added to the store.
 
 
 % Abstract class
@@ -61,10 +58,10 @@ The \texttt{ObjectStore} uses generics to implement the properties and methods. 
 % Lifetime
 The lifetime of an object saved to a store, is equal to the lifetime of the running webserver. As long as the webserver is running, the objects are saved to memory. If the webserver gets shout down, all rooms and messages are being removed from the memory.
 % Lifetime of user
-Except for the \texttt{UserStore}, which reads all \texttt{User} models from a text file, and writes newly created Users to a text file. Therefore, when the server restarts, all previously added \texttt{User} models are available again.
+Except for the \texttt{UserStore}, which reads all \texttt{User} models from a text file, and writes newly created Users to the same file. Therefore, when the server restarts, all previously added \texttt{User} models are available again.
 
 % Singleton pattern
-To make the same set of Users, and Rooms available for each single servlet instance, the singleton pattern is used for the stores. This ensures, that all servlets work with the same set of Users and Rooms. An example of the singleton usage is shown in \Lst{lst:03_impl_objstores_singleton}.
+To make the same set of Users, and Rooms available for each single servlet instance, the singleton pattern is used for the stores. This ensures, that all servlets work with the same set of \texttt{Users} and \texttt{Rooms}. An example of the singleton usage is shown in \Lst{lst:03_impl_objstores_singleton}.
 % Singleton example
 \begin{lstlisting}[label=lst:03_impl_objstores_singleton, caption=Example usage of the singleton pattern, language=java]
 Set<Room> rooms = RoomStore.getInstance().getAll();
@@ -74,7 +71,7 @@ Set<Room> rooms = RoomStore.getInstance().getAll();
 % ==============
 % ==============
 \subsection{Servlets}\label{subsec:03_impl_servlets}
-Fig XY shows the architecture of the in SEC DESIGN introduced routes. To implement this architecture, the following Servlets are implemented:
+Each route introduced in \Sec{subsec:02_design_routes}, is implemented using a servlet. The following servlets are needed for this architecture:
 \begin{itemize}
 \item \texttt{AuthLoginServlet}
 \item \texttt{AuthLogoutServlet}
@@ -85,18 +82,25 @@ Fig XY shows the architecture of the in SEC DESIGN introduced routes. To impleme
 \item \texttt{AdminServlet}
 \end{itemize}
 % Views
-Most of the mentioned servlets, own a specific view (a JSP file) which is saved in \path{Chat/src/main/webapp/views}.
+Most of the mentioned servlets, own a specific view (a \texttt{JSP} file) which is saved in \path{Chat/src/main/webapp/views}.
+%
+\Lst{lst:03_impl_servlets_includeview} shows, how a servlet forwards a request to a specific view.
+\begin{lstlisting}[label=lst:03_impl_servlets_includeview, caption=Forward a request to a view, language=java]
+this.getServletContext()
+  .getRequestDispatcher("/views/room/RoomCreate.jsp")
+  .forward(request, response);
+\end{lstlisting}
 
 
 \subsubsection{Authentication}\label{subsubsec:03_impl_servlets_auth}
-For authentication, the AuthLoginServlet and the AuthLogoutServlet are created.
+For authentication, the \texttt{AuthLoginServlet} and the \texttt{AuthLogoutServlet} are created.
 % Login
 The \texttt{AuthLoginServlet} requires a \texttt{POST} request, and validates the request accordingly. If the given username and password are valid credentials (the user with the given name exist, and the password is correct), the \texttt{AuthLoginServlet} creates a new \texttt{HTTPSession}, sets the active user, and the attribute \texttt{is\_authenticated} to \texttt{true}. This property is important for the \texttt{AuthFilter} introduced in \Sec{subsubsec:03_impl_filters_auth}. After that, the \texttt{AuthLoginServlet} redirects the user to the \textit{User-Page}.
 % Invalid credentials
 If the \texttt{POST} request is invalid (no username and password set), the \texttt{AuthLoginServlet} sends a \texttt{400 - Bad Request} HTTP error. Otherwise, if the request is valid, but the credentials are invalid (wrong username or wrong password), the \texttt{AuthLoginServlet} redirects back to the \textit{Login-Page}.
 
 % Logout
-To logout, the \texttt{AuthLogoutServlet} exist. If a \texttt{GET} request is made from an active user, it invalidates the \texttt{HTTPSession} and redirects to the \textit{Login-Page}.
+To logout, the \texttt{AuthLogoutServlet} exist. If a \texttt{GET} request is made from an active user, it invalidates the \texttt{HTTPSession} and redirects the user to the \textit{Login-Page}.
 
 
 \subsubsection{Login}\label{subsubsec:03_impl_servlets_login}
@@ -116,13 +120,14 @@ To logout, the \texttt{AuthLogoutServlet} exist. If a \texttt{GET} request is ma
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{images/03_impl/user/userpage_before_after}
-\caption{Creation-process of \textit{user3}}
+\caption{The \textit{User-Page} with the empty message and available rooms}
 \label{fig:03_impl_servlets_user_beforeafter}
 \end{figure}
 % Explain figure
 \Fig{fig:03_impl_servlets_user_beforeafter} shows the \textit{User-Page}. It is shown that the \textit{User-Page} lists all available rooms, otherwise a message if no rooms exists.
 % How
-The view reads all available rooms from the \texttt{RoomStore} (introduced in SEC ROOMSTORE) and uses a \texttt{for} loop to list the rooms as clickable links in a \texttt{ul} element, which is shown in \Lst{lst:03_impl_servlets_user}.
+The view reads all available rooms from the \texttt{RoomStore} (introduced in \Sec{subsec:03_impl_objstores}) and uses a \texttt{for} loop to list the rooms as clickable links in a \texttt{ul} element, which is shown in \Lst{lst:03_impl_servlets_user}.
+\newpage
 % List rooms
 \begin{lstlisting}[label=lst:03_impl_servlets_user, caption=List all available rooms, language=html]
 <%@ page import="java.util.Set" %>
@@ -142,12 +147,29 @@ The view reads all available rooms from the \texttt{RoomStore} (introduced in SE
 \end{lstlisting}
 
 
+\subsubsection{Create Room}\label{subsubsec:03_impl_servlets_createroom}
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.15]{images/03_impl/create-room/create-room}
+\caption{Procedure of creating a new room}
+\label{fig:03_impl_servlets_createroom_create}
+\end{figure}
+% Explain figure
+The \texttt{RoomCreateServlet} includes a view which presents an HTML-form to the user. The user can set a room name and submit the form as a \texttt{POST} request to itself.
+% The post request
+After a \texttt{POST} request has been received, the \texttt{RoomCreateServlet} creates a new instance of the \texttt{Room} model and adds the \texttt{Room} to the \texttt{RoomStore}. After a room has been created successfully, the user will be redirected to the \textit{User-Page}. This procedure is illustrated in \Fig{fig:03_impl_servlets_createroom_create}, where the room \textit{Web Architectures} is being created.
+% Encoding
+Additionally, the \texttt{RoomCreateServlet} encodes the name of a room using \texttt{URLEncoder.encode(ROOM\_NAME, "UTF-8")}. This is necessary, because the user is allowed to use special characters like whitespaces in the room name. \Fig{fig:03_impl_servlets_createroom_create} also shows, how the room name has been encoded. The example shows that the name \textit{Web Architectures} has been encoded to \textit{Web+Architectures}.
+
+
+\newpage
 \subsubsection{Room}\label{subsubsec:03_impl_servlets_room}
 % Figure
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.3]{images/03_impl/room/chat_all_steps}
-\caption{Creation-process of \textit{user3}}
+\includegraphics[scale=0.25]{images/03_impl/room/chat_all_steps}
+\caption{Chat interaction between two different users in a room}
 \label{fig:03_impl_servlets_admin_chat}
 \end{figure}
 % Explain figure
@@ -197,16 +219,72 @@ To update newly created messages, the view reloads itself every 15 seconds using
 % HTML for
 The admin can fill out the HTML-form of the \textit{Admin-Page}. After clicking submit, it will send the data (\texttt{username} and \texttt{password}) via a \texttt{POST} request to itself.
 % Servlet
-The \texttt{AdminServlet}, validates the the \texttt{POST} request attributes and checks if the user already exist If the user does not exist, the user will be add via the \texttt{addUser} method of the \texttt{UserStore}. As mentioned in SEC USERSTORE, the \texttt{UserStore} will write the user to the \texttt{users.txt} file.
+The \texttt{AdminServlet}, validates the the \texttt{POST} request attributes and checks if the user already exist. If the user does not exist, the user will be add via the \texttt{addUser} method of the \texttt{UserStore}. As mentioned in \Sec{subsec:03_impl_objstores}, the \texttt{UserStore} will write the user to the \texttt{users.txt} file.
 % Check credentials
 To check if the given credentials are valid, the \texttt{AdminServlet} checks if the given \texttt{username} and \texttt{password} are not \texttt{null}. Otherwise, the \texttt{AdminServlet} will response with a \texttt{400 - Bad Request} HTTP error. Additionally, the \texttt{AdminServlet} checks if the length of the \texttt{username} and \texttt{password} is bigger than 0, and if the \texttt{username} does not equal \textit{admin}. If one condition is not true, the \texttt{AdminServlet} executes the \texttt{doGet} method to reload itself.
 
+
+% ==============
+% ==============
+\subsection{Banner}\label{subsec:04_impl_banner}
+% The banner
+As mentioned in \Sec{subsec:02_design_routes}, a \textit{Banner} is included in each page.
+% No servlet
+The \textit{Banner} only consists of a \texttt{JSP} file. It shows the name of the active user, and a link to the logout route.
+% Admin
+Additionally, if the active user is the \textit{admin} user, the \textit{Banner} presents link to the \textit{Admin-Page}.
+% Figure
+\Fig{fig:04_impl_banner_banner} shows the different \textit{Banner} for a normal user, and the \textit{admin} user for the \textit{User-Page}.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/banner/banner}
+\caption{Different Banner for different users}
+\label{fig:04_impl_banner_banner}
+\end{figure}
 
 
 % ==============
 % ==============
 \subsection{Filters}\label{subsec:03_impl_filters}
+% Why
+Because users have to authenticate to access rooms and write messages, filters are needed to check if a user is authenticated.
+% Admin
+Additionally, as mention in \Sec{subsubsec:02_design_routes_admin}, only the \textit{admin} user is allowed to access the \textit{Admin-Page}. Therefore, an additional filter is needed which ensures this behaviour.
+% Which filter
+To conclude this requirements, the following filters are implemented:
+\begin{itemize}
+\item \texttt{AuthFilter}
+\item \texttt{AdminFilter}
+\end{itemize}
+
 
 \subsubsection{Authentication}\label{subsubsec:03_impl_filters_auth}
+% What it does
+As mentioned before, the chat system is only available for authenticated users. Therefore, a filter called \texttt{AuthFilter} checks if a request to a route, described in \Sec{subsec:02_design_routes}, has been made by an authenticated user.
+% How
+The \texttt{AuthFilter} checks if the session attribute \texttt{is\_authenticated} is set to \texttt{true}. This attribute is set by the \texttt{AuthLoginServlet} after a successful login, described in \Sec{subsubsec:03_impl_servlets_auth}.
+% Otherwise
+Otherwise, if a session does not exist or the \texttt{is\_authenticated} attribute is not set to \texttt{true}, the \texttt{AuthFilter} redirects the client to the \textit{Login-Page}. \Fig{fig:03_impl_filters_auth_redirect} shows the login HTML form after an unauthorized request has been made to the \textit{User-Page}.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{images/03_impl/auth-filter/redirect}
+\caption{Redirect to the \textit{Login-Page}}
+\label{fig:03_impl_filters_auth_redirect}
+\end{figure}
 
+
+\newpage
 \subsubsection{Admin}\label{subsubsec:03_impl_filters_admin}
+% What
+The \texttt{AdminFilter} checks if a request has been made to the \textit{Admin-Page}. If the request was made by an authenticated user, and the name of the user is equal to \textit{admin}, the filter redirects the user to the \textit{Admin-Page}.
+% Otherwise
+Otherwise, as illustrated in \Fig{fig:03_impl_filters_admin_forbidden}, the \texttt{AdminFilter} sends a \texttt{403 - Forbidden} HTTP error response.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{images/03_impl/admin-filter/forbidden}
+\caption{\texttt{403 - Forbidden} HTTP error response}
+\label{fig:03_impl_filters_admin_forbidden}
+\end{figure}

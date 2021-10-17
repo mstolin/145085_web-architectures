@@ -1,32 +1,11 @@
 \section{Introduction}\label{sec:01_intro}
 % Intro to the Task
-The task of this assignment is to implement a chat system using Java Servlets.
-Different users can login at the same time, create different rooms, and chat in a room with each other.
-In addition, an admin user can login as well, and create new user from the \textit{admin-page}.
+The task of this assignment is to implement a chat system. In this chat system, users can create different rooms where multiple users can send messages to each other.
 
-
-\subsection{Problem Statement}\label{subsec:01_intro_problemstatement}
-For this assignment, it is necessary to implement a custom storage system, because using a Database is not part of the assignment.
-Therefore, a custom storage system has to be implemented, which is able to store users, and rooms, fir as long as the HTTP server is running. The users are supposed to be stored in a text file.
+% Custom storage
+It is necessary to implement a custom storage system, because using a Database is not part of the assignment.
+Therefore, a custom storage system has to be implemented, which is able to store users, rooms, and messages. It is important to mention, that the life-time of rooms and messages are are bound to the webserver. This means, if the webserver stops running, all rooms and messages are being removed from the memory. However, users should be read from a text file. A special user called admin can write new users to the text file.
 % Authentication
-Additionally, a authentication system has to implemented. It should restrict unauthorized users to use the chat. If a request of an
-unauthorized user has been made, the user should be forwarded to the login page first.
-% Admin
-However, there exists a special user called \textit{admin}, which is allowed to request the \textit{admin-page} where user can be created.
-
-
-\subsection{Domain Description}\label{subsec:01_intro_domaindescription}
-
-
-% What is what, user room, etc
-
-Given the above mentioned problem statement, the following steps have to be implemented:
-\begin{enumerate}
-\item Create a temporal object storage
-\item Implement an authentication system
-\item Develop controller and views for all needed routes
-\end{enumerate}
-
-
-
-% MVC PAttern !!!!
+Additionally, users can authenticate using a username and a password. Otherwise, unauthorized requests are forbidden.
+% MVC
+Another requirement, is to implement this chat system using the Model-View-Controller (MVC) pattern.
