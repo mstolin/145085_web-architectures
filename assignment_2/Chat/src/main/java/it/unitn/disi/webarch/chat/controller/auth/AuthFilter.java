@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.chat.controller.admin;
+package it.unitn.disi.webarch.chat.controller.auth;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
