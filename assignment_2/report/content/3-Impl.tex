@@ -104,10 +104,65 @@ The user servlet is responsible to list all available rooms. If the user clicks 
 % Empty rooms
 If no rooms are available, the view shows a text and refers to the create-room page via a link. 
 
+
 \subsubsection{Room}\label{subsubsec:03_impl_servlets_room}
-When a user enters a room, the user can send messages. All user who are logged in and have entered the same room are able to see the messages. The room is saved as a attribute, called activeRoom, in the request. Therefore it is available as a Java Bean in the corresponding view. LST shows bla bla.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{images/03_impl/room/chat_all_steps}
+\caption{Creation-process of \textit{user3}}
+\label{fig:03_impl_servlets_admin_chat}
+\end{figure}
+% Explain figure
+In a \textit{Room-Page}, multiple users can chat with each other, which is shown in \Fig{fig:03_impl_servlets_admin_chat}.
+% The view
+The \texttt{RoomServlet} owns a view called \texttt{Room.jsp}, which shows an HTML-Form, and lists all messages of the active Room.
+
+% The active room
+The active room is set as a Java Bean in the request. Therefore, the \texttt{JSP} view can access the model of the active room via \texttt{jsp:getProperty}. Then, all messages which belongs to the active room can be received via the \texttt{getMessages()} method of a \texttt{Room} model and can be listed in a \texttt{ul} element using a \texttt{for} loop. \Lst{lst:03_impl_servlets_room_bean} shows the implementation, how messages are listed in the room view.
+% The listing
+\begin{lstlisting}[label=lst:03_impl_servlets_room_bean, caption=List messages for a specific room, language=html]
+<%@ page import="java.util.List" %>
+<%@ page import="it.unitn.disi.webarch.chat.models.room.Message" %>
+<jsp:useBean id="activeRoom" class="it.unitn.disi.webarch.chat.models.room.Room" scope="request" />
+...
+<body>
+<%
+List<Message> messages = activeRoom.getMessages();
+for(Message message: messages) {
+%>
+  <div>
+    <p><em><%= message.getUser() %> at <%= message.getFormattedDate() %>:</em></p>
+    <p><%= message.getMessage() %></p>
+  </div>
+<% } %>
+</body>
+\end{lstlisting}
+
+% Send messages
+The HTML-form sends a \texttt{POST} request to itself. The request consists of an attribute called \texttt{message}, which is the message text of the user. After a \texttt{POST} request has been made, the \texttt{RoomServlet} constructs a new \texttt{Message} model, using the message text received from the \texttt{POST} request, and the username of the active user which is saved in the HTTP session. After that, the newly created \texttt{Message} model is added to the active \texttt{Room} model via the \texttt{addMessage} method. Finally, the page gets reloaded using the \texttt{doGet} method of the servlet. If the request is not valid (no room requested), the \texttt{RoomServlet} responses with a \texttt{400 - Bad Request} HTTP error. Otherwise, if the requested room does not exists, the \texttt{RoomServlet} responses a \texttt{404 - Not Found} HTTP error.
+
+% Reload
+To update newly created messages, the view reloads itself every 15 seconds using \texttt{<meta http-equiv="refresh" content="15">}.
+
 
 \subsubsection{Admin}\label{subsubsec:03_impl_servlets_admin}
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/admin/create_user_all}
+\caption{Creation-process of \textit{user3}}
+\label{fig:03_impl_servlets_room_createall}
+\end{figure}
+% Explain figure
+\Fig{fig:03_impl_servlets_room_createall} illustrates the successful creation-process of a user.
+% HTML for
+The admin can fill out the HTML-form of the \textit{Admin-Page}. After clicking submit, it will send the data (\texttt{username} and \texttt{password}) via a \texttt{POST} request to itself.
+% Servlet
+The \texttt{AdminServlet}, validates the the \texttt{POST} request attributes and checks if the user already exist If the user does not exist, the user will be add via the \texttt{addUser} method of the \texttt{UserStore}. As mentioned in SEC USERSTORE, the \texttt{UserStore} will write the user to the \texttt{users.txt} file.
+% Check credentials
+To check if the given credentials are valid, the \texttt{AdminServlet} checks if the given \texttt{username} and \texttt{password} are not \texttt{null}. Otherwise, the \texttt{AdminServlet} will response with a \texttt{400 - Bad Request} HTTP error. Additionally, the \texttt{AdminServlet} checks if the length of the \texttt{username} and \texttt{password} is bigger than 0, and if the \texttt{username} does not equal \textit{admin}. If one condition is not true, the \texttt{AdminServlet} executes the \texttt{doGet} method to reload itself.
+
 
 
 % ==============
