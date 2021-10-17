@@ -88,21 +88,55 @@ Most of the mentioned servlets, own a specific view (a JSP file) which is saved 
 \subsubsection{Authentication}\label{subsubsec:03_impl_servlets_auth}
 For authentication, the AuthLoginServlet and the AuthLogoutServlet are created.
 % Login
-The \texttt{AuthLoginServlet} requires a \texttt{POST} request, and validates the request accordingly. If the given username and password are valid credentials (the user with the given name exist, and the password is correct), the \texttt{AuthLoginServlet} create a new \texttt{HTTPSession}, sets the active user, and the attribute \texttt{is\_authenticated} to \texttt{true}. This property is important for the \texttt{AuthFilter} introduced in SEC FILTER.]
+The \texttt{AuthLoginServlet} requires a \texttt{POST} request, and validates the request accordingly. If the given username and password are valid credentials (the user with the given name exist, and the password is correct), the \texttt{AuthLoginServlet} creates a new \texttt{HTTPSession}, sets the active user, and the attribute \texttt{is\_authenticated} to \texttt{true}. This property is important for the \texttt{AuthFilter} introduced in \Sec{subsubsec:03_impl_filters_auth}. After that, the \texttt{AuthLoginServlet} redirects the user to the \textit{User-Page}.
+% Invalid credentials
+If the \texttt{POST} request is invalid (no username and password set), the \texttt{AuthLoginServlet} sends a \texttt{400 - Bad Request} HTTP error. Otherwise, if the request is valid, but the credentials are invalid (wrong username or wrong password), the \texttt{AuthLoginServlet} redirects back to the \textit{Login-Page}.
 
 % Logout
-To logout, the AuthLogoutServlet exist. It invalidates the HTTPSession of an active user
+To logout, the \texttt{AuthLogoutServlet} exist. If a \texttt{GET} request is made from an active user, it invalidates the \texttt{HTTPSession} and redirects to the \textit{Login-Page}.
 
 
 \subsubsection{Login}\label{subsubsec:03_impl_servlets_login}
-The LoginServlet shows a view called Login.jsp, which includes an HTML-form. The user has to insert the username and the password. Then the credentials are submitted to the AuthLoginServlet via a POST request.
-If the credentials are parsed correctly by the AuthLoginServlet, the user is being redicrected to the user page, otherwise the servlet reloads itself.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{images/03_impl/login/login_form}
+\caption{The login HTML form}
+\label{fig:03_impl_servlets_login_form}
+\end{figure}
+% Explain figure
+\Fig{fig:03_impl_servlets_login_form} shows the \textit{Login-Page}. It consists of a single HTML form which sends a \texttt{POST} request to the \texttt{AuthLoginServlet} (introduced before in \Sec{subsubsec:03_impl_servlets_auth}) consisting of the username and the corresponding password.
 
 
 \subsubsection{User}\label{subsubsec:03_impl_servlets_user}
-The user servlet is responsible to list all available rooms. If the user clicks on a room link, the user will be redirected to the room.
-% Empty rooms
-If no rooms are available, the view shows a text and refers to the create-room page via a link. 
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/user/userpage_before_after}
+\caption{Creation-process of \textit{user3}}
+\label{fig:03_impl_servlets_user_beforeafter}
+\end{figure}
+% Explain figure
+\Fig{fig:03_impl_servlets_user_beforeafter} shows the \textit{User-Page}. It is shown that the \textit{User-Page} lists all available rooms, otherwise a message if no rooms exists.
+% How
+The view reads all available rooms from the \texttt{RoomStore} (introduced in SEC ROOMSTORE) and uses a \texttt{for} loop to list the rooms as clickable links in a \texttt{ul} element, which is shown in \Lst{lst:03_impl_servlets_user}.
+% List rooms
+\begin{lstlisting}[label=lst:03_impl_servlets_user, caption=List all available rooms, language=html]
+<%@ page import="java.util.Set" %>
+<%@ page import="it.unitn.disi.webarch.chat.helper.RoomStore" %>
+<%@ page import="it.unitn.disi.webarch.chat.models.room.Room" %>
+<%
+    Set<Room> rooms = RoomStore.getInstance().getAll();
+%>
+...
+<body>
+<ul>
+  <% for(Room room: rooms) { %>
+    <li><a href="<% request.getContextPath(); %>/room/<%= room.getName() %>"><%= room.getName() %></a></li>
+  <% } %>
+</ul>
+</body>
+\end{lstlisting}
 
 
 \subsubsection{Room}\label{subsubsec:03_impl_servlets_room}
@@ -146,6 +180,7 @@ The HTML-form sends a \texttt{POST} request to itself. The request consists of a
 To update newly created messages, the view reloads itself every 15 seconds using \texttt{<meta http-equiv="refresh" content="15">}.
 
 
+\newpage
 \subsubsection{Admin}\label{subsubsec:03_impl_servlets_admin}
 % Figure
 \begin{figure}[h]
