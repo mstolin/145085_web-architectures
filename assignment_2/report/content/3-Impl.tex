@@ -57,15 +57,18 @@ Because a user and room can only exists once, a \texttt{Set}\footnote{Set (Java 
 % Abstract class
 Therefore, an abstract class called \texttt{ObjectsStore} is implemented, which implements the previously mentioned functionalities.
 % Generics
-The \texttt{ObjectStore} uses generics to implement the properties and methods. The \texttt{UserStore} and \texttt{RoomStore} implement this \texttt{ObjectStore} class and set the model (\texttt{User} and \texttt{Room}, respectively) for the generic type.
+The \texttt{ObjectStore} uses generics to implement the properties and methods. The \texttt{UserStore} and \texttt{RoomStore} implement the \texttt{ObjectStore} class and set the model (\texttt{User} and \texttt{Room}, respectively) for the generic type.
 % Lifetime
-The lifetime of an object saved to a store, is equal to the lifetime of the running webserver. As long as the webserver is running, an the objects are saved to memory.
+The lifetime of an object saved to a store, is equal to the lifetime of the running webserver. As long as the webserver is running, the objects are saved to memory. If the webserver gets shout down, all rooms and messages are being removed from the memory.
 % Lifetime of user
-Except for the \texttt{UserStore}, which reads all \texttt{User} models from a text file, and write Users to a text file. Therefore, when the server restarts, all previously added \texttt{User} modes are available again.
+Except for the \texttt{UserStore}, which reads all \texttt{User} models from a text file, and writes newly created Users to a text file. Therefore, when the server restarts, all previously added \texttt{User} models are available again.
 
-%
-% SINGLETON PATTERN !!!
-%
+% Singleton pattern
+To make the same set of Users, and Rooms available for each single servlet instance, the singleton pattern is used for the stores. This ensures, that all servlets work with the same set of Users and Rooms. An example of the singleton usage is shown in \Lst{lst:03_impl_objstores_singleton}.
+% Singleton example
+\begin{lstlisting}[label=lst:03_impl_objstores_singleton, caption=Example usage of the singleton pattern, language=java]
+Set<Room> rooms = RoomStore.getInstance().getAll();
+\end{lstlisting}
 
 
 % ==============
