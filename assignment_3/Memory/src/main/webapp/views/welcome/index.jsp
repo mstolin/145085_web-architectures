@@ -5,10 +5,11 @@
         <title>Welcome</title>
     </head>
     <body>
-        <h1>Welcome</h1>
+        <h1>Welcome, unknown friend!</h1>
         <form action="<% config.getServletContext(); %>/welcome" method="POST">
-            <label for="username">Username:</label>
+            <label for="username">Enter your name:</label>
             <input type="text" name="username" id="username" />
+            <input type="submit" value="Let's go!" />
         </form>
     </body>
 </html>
