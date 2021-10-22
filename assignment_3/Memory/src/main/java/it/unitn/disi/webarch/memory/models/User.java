@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.memory.memory.models;
+package it.unitn.disi.webarch.memory.models;
 
 import java.io.Serializable;
 

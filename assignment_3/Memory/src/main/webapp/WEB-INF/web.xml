@@ -7,7 +7,7 @@
     <!-- WelcomeServlet -->
     <servlet>
         <servlet-name>WelcomeServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.memory.memory.controller.welcome.WelcomeServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.memory.controller.welcome.WelcomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>
@@ -19,7 +19,7 @@
     <!-- MemoryServlet -->
     <servlet>
         <servlet-name>MemoryServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.memory.memory.controller.memory.MemoryServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MemoryServlet</servlet-name>

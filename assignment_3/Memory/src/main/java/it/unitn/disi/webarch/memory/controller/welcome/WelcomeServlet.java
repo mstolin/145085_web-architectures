@@ -1,6 +1,6 @@
-package it.unitn.disi.webarch.memory.memory.controller.welcome;
+package it.unitn.disi.webarch.memory.controller.welcome;
 
-import it.unitn.disi.webarch.memory.memory.models.User;
+import it.unitn.disi.webarch.memory.models.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

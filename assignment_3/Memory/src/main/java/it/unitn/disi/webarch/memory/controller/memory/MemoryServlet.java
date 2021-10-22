@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.memory.memory.controller.memory;
+package it.unitn.disi.webarch.memory.controller.memory;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
