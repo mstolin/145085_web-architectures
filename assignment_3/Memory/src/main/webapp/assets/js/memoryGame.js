@@ -8,22 +8,25 @@ document.addEventListener("DOMContentLoaded", _ => {
     game.setEventListener("onSelection", function(params) {
         console.log("ON SELECTION", params);
         updateImage(params.elementIndex, params.selectedValue);
-    })
+
+        let element = document.getElementById("numberOfTries");
+        element.innerText = params.tries;
+    });
     game.setEventListener("onFailure", function(params) {
         console.log("ON FAILURE", params);
-    })
+    });
     game.setEventListener("onSuccess", function(params) {
         console.log("ON SUCCESS", params);
-    })
+    });
     game.setEventListener("onGameEnded", function(params) {
         console.log("ON GAME ENDED", params);
-    })
+    });
 
     let allCards = document.getElementsByClassName("memoryCard");
     console.log(`Got ${allCards.length} cards`);
 
     Array.from(allCards).forEach((element, index) => {
-        element.addEventListener("click", event => {
+        element.addEventListener("click", _ => {
             game.cardSelected(index);
         });
     });

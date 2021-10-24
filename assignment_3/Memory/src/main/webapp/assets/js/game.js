@@ -13,7 +13,8 @@ class Game {
     "onSelection": null,
     "onSuccess": null,
     "onFailure": null,
-    "onGameEnded": null
+    "onGameEnded": null,
+    "onTriesUpdated": null
   };
 
   constructor(differentCards, grid, maxTries) {
@@ -25,11 +26,17 @@ class Game {
   cardSelected(selectedIndex) {
     if (this.tries <= this.maxTries) {
       this.increaseTries();
-      console.log(`User has ${this.maxTries - this.tries} tries left`)
+      console.log(`User has ${this.maxTries - this.tries} of ${this.maxTries} tries left`)
 
       let colIndex = Math.floor(selectedIndex / (differentCards / 2));
       let rowIndex = selectedIndex % (differentCards / 2);
       let selectedValue = this.grid.getValue(colIndex, rowIndex);
+
+      this.performEventListener("onSelection", {
+        elementIndex: selectedIndex,
+        selectedValue: selectedValue,
+        tries: this.tries
+      });
 
       if (this.currentSelection != null) {
         // a selection has already been made
@@ -59,10 +66,6 @@ class Game {
         // set the selection
         this.currentSelection = selectedValue;
         console.log("Set current selection to", this.currentSelection);
-        this.performEventListener("onSelection", {
-          elementIndex: selectedIndex,
-          selectedValue: selectedValue
-        });
       }
     } else {
       console.log(`Game has already ended with ${this.numberOfSuccessTries} successful tries and ${this.numberOfFailedTries} failed tries`);
@@ -71,6 +74,10 @@ class Game {
 
   increaseTries() {
     this.tries = this.tries + 1;
+
+    this.performEventListener("onTriesUpdated", {
+      tries: this.tries
+    });
 
     if (this.tries == this.maxTries) {
       this.performEventListener("onGameEnded", null);
