@@ -34,8 +34,8 @@ public class WelcomeServlet extends HttpServlet {
             session.setAttribute(SESSION_KEY_USER, user);
 
             // redirect to memory
-            this.logger.info("Forward to memory game at /");
-            response.sendRedirect("/");
+            this.logger.info("Forward to ranking at /ranking");
+            response.sendRedirect("/ranking");
         } else {
             this.logger.warning("POST Request with username " + username + " was not successful");
             response.sendError(400);
