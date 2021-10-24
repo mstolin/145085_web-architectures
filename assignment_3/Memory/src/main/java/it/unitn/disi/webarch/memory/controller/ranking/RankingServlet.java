@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.memory.controller.memory;
+package it.unitn.disi.webarch.memory.controller.ranking;
 
 import it.unitn.disi.webarch.memory.models.Scoreboard;
 import it.unitn.disi.webarch.memory.models.User;
@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class MemoryServlet extends HttpServlet {
+public class RankingServlet extends HttpServlet {
 
     private final String REQUEST_KEY_USERNAME = "username";
     private final String REQUEST_KEY_POINTS = "points";
@@ -19,7 +19,7 @@ public class MemoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext()
-                .getRequestDispatcher("/views/memory/index.jsp")
+                .getRequestDispatcher("/views/ranking/index.jsp")
                 .forward(request, response);
     }
 

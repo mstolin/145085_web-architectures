@@ -25,7 +25,8 @@
         </c:choose>
     </div>
     <div>
-        <button>Play Games</button>
+        <!--<button>Play Game</button>-->
+        <a href="<% config.getServletContext(); %>/play">Play Game</a>
     </div>
     </body>
 </html>

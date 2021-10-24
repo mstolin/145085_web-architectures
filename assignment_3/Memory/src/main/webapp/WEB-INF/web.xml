@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!-- WelcomeServlet -->
+    <!-- Welcome -->
     <servlet>
         <servlet-name>WelcomeServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.memory.controller.welcome.WelcomeServlet</servlet-class>
@@ -13,8 +13,6 @@
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/welcome</url-pattern>
     </servlet-mapping>
-
-    <!-- WelcomeFilter -->
     <filter>
         <filter-name>WelcomeFilter</filter-name>
         <filter-class>it.unitn.disi.webarch.memory.filters.WelcomeFilter</filter-class>
@@ -24,14 +22,24 @@
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
-    <!-- MemoryServlet -->
+    <!-- Ranking -->
     <servlet>
-        <servlet-name>MemoryServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryServlet</servlet-class>
+        <servlet-name>RankingServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.memory.controller.ranking.RankingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MemoryServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>RankingServlet</servlet-name>
+        <url-pattern>/ranking</url-pattern>
+    </servlet-mapping>
+
+    <!-- Memory -->
+    <servlet>
+        <servlet-name>MemoryPlayServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryPlayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MemoryPlayServlet</servlet-name>
+        <url-pattern>/play</url-pattern>
     </servlet-mapping>
 
 

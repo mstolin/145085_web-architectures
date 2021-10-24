@@ -9,7 +9,7 @@ public class MemoryPlayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext()
-                .getRequestDispatcher("/views/memory/play/index.html")
+                .getRequestDispatcher("/views/memory/index.html")
                 .forward(request, response);
     }
 
