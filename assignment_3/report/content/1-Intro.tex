@@ -1,0 +1,11 @@
+\section{Introduction}\label{sec:01_intro}
+% Intro to the Task
+The task of this assignment is to implement a chat system. In this chat system, users can create different rooms where multiple users can send messages to each other.
+
+% Custom storage
+It is necessary to implement a custom storage system because using a Database is not part of the assignment.
+Therefore, a custom storage system has to be implemented, which can store users, rooms, and messages. It is important to mention, that the lifetime of rooms and messages are bound to the webserver. This means, if the webserver stops running, all rooms and messages are being removed from the memory. However, users should be read from a text file. A special user called admin can write new users to the text file.
+% Authentication
+Additionally, users can authenticate using a username and a password. Otherwise, unauthorized requests are forbidden.
+% MVC
+Another requirement is to implement this chat system using the Model-View-Controller (MVC) pattern.
