@@ -1,7 +1,7 @@
 let differentCards = 8;
 var selectedFirstImage = null;
 var selectedSecondImage = null;
-let alreadyGuessedCorrect = [];
+let alreadyGuessed = [];
 
 document.addEventListener("DOMContentLoaded", _ => {
     let grid = new Grid(differentCards); // put in game.js
@@ -11,9 +11,7 @@ document.addEventListener("DOMContentLoaded", _ => {
     game.setEventListener("onSelection", onSelection);
     game.setEventListener("onFailure", onFailure);
     game.setEventListener("onSuccess", onSuccess);
-    game.setEventListener("onGameEnded", function(params) {
-        console.log("ON GAME ENDED", params);
-    });
+    game.setEventListener("onGameEnded", onGameEnded);
 
     //let allCards = document.getElementsByClassName("memoryCard");
     let allCardIds = getAllCardIds(differentCards);
@@ -22,7 +20,7 @@ document.addEventListener("DOMContentLoaded", _ => {
     allCardIds.forEach((id, index) => {
         let element = document.getElementById(id);
         element.addEventListener("click", event => {
-            if (event.target != selectedFirstImage && event.target != selectedSecondImage && !alreadyGuessedCorrect.includes(event.target)) {
+            if (event.target != selectedFirstImage && event.target != selectedSecondImage && !alreadyGuessed.includes(event.target)) {
                 game.cardSelected(index, id);
             } else {
                 console.log("THIS WAS ALREADY SELECTED");
@@ -62,6 +60,11 @@ function updatePoints(points) {
     element.innerText = points;
 }
 
+function disableAllCards() {
+    console.log("Disable all cards");
+    alreadyGuessed = Array.from(document.getElementsByClassName("memoryCard"));
+}
+
 function onSelection(params) {
     console.log("ON SELECTION", params);
     // get image element
@@ -91,10 +94,13 @@ function onFailure(params) {
 }
 
 function onSuccess(params) {
-    console.log("PARAMS", params);
     // mark elements
-    alreadyGuessedCorrect.push(selectedFirstImage);
-    alreadyGuessedCorrect.push(selectedSecondImage);
+    alreadyGuessed.push(selectedFirstImage);
+    alreadyGuessed.push(selectedSecondImage);
     updatePoints(params.points);
     resetSelection(false);
+}
+
+function onGameEnded(params) {
+    disableAllCards();
 }
