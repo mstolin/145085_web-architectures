@@ -3,53 +3,65 @@
 The conceptual design is based on the problem statement introduced in \Sec{sec:01_intro}.
 
 
-\subsection{Data Storage}\label{subsec:02_design_datastorage}
+\subsection{Backend}\label{subsec:02_design_backend}
 % What
-As mentioned in \Sec{sec:01_intro}, a custom storage system has to be implemented.
-% Rooms
-The user can create multiple rooms. When the user opens a room, the user can send messages inside the selected room. A room should only exist as long as the server is running. Therefore, the custom storage system should be able to store rooms, and messages associated with a specific room.
-
-% Users
-Additionally, the \textit{admin} user has can create new users. Users are saved consistently in a text file and should be available after the server has restarted.
-Given this, a \textit{UserStore} has to be implemented, which can read and write user objects from/to a text file. If the webserver restarts, all newly created users need to be available again.
-
-
-\subsection{Routes}\label{subsec:02_design_routes}
-% Which routes
-The following pages need to be available in the chat system:
+The backend is responsible to provide authentication to the user. Additionally, after the user is authenticated, the user should be able to see a ranking of all users. Furthermore, the grid of the memory game is supposed to be generated on the server side.
+% Which pages:
+Therefore, the following paths have to be created:
+% Paths
 \begin{itemize}
-\item \textit{Login-Page}, route: \path{http://localhost/login}
-\item \textit{User-Page}, route: \path{http://localhost/user}
-\item \textit{Room-Page}, route: \path{http://localhost/room/ROOM_NAME}
-\item \textit{Create-Room-Page}, route: \path{http://localhost/room-create}
-\item \textit{Admin-Page}, route: \path{http://localhost/admin}
+\item Authentication \path{/authentication}
+\item Ranking \path{/ranking}
+\item Grid \path{/grid}
 \end{itemize}
 
-% Banner
-It is important to mention, that each page, except the \textit{Login-Page}, includes a \textit{Banner} where the user can see a logout link and the username. If the active user is the \textit{admin} user, there will also be an \textit{Admin-Page} link available.
+\subsubsection{Authentication}\label{subsubsec:02_design_backend_auth}
+% Only username
+Whenever a user visits the application for the first time, the user has to provide a username. If not, the user should not be able to access the game, and will be redirected to the authentication page until the user enters a name.
+% After auth
+After the user has entered a name, the user will be redirected to the ranking page.
 
-\subsubsection{Login-Page}\label{subsubsec:02_design_routes_login}
-At the \textit{Login-Page}, the user sees an HTML form where the user can insert a username and a password. If the credentials are correct, the user will be forwarded to the \textit{User-Page} after the form has been submitted.
+\subsubsection{Ranking}\label{subsubsec:02_design_backend_ranking}
+% A ranking
+On the ranking page, the user can see a list of all user who played a game before. Additionally to the username, the list shows the number of points the user has achieved.
+% Play game
+Furthermore, on the ranking page, the user can click the button Play game to start the memory game.
 
-\subsubsection{User-Page}\label{subsubsec:02_design_routes_userpage}
-After the user has logged in successfully, the user will be forwarded to the User-page. There, the user sees all available rooms which are clickable, a link to the \textit{Create-Room-Page}, and the above-mentioned \textit{Banner}.
+\subsubsection{Memory Grid}\label{subsubsec:02_design_backend_grid}
+% Arrange in Grid
+When the user start the game, the game needs to know how to arrange the cards in a grid. Therefore, the backend has to generate a 2D array of the grid.
+% How does the grid looks like
+The grid consists of 16 cards in a 4x4 grid. Each card exists 2 times, therefore there are 8 different cards on the grid in total.
 
-\subsubsection{Room-Page}\label{subsubsec:02_design_routes_room}
-When the user clicks on the name of a room, the user opens the \textit{Room-page} where authenticated users can chat which each other.
+% Dev and production
+In addition, it should be possible to decide of the backend operates in a \textit{development} or \textit{production} mode.
+% Dev mode
+If development mode is activated, the grid is generated in a deterministic way.
+% Production mode
+Otherwise, in production mode, the grid is generated in a random way.
+% Fig
+\Fig{fig:02_design_backend_grid_grid} shows an example of the different grid versions for each mode.
+% Grid figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/02_design/backend/grid-dev-prod-mode.png}
+\caption{Example of the grid for \textit{development} and \textit{production} mode}
+\label{fig:02_design_backend_grid_grid}
+\end{figure}
 
-\subsubsection{Create-Room-Page}\label{subsubsec:02_design_routes_createroom}
-At the \textit{Create-Room-Page}, an authenticated user can create a new room through an HTML form. After the form has been sent successfully, the user will be redirected back to the \textit{User-page}, where the user sees the newly created room.
-
-\subsubsection{Admin-Page}\label{subsubsec:02_design_routes_admin}
-If the active user is the \textit{admin} user, the user can access the \textit{Admin-Page}. There, the \textit{admin} user sees the name of all available user, and create new users through an HTML-form which will be saved to the text file mentioned in \Sec{subsec:02_design_datastorage}.
+% Grid value
+Additionally, the game will make a \texttt{POST} request to the grid, to receive the value of a position in the grid.
 
 
-\subsection{Authentication}\label{subsec:02_design_authentication}
-% Filter needed
-Users need to authenticate first to be able to access the above-mentioned pages of the chat system, except the \textit{Login-Page}. Therefore, a filter is implemented which is responsible to check the authentication status of the user, every time a request has been made.
-% Session
-The authentication status of the user is saved as an attribute in the session. The session will be created after a user has been logged in successfully.
+\subsection{Frontend}\label{subsec:02_design_frontend}
+% Whats the frontend
+The frontend part of the application consists of the Memory game.
+% Cards
+It show 16 cards in a grid (introduced in \Sec{subsubsec:02_design_backend_grid}). The user can click on a card a the card will flip. After that, the user can click on a second card and the card will flip as well. After a card has been clicked, it will become unclickable as long as the user makes finishes the guess.
+% Matching or not
+If both cards match the guess was successful and the points will be added to the score of the user. The added points are two times the guessed card value (e.g. if both cards have the value 4, 8 points will be added to the user score). Otherwise, if the guess was incorrect, one point will be subtracted from the points of the user.
+% How to check a card value
+To get the value of a card, the frontend has to send a request to the backend given the index of the card in the grid. Then, the backend returns the card value.
+% How long does a game goe
+The user can make 8 guesses (4 attempts to find pairs) in total. After that, the game finishes. Then, a \textit{Game Over} label appears, and after 1 second, the user will be redirected to the ranking page.
 
-
-% Admin
-As mentioned in \Sec{subsec:02_design_routes}, a special page called \textit{Admin-Page} exist, which can only be accessed by the \textit{admin} user. Therefore, an additional filter is needed to check if a request has been made to the \textit{Admin-Page} route, and check if the user is authenticated and if the user is the \textit{admin} user. Otherwise, the server responds with an HTTP error.

@@ -1,11 +1,11 @@
 \section{Introduction}\label{sec:01_intro}
 % Intro to the Task
-The task of this assignment is to implement a chat system. In this chat system, users can create different rooms where multiple users can send messages to each other.
+The task of the third assignment is to create a web version of the Memory game. In this game, different user can play a game and see the highscore of all users who have played before.
 
-% Custom storage
-It is necessary to implement a custom storage system because using a Database is not part of the assignment.
-Therefore, a custom storage system has to be implemented, which can store users, rooms, and messages. It is important to mention, that the lifetime of rooms and messages are bound to the webserver. This means, if the webserver stops running, all rooms and messages are being removed from the memory. However, users should be read from a text file. A special user called admin can write new users to the text file.
-% Authentication
-Additionally, users can authenticate using a username and a password. Otherwise, unauthorized requests are forbidden.
-% MVC
-Another requirement is to implement this chat system using the Model-View-Controller (MVC) pattern.
+% Server side
+The applications is composed of two systems, the backend and frontend.
+% Backend
+The backend is responsible to authenticate the user with a username, save the highscore of each user, and respond the number of points for each guess made by the user. Additionally, it should be possible to set a \textit{development mode}, where the grid of the memory is deterministic. Otherwise, in \textit{production mode}, the grid is generated randomly.
+
+% Frontend
+The frontend side consists of the game (User Interface),v where the user can play the actual game. This frontend has to be implemented using JavaScript and it should communicate with the backend using Ajax.
