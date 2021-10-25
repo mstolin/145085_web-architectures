@@ -26,7 +26,7 @@ class Game {
   }
 
   cardSelected(selectedIndex, elementId) {
-    if (this.tries <= this.maxTries) {
+    if (this.tries < this.maxTries) {
       let selectedValue = this.translateSelectedIndexToValue(selectedIndex); // put in grid
       this.increaseTries();
       console.log(`User has ${this.maxTries - this.tries} of ${this.maxTries} tries left`)
