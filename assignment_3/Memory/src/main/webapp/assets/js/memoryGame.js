@@ -1,43 +1,93 @@
 let differentCards = 8;
+var selectedFirstImage = null;
+var selectedSecondImage = null;
+let alreadyGuessedCorrect = [];
 
 document.addEventListener("DOMContentLoaded", _ => {
     let grid = new Grid(differentCards);
     console.log("Grid:", grid.getGrid());
 
     let game = new Game(8, grid, 8);
-    game.setEventListener("onSelection", function(params) {
-        console.log("ON SELECTION", params);
-        updateImage(params.elementIndex, params.selectedValue);
-
-        let element = document.getElementById("numberOfTries");
-        element.innerText = params.tries;
-    });
-    game.setEventListener("onFailure", function(params) {
-        console.log("ON FAILURE", params);
-    });
-    game.setEventListener("onSuccess", function(params) {
-        console.log("ON SUCCESS", params);
-    });
+    game.setEventListener("onSelection", onSelection);
+    game.setEventListener("onFailure", onFailure);
+    game.setEventListener("onSuccess", onSuccess);
     game.setEventListener("onGameEnded", function(params) {
         console.log("ON GAME ENDED", params);
     });
 
-    let allCards = document.getElementsByClassName("memoryCard");
-    console.log(`Got ${allCards.length} cards`);
+    //let allCards = document.getElementsByClassName("memoryCard");
+    let allCardIds = getAllCardIds(differentCards);
+    console.log(`Got ${allCardIds.length} cards`);
 
-    Array.from(allCards).forEach((element, index) => {
-        element.addEventListener("click", _ => {
-            game.cardSelected(index);
+    allCardIds.forEach((id, index) => {
+        let element = document.getElementById(id);
+        element.addEventListener("click", event => {
+            if (event.target != selectedFirstImage && event.target != selectedSecondImage && !alreadyGuessedCorrect.includes(event.target)) {
+                game.cardSelected(index, id);
+            } else {
+                console.log("THIS WAS ALREADY SELECTED");
+            }
         });
     });
 })
 
-function updateImage(idIndex, selectedValue) {
-    let id = `memory-card-${idIndex + 1}`;
+function updateImage(element, selectedValue) {
     let imagePath = `../../assets/img/number-${selectedValue}.jpg`;
-
-    console.log(`Update image ${id} to image ${imagePath}`);
-
-    let element = document.getElementById(id);
+    console.log(`Update image to image ${imagePath}`);
     element.src = imagePath;
+}
+
+function getAllCardIds(differentCards) {
+    let numberOfCards = differentCards * 2;
+    let ids = Array.from({length: numberOfCards}, (_, i) => {
+        let index = i + 1;
+        let id = `memory-card-${index}`;
+        return id;
+    });
+    return ids;
+}
+
+function resetSelection(flipBack) {
+    if (flipBack) {
+        let imagePath = "../../assets/img/cardBack.jpg";
+        selectedFirstImage.src = imagePath;
+        selectedSecondImage.src = imagePath;
+    }
+    selectedFirstImage = null;
+    selectedSecondImage = null;
+}
+
+function onSelection(params) {
+    console.log("ON SELECTION", params);
+    // get image element
+    let imageElement = document.getElementById(params.selectedId);
+
+    if (selectedFirstImage == null) {
+        // first selection
+        console.log("This is the first selection");
+        selectedFirstImage = imageElement;
+        updateImage(imageElement, params.selectedValue);
+    } else {
+        if (selectedSecondImage == null) {
+            // second selection
+            console.log("This is the second selection");
+            selectedSecondImage = imageElement;
+            updateImage(imageElement, params.selectedValue);
+        }
+    }
+
+    let element = document.getElementById("numberOfTries");
+    element.innerText = params.tries;
+}
+
+function onFailure(params) {
+    resetSelection(true);
+}
+
+function onSuccess(params) {
+    // mark elements
+    alreadyGuessedCorrect.push(selectedFirstImage);
+    alreadyGuessedCorrect.push(selectedSecondImage);
+
+    resetSelection(false);
 }

@@ -7,6 +7,7 @@ class Game {
   tries = 0;
   numberOfFailedTries = 0;
   numberOfSuccessTries = 0;
+  successIndexes = [];
   currentSelection = null;
 
   eventListener = {
@@ -23,45 +24,21 @@ class Game {
     this.maxTries = maxTries;
   }
 
-  cardSelected(selectedIndex) {
+  cardSelected(selectedIndex, elementId) {
     if (this.tries <= this.maxTries) {
+      let selectedValue = this.translateSelectedIndexToValue(selectedIndex);
       this.increaseTries();
       console.log(`User has ${this.maxTries - this.tries} of ${this.maxTries} tries left`)
 
-      let colIndex = Math.floor(selectedIndex / (differentCards / 2));
-      let rowIndex = selectedIndex % (differentCards / 2);
-      let selectedValue = this.grid.getValue(colIndex, rowIndex);
-
       this.performEventListener("onSelection", {
-        elementIndex: selectedIndex,
         selectedValue: selectedValue,
+        selectedId: elementId,
         tries: this.tries
       });
 
       if (this.currentSelection != null) {
         // a selection has already been made
-        console.log(`Already selected: ${this.currentSelection}, selected now: ${selectedValue}`);
-
-        if (this.currentSelection == selectedValue) {
-          this.numberOfSuccessTries = this.numberOfSuccessTries + 1;
-          console.log("Congrats, number of successes:", this.numberOfSuccessTries);
-          this.performEventListener("onSuccess", {
-            elementIndex: selectedIndex,
-            selectedValue: selectedValue,
-            currentSelection: this.currentSelection
-          });
-        } else {
-          this.numberOfFailedTries = this.numberOfFailedTries + 1;
-          console.log("Maybe later, number of fails:", this.numberOfFailedTries);
-          this.performEventListener("onFailure", {
-            elementIndex: selectedIndex,
-            selectedValue: selectedValue,
-            currentSelection: this.currentSelection
-          });
-        }
-
-        // reset selection
-        this.currentSelection = null;
+        this.checkSelection(selectedValue);
       } else {
         // set the selection
         this.currentSelection = selectedValue;
@@ -71,6 +48,43 @@ class Game {
       console.log(`Game has already ended with ${this.numberOfSuccessTries} successful tries and ${this.numberOfFailedTries} failed tries`);
     }
   }
+
+  checkSelection(selectedValue) {
+    console.log(`Already selected: ${this.currentSelection}, selected now: ${selectedValue}`);
+    if (this.currentSelection == selectedValue) {
+      this.onSuccess(selectedValue);
+    } else {
+      this.onFailure(selectedValue);
+    }
+
+    // reset selection
+    this.currentSelection = null;
+  }
+
+  onSuccess(selectedValue) {
+    this.numberOfSuccessTries = this.numberOfSuccessTries + 1;
+    console.log("Congrats, number of successes:", this.numberOfSuccessTries);
+    this.performEventListener("onSuccess", {
+      selectedValue: selectedValue,
+      currentSelection: this.currentSelection
+    });
+  }
+
+  onFailure(selectedValue) {
+    this.numberOfFailedTries = this.numberOfFailedTries + 1;
+    console.log("Maybe later, number of fails:", this.numberOfFailedTries);
+    this.performEventListener("onFailure", {
+      selectedValue: selectedValue,
+      currentSelection: this.currentSelection
+    });
+  }
+
+  translateSelectedIndexToValue(selectedIndex) {
+    let colIndex = Math.floor(selectedIndex / (this.differentCards / 2));
+    let rowIndex = selectedIndex % (this.differentCards / 2);
+    let selectedValue = this.grid.getValue(colIndex, rowIndex);
+    return selectedValue;
+}
 
   increaseTries() {
     this.tries = this.tries + 1;
@@ -92,6 +106,10 @@ class Game {
 
   setEventListener(name, fn) {
     this.eventListener[name] = fn;
+  }
+
+  getCurrentSelection() {
+    return this.currentSelection;
   }
 
 }
