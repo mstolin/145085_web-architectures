@@ -4,7 +4,7 @@ var selectedSecondImage = null;
 let alreadyGuessedCorrect = [];
 
 document.addEventListener("DOMContentLoaded", _ => {
-    let grid = new Grid(differentCards);
+    let grid = new Grid(differentCards); // put in game.js
     console.log("Grid:", grid.getGrid());
 
     let game = new Game(8, grid, 8);
@@ -57,6 +57,11 @@ function resetSelection(flipBack) {
     selectedSecondImage = null;
 }
 
+function updatePoints(points) {
+    let element = document.getElementById("points");
+    element.innerText = points;
+}
+
 function onSelection(params) {
     console.log("ON SELECTION", params);
     // get image element
@@ -81,13 +86,15 @@ function onSelection(params) {
 }
 
 function onFailure(params) {
+    updatePoints(params.points);
     resetSelection(true);
 }
 
 function onSuccess(params) {
+    console.log("PARAMS", params);
     // mark elements
     alreadyGuessedCorrect.push(selectedFirstImage);
     alreadyGuessedCorrect.push(selectedSecondImage);
-
+    updatePoints(params.points);
     resetSelection(false);
 }
