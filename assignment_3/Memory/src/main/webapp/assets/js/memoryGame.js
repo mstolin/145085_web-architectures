@@ -24,8 +24,6 @@ function startGame() {
             let element = event.target;
             if (isElementSelectable(element)) {
                 game.cardSelected(index);
-            } else {
-                console.log("THIS WAS ALREADY SELECTED");
             }
         });
     });
@@ -140,7 +138,7 @@ function onGameEnded(params) {
     let data = new URLSearchParams({
         "points": params.points
     });
-    fetch('http://localhost:8080/ranking', {
+    fetch("http://localhost:8080/ranking", {
         method: "POST",
         body: data,
         headers: {
