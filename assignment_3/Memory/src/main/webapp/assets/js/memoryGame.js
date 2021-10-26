@@ -65,6 +65,10 @@ function disableAllCards() {
     alreadyGuessed = Array.from(document.getElementsByClassName("memoryCard"));
 }
 
+function showGameOverLabel() {
+    alert("GAME OVER");
+}
+
 function onSelection(params) {
     console.log("ON SELECTION", params);
     // get image element
@@ -90,7 +94,8 @@ function onSelection(params) {
 
 function onFailure(params) {
     updatePoints(params.points);
-    resetSelection(true);
+    // wait for 1sec
+    setTimeout(_ => resetSelection(true), 1000);
 }
 
 function onSuccess(params) {
@@ -103,4 +108,26 @@ function onSuccess(params) {
 
 function onGameEnded(params) {
     disableAllCards();
+    showGameOverLabel();
+
+    let data = new URLSearchParams({
+        "points": params.points
+    });
+    fetch('http://localhost:8080/ranking', {
+        method: "POST",
+        body: data,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+    }).then(response => {
+        console.log("Fetched status code:", response.status);
+
+        if (response.status == 200) {
+            setTimeout(_ => {
+                window.location.href = "http://localhost:8080/ranking";
+            }, 5000);
+        } else {
+            console.log("Response from server was not correct");
+        }
+    });
 }

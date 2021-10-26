@@ -45,6 +45,13 @@ class Game {
         this.currentSelection = selectedValue;
         console.log("Set current selection to", this.currentSelection);
       }
+
+      if (this.tries == this.maxTries) {
+        // Game has ended
+        this.performEventListener("onGameEnded", {
+          points: this.points
+        });
+      }
     } else {
       console.log(`Game has already ended with ${this.numberOfSuccessTries} successful tries and ${this.numberOfFailedTries} failed tries`);
     }
@@ -107,10 +114,6 @@ class Game {
     this.performEventListener("onTriesUpdated", {
       tries: this.tries
     });
-
-    if (this.tries == this.maxTries) {
-      this.performEventListener("onGameEnded", null);
-    }
   }
 
   performEventListener(name, params) {
