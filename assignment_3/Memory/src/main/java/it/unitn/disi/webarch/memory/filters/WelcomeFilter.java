@@ -34,8 +34,10 @@ public class WelcomeFilter implements Filter {
             logger.info("No user set in session");
             logger.info("Forward to " + forwardPath);
             HttpServletResponse httpResponse = (HttpServletResponse)response;
+            this.logger.info("Forward request for " + httpRequest.getRequestURI() + " to /welcome");
             httpResponse.sendRedirect(forwardPath);
         } else {
+            this.logger.info("Send request for " + httpRequest.getRequestURI());
             chain.doFilter(request, response);
         }
     }
