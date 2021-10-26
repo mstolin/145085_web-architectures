@@ -1,33 +1,41 @@
-let differentCards = 8;
+const GRID_URL = "http://localhost:8080/memory/grid";
+
 var selectedFirstImage = null;
 var selectedSecondImage = null;
-let alreadyGuessed = [];
+let alreadyGuessedElements = [];
+
+let game = new Game(8);
+game.setEventListener("onSelection", onSelection);
+game.setEventListener("onFailure", onFailure);
+game.setEventListener("onSuccess", onSuccess);
+game.setEventListener("onGameEnded", onGameEnded);
 
 document.addEventListener("DOMContentLoaded", _ => {
-    let grid = new Grid(differentCards); // put in game.js
-    console.log("Grid:", grid.getGrid());
+    startGame();
+})
 
-    let game = new Game(8, grid, 8);
-    game.setEventListener("onSelection", onSelection);
-    game.setEventListener("onFailure", onFailure);
-    game.setEventListener("onSuccess", onSuccess);
-    game.setEventListener("onGameEnded", onGameEnded);
-
-    //let allCards = document.getElementsByClassName("memoryCard");
-    let allCardIds = getAllCardIds(differentCards);
+function startGame() {
+    let allCardIds = getAllCardIds();
     console.log(`Got ${allCardIds.length} cards`);
 
     allCardIds.forEach((id, index) => {
         let element = document.getElementById(id);
         element.addEventListener("click", event => {
-            if (event.target != selectedFirstImage && event.target != selectedSecondImage && !alreadyGuessed.includes(event.target)) {
-                game.cardSelected(index, id);
+            let element = event.target;
+            if (isElementSelectable(element)) {
+                game.cardSelected(index);
             } else {
                 console.log("THIS WAS ALREADY SELECTED");
             }
         });
     });
-})
+}
+
+function isElementSelectable(element) {
+    return element != selectedFirstImage &&
+        element != selectedSecondImage &&
+        !alreadyGuessedElements.includes(element);
+}
 
 function updateImage(element, selectedValue) {
     let imagePath = `../../assets/img/number-${selectedValue}.jpg`;
@@ -35,8 +43,8 @@ function updateImage(element, selectedValue) {
     element.src = imagePath;
 }
 
-function getAllCardIds(differentCards) {
-    let numberOfCards = differentCards * 2;
+function getAllCardIds() {
+    let numberOfCards = Array.from(document.getElementsByClassName("memoryCard")).length;
     let ids = Array.from({length: numberOfCards}, (_, i) => {
         let index = i + 1;
         let id = `memory-card-${index}`;
@@ -60,36 +68,56 @@ function updatePoints(points) {
     element.innerText = points;
 }
 
+function updateTries(tries) {
+    let element = document.getElementById("numberOfTries");
+    element.innerText = tries;
+}
+
 function disableAllCards() {
     console.log("Disable all cards");
-    alreadyGuessed = Array.from(document.getElementsByClassName("memoryCard"));
+    alreadyGuessedElements = Array.from(document.getElementsByClassName("memoryCard"));
 }
 
 function showGameOverLabel() {
-    alert("GAME OVER");
+    // doSMTH
 }
 
 function onSelection(params) {
-    console.log("ON SELECTION", params);
-    // get image element
-    let imageElement = document.getElementById(params.selectedId);
+    let selectedIndex = params.selectedIndex;
 
-    if (selectedFirstImage == null) {
-        // first selection
-        console.log("This is the first selection");
-        selectedFirstImage = imageElement;
-        updateImage(imageElement, params.selectedValue);
-    } else {
-        if (selectedSecondImage == null) {
-            // second selection
-            console.log("This is the second selection");
-            selectedSecondImage = imageElement;
-            updateImage(imageElement, params.selectedValue);
+    let urlParams = new URLSearchParams({
+        "index": selectedIndex
+    });
+    let url = `http://localhost:8080/memory/grid?${urlParams}`;
+    fetch(url, {
+        method: "GET"
+    })
+    .then(response => response.text())
+    .then(text => {
+        let value = parseInt(text);
+
+        // get image element
+        let selectedId = `memory-card-${selectedIndex + 1}`;
+        let imageElement = document.getElementById(selectedId);
+
+        if (selectedFirstImage == null) {
+            // first selection
+            console.log("This is the first selection");
+            selectedFirstImage = imageElement;
+            updateImage(imageElement, value);
+        } else {
+            if (selectedSecondImage == null) {
+                // second selection
+                console.log("This is the second selection");
+                selectedSecondImage = imageElement;
+                updateImage(imageElement, value);
+            }
         }
-    }
 
-    let element = document.getElementById("numberOfTries");
-    element.innerText = params.tries;
+        updateTries(params.tries);
+        game.setSelection(value);
+    })
+    .catch(error => console.error(error));
 }
 
 function onFailure(params) {
@@ -100,15 +128,14 @@ function onFailure(params) {
 
 function onSuccess(params) {
     // mark elements
-    alreadyGuessed.push(selectedFirstImage);
-    alreadyGuessed.push(selectedSecondImage);
+    alreadyGuessedElements.push(selectedFirstImage);
+    alreadyGuessedElements.push(selectedSecondImage);
     updatePoints(params.points);
     resetSelection(false);
 }
 
 function onGameEnded(params) {
     disableAllCards();
-    showGameOverLabel();
 
     let data = new URLSearchParams({
         "points": params.points
@@ -123,6 +150,7 @@ function onGameEnded(params) {
         console.log("Fetched status code:", response.status);
 
         if (response.status == 200) {
+            showGameOverLabel();
             setTimeout(_ => {
                 window.location.href = "http://localhost:8080/ranking";
             }, 5000);

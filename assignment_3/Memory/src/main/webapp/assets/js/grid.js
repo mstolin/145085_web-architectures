@@ -6,7 +6,7 @@ class Grid {
   rows;
   grid;
 
-  constructor(differentCards) {
+  constructor(grid) {
       this.differentCards = differentCards;
       this.columns = differentCards / 2;
       this.rows = differentCards / 2;
