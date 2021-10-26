@@ -1,14 +1,14 @@
 <%@ page import="it.unitn.disi.webarch.memory.models.Scoreboard" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="activeUser" class="it.unitn.disi.webarch.memory.models.User" scope="session"/>
+<jsp:useBean id="SESSION_KEY_USER" class="it.unitn.disi.webarch.memory.models.User" scope="session"/>
 <jsp:useBean id="scoreboard" class="it.unitn.disi.webarch.memory.models.Scoreboard" scope="application"/>
 <html>
     <head>
         <title>Memory Game</title>
     </head>
     <body>
-        <h1>Welcome <strong><jsp:getProperty name="activeUser" property="name"/></strong></h1>
+        <h1>Welcome <strong><jsp:getProperty name="SESSION_KEY_USER" property="name"/></strong></h1>
     <div>
         <h2>Ranking</h2>
         <c:choose>
