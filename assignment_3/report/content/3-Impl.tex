@@ -1,19 +1,49 @@
 \section{Implementation}\label{sec:03_impl}
 % Explain section
-This section explains the implementation based on the conceptual design introduced in \Sec{sec:02_design}. 
-% MVC
-As mentioned in \Sec{sec:01_intro}, the MVC architecture is used to implement this application. \Fig{fig:03_impl_structure} presents the project folder structure of the MVC implementation.
-% What is what
-The models are introduced in \Sec{subsec:03_impl_models}, the views, and controllers in \Sec{subsec:03_impl_servlets}.
-% Others
-Additionally, this implementation uses custom object stores (introduced in \Sec{subsec:03_impl_objstores}) and filters (introduced in \Sec{subsec:03_impl_filters}).
-% Figure
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{images/03_impl/structure}
-\caption{Project folder structure}
-\label{fig:03_impl_structure}
-\end{figure}
+This section explains the implementation based on the conceptual design introduced in \Sec{sec:02_design}.
+% Which parts
+Therefore, this applications is composed of two different parts: A backend, and a frontend.
+
+
+\subsection{Backend}\label{subsec:03_impl_backend}
+%
+As introduced in SEC DESIGN BACKEND, the backend part of the application is responsible for authentication, keeping a ranking list of games played by different users, and generating the grid for the Memory game.
+
+\subsubsection{Models}\label{subsubsec:03_impl_backend_models}
+% What models
+A user is allowed to authenticate itself with a username. Therefore, a model called User is needed in the system.
+% For what
+This model will be used to authenticate the user on all pages, introduced in SEC DESIGN, and to save a ranking with all users who played a game before.
+% How
+FIG XY describes the model. The User model will be saved in the HTTP session of the client to make it available all over the backend application. Additionally, the model follows the Java Bean specification.
+
+\subsubsection{Authentication}\label{subsubsec:03_impl_backend_auth}
+As introduced before, the user needs to authenticate itself with a username, and a password is not required. If the user is not authenticated, the user can not access the game or the ranking page.
+% Where
+A user can authenticate at the \textit{Welcome-Page}. There, the user user can enter a name in an HTML form. After submitting the form, the username is being send as a \texttt{POST} request to the \textit{Welcome-Servlet}. After that, the \textit{Welcome-Servlet} validates the \texttt{POST} request. If the request is valid, a new \textit{User} model will be added to the client HTTP session. Then, the user will be forwarded to the \textit{Ranking-Page}.
+% How
+To ensure, that only authenticated users can access the \textit{Ranking-Page}, and the \textit{Memory-Page}, a filter is implemented, that checks if the a \textit{User} objects is available in the HTTP session of the client. If yes, the user is can access all pages, otherwise the user is being forwarded to the welcome page.
+
+\subsubsection{Ranking}\label{subsubsec:03_impl_backend_ranking}
+% What
+The Ranking-Servlet is responsible to keep track of all games played.
+
+% Get request
+If a Get request is send to the Ranking-Servlet, it will response an HTML page with the ranking of the Top 5 users. The ranking displays the name and the points of the user.
+
+% POST request
+In addition, a POST request can be sent to the Ranking-Servlet as well. It requires a number of points with the content-type of \texttt{bla bla}.
+% Save
+This points will be added to the current score of the user of the client session.
+% Where is it saved
+The overall ranking needs to be available to all users. Therefore, it is saved in the servlet-context instead of the the HTTP session.
+% Not persistant
+It is important to mention, that it is not required to save the overall ranking persistently. Therefore, if the webserver exits, the servlet-context is removed from the host memory and wont be available after a restart. However, the ranking is available as long as the webserver is running.
+
+\subsubsection{Grid}\label{subsubsec:03_impl_backend_grid}
+
+
+\subsection{Frontend}\label{subsec:03_impl_frontend}
 
 
 \subsection{Models}\label{subsec:03_impl_models}
