@@ -37,9 +37,21 @@
         <servlet-name>MemoryPlayServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryPlayServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MemoryGridServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryGridServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>development</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MemoryPlayServlet</servlet-name>
         <url-pattern>/play</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MemoryGridServlet</servlet-name>
+        <url-pattern>/memory/grid</url-pattern>
     </servlet-mapping>
 
 
