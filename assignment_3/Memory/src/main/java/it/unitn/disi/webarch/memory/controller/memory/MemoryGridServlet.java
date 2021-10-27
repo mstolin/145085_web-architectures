@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,7 +17,7 @@ public class MemoryGridServlet extends HttpServlet {
     private final Gson gson = new Gson();
     private final String REQUEST_KEY_INDEX = "index";
 
-    private List<int[]> grid = null;
+    private List<List<Integer>> grid = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,24 +46,25 @@ public class MemoryGridServlet extends HttpServlet {
         int differentCards = 8;
         int colIndex = (int) Math.floor(index / (differentCards / 2));
         int rowIndex = index % (differentCards / 2);
-        int selectedValue = this.grid.get(colIndex)[rowIndex];
+        int selectedValue = this.grid.get(colIndex).get(rowIndex);
         return selectedValue;
     }
 
-    private List<int[]> generateGrid(String mode) {
-        List<int[]> grid;
+    private List<List<Integer>> generateGrid(String mode) {
+        List<List<Integer>> grid;
         if (mode.equals("development")) {
             grid = new ArrayList<>();
-            grid.add(new int[]{1, 1, 2, 2});
-            grid.add(new int[]{3, 3, 4, 4});
-            grid.add(new int[]{5, 5, 6, 6});
-            grid.add(new int[]{7, 7, 8, 8});
+            grid.add(Arrays.asList(1, 1, 2, 2));
+            grid.add(Arrays.asList(1, 1, 2, 2));
+            grid.add(Arrays.asList(3, 3, 4, 4));
+            grid.add(Arrays.asList(5, 5, 6, 6));
+            grid.add(Arrays.asList(7, 7, 8, 8));
         } else {
             grid = new ArrayList<>();
-            grid.add(new int[]{7, 1, 8, 4});
-            grid.add(new int[]{3, 2, 1, 4});
-            grid.add(new int[]{6, 5, 6, 8});
-            grid.add(new int[]{2, 5, 3, 7});
+            grid.add(Arrays.asList(7, 1, 8, 4));
+            grid.add(Arrays.asList(3, 2, 1, 4));
+            grid.add(Arrays.asList(6, 5, 6, 8));
+            grid.add(Arrays.asList(2, 5, 3, 7));
         }
         return grid;
     }
