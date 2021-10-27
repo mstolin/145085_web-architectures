@@ -24,8 +24,8 @@
                     </c:when>
                     <c:otherwise>
                         <ul>
-                        <c:forEach items="${scoreboard.getScores()}" var="score">
-                            <li>${score.getKey().getName()} - ${score.getValue()}</li>
+                        <c:forEach items="${scoreboard.getTop5()}" var="score">
+                            <li>${score.get(1)} - ${score.get(0).getName()}</li>
                         </c:forEach>
                         </ul>
                     </c:otherwise>

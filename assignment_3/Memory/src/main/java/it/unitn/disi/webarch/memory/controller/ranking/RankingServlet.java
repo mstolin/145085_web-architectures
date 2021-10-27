@@ -51,7 +51,6 @@ public class RankingServlet extends HttpServlet {
         if (scoreboard == null) {
             scoreboard = new Scoreboard();
         }
-
         scoreboard.addUserScore(user, points);
         context.setAttribute(SERVLET_KEY_SCOREBOARD, scoreboard);
     }
