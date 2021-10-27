@@ -31,7 +31,7 @@ public class RankingServlet extends HttpServlet {
 
         this.logger.info("POST request received for user " + user.getName() + " and points " + points);
 
-        if (this.areParametersValid(user, points)) {
+        if (user != null) {
             ServletContext context = request.getServletContext();
             this.logger.info("Update score for user " + user.getName());
             this.setScore(context, user, points);
@@ -40,10 +40,6 @@ public class RankingServlet extends HttpServlet {
             this.logger.warning("POST Request with username " + user.getName() + " and points" + points + " was not successful");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-    }
-
-    private boolean areParametersValid(User user, int points) {
-        return user != null && points >= 0;
     }
 
     private void setScore(ServletContext context, User user, Integer points) {
