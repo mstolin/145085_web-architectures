@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", _ => {
 })
 
 function startGame() {
+    toggleGameOverLabel();
+
     let allCardIds = getAllCardIds();
     console.log(`Got ${allCardIds.length} cards`);
 
@@ -76,8 +78,15 @@ function disableAllCards() {
     alreadyGuessedElements = Array.from(document.getElementsByClassName("memoryCard"));
 }
 
-function showGameOverLabel() {
-    // doSMTH
+function toggleGameOverLabel() {
+    let gameOverLabel = document.getElementById("game-over-label");
+    if (gameOverLabel.style.display === "none") {
+        console.log("TOGGLE ELEMENT " + gameOverLabel + " TO BLOCK");
+        gameOverLabel.style.display = "block";
+    } else {
+        console.log("TOGGLE ELEMENT " + gameOverLabel + " TO NONE");
+        gameOverLabel.style.display = "none";
+    }
 }
 
 function onSelection(params) {
@@ -148,7 +157,7 @@ function onGameEnded(params) {
         console.log("Fetched status code:", response.status);
 
         if (response.status == 200) {
-            showGameOverLabel();
+            toggleGameOverLabel();
             setTimeout(_ => {
                 window.location.href = "http://localhost:8080/ranking";
             }, 5000);
