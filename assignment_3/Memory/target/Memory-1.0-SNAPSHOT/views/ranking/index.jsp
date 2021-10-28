@@ -12,6 +12,11 @@
                 padding: 2% 4%;
             }
         </style>
+        <script>
+            function forwardToGame() {
+                window.location.href = '<% config.getServletContext(); %>/play'
+            }
+        </script>
     </head>
     <body>
         <div class="w-100">
@@ -32,8 +37,7 @@
                 </c:choose>
             </div>
             <div>
-                <!--<button>Play Game</button>-->
-                <a href="<% config.getServletContext(); %>/play">Play Game</a>
+                <button onclick="forwardToGame();">Play Game</button>
             </div>
         </div>
     </body>

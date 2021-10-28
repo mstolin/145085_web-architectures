@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -58,12 +59,18 @@ public class MemoryGridServlet extends HttpServlet {
             grid.add(Arrays.asList(7, 7, 8, 8));
         } else {
             grid = new ArrayList<>();
-            grid.add(Arrays.asList(7, 1, 8, 4));
-            grid.add(Arrays.asList(3, 2, 1, 4));
-            grid.add(Arrays.asList(6, 5, 6, 8));
-            grid.add(Arrays.asList(2, 5, 3, 7));
+            grid.add(this.getShuffledRow(Arrays.asList(7, 1, 8, 4)));
+            grid.add(this.getShuffledRow(Arrays.asList(3, 2, 1, 4)));
+            grid.add(this.getShuffledRow(Arrays.asList(6, 5, 6, 8)));
+            grid.add(this.getShuffledRow(Arrays.asList(2, 5, 3, 7)));
+            Collections.shuffle(grid);
         }
         return grid;
+    }
+
+    private List<Integer> getShuffledRow(List<Integer> row) {
+        Collections.shuffle(row);
+        return row;
     }
 
 }
