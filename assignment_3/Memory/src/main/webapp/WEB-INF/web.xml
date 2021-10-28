@@ -42,7 +42,7 @@
         <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryGridServlet</servlet-class>
         <init-param>
             <param-name>mode</param-name>
-            <param-value>development</param-value>
+            <param-value>production</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

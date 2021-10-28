@@ -1,7 +1,5 @@
 package it.unitn.disi.webarch.memory.controller.memory;
 
-import com.google.gson.Gson;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -14,7 +12,6 @@ import java.util.logging.Logger;
 public class MemoryGridServlet extends HttpServlet {
 
     private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
-    private final Gson gson = new Gson();
     private final String REQUEST_KEY_INDEX = "index";
 
     private List<List<Integer>> grid = null;

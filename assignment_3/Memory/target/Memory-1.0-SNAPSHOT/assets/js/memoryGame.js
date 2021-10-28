@@ -3,6 +3,7 @@ const GRID_URL = "http://localhost:8080/memory/grid";
 var selectedFirstImage = null;
 var selectedSecondImage = null;
 let alreadyGuessedElements = [];
+let disableClick = false;
 
 let game = new Game(8);
 game.setEventListener("onSelection", onSelection);
@@ -24,7 +25,7 @@ function startGame() {
         let element = document.getElementById(id);
         element.addEventListener("click", event => {
             let element = event.target;
-            if (isElementSelectable(element)) {
+            if (!disableClick && isElementSelectable(element)) {
                 game.cardSelected(index);
             }
         });
@@ -61,6 +62,8 @@ function resetSelection(flipBack) {
     }
     selectedFirstImage = null;
     selectedSecondImage = null;
+    // enable click
+    disableClick = false;
 }
 
 function updatePoints(points) {
@@ -81,10 +84,8 @@ function disableAllCards() {
 function toggleGameOverLabel() {
     let gameOverLabel = document.getElementById("game-over-label");
     if (gameOverLabel.style.display === "none") {
-        console.log("TOGGLE ELEMENT " + gameOverLabel + " TO BLOCK");
         gameOverLabel.style.display = "block";
     } else {
-        console.log("TOGGLE ELEMENT " + gameOverLabel + " TO NONE");
         gameOverLabel.style.display = "none";
     }
 }
@@ -118,6 +119,8 @@ function onSelection(params) {
                 console.log("This is the second selection");
                 selectedSecondImage = imageElement;
                 updateImage(imageElement, value);
+                // temporary disable click
+                disableClick = true;
             }
         }
 

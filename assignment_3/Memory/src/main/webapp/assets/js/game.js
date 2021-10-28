@@ -6,7 +6,6 @@ class Game {
   numberOfFailedTries = 0;
   numberOfSuccessTries = 0;
   points = 0;
-  successIndexes = [];
   firstSelection = null;
   secondSelection = null;
 
@@ -14,8 +13,7 @@ class Game {
     "onSelection": null,
     "onSuccess": null,
     "onFailure": null,
-    "onGameEnded": null,
-    "onTriesUpdated": null
+    "onGameEnded": null
   };
 
   constructor(maxTries) {
@@ -88,9 +86,6 @@ class Game {
 
   increaseTries() {
     this.tries = this.tries + 1;
-    this.performEventListener("onTriesUpdated", {
-      tries: this.tries
-    });
   }
 
   performEventListener(name, params) {
