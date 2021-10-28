@@ -40,16 +40,31 @@ Additionally, to use these models in \texttt{JSP} views, both models follow the 
 \subsubsection{Welcome}\label{subsubsec:03_impl_backend_welcome}
 As introduced before, the user needs to authenticate itself with a username, and a password is not required. If the user is not authenticated, the user can not access the game or the ranking page.
 % Where
-A user can authenticate at the \textit{Welcome-Page}. There, the user user can enter a name in an \texttt{HTML} form. After submitting the form, the username is being send as a \texttt{POST} request to the \textit{Welcome-Servlet}. After that, the \textit{Welcome-Servlet} validates the \texttt{POST} request. If the request is valid, a new \textit{User} model will be added to the client HTTP session. Then, the user will be forwarded to the \textit{Ranking-Page}.
+A user can authenticate at the \textit{Welcome-Page}. There, the user user can enter a name in an \texttt{HTML} form, as illustrated in \Fig{fig:03_impl_backend_welcome_page}. After submitting the form, the username is being send as a \texttt{POST} request to the \textit{Welcome-Servlet}. After that, the \textit{Welcome-Servlet} validates the \texttt{POST} request. If the request is valid, a new \textit{User} model will be added to the client HTTP session. Then, the user will be forwarded to the \textit{Ranking-Page}.
 % How
 To ensure, that only authenticated users can access the \textit{Ranking-Page}, and the \textit{Memory-Play-Page}, a filter called Welcome-Filter is implemented, that checks if the a \textit{User} objects is available in the HTTP session of the client. If yes, the user is can access all pages, otherwise the user is being forwarded to the welcome page.
+% Grid figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{images/03_impl/welcome/welcome-page}
+\caption{The \textit{Welcome-Page}}
+\label{fig:03_impl_backend_welcome_page}
+\end{figure}
 
 \subsubsection{Ranking}\label{subsubsec:03_impl_backend_ranking}
 % What
 The \textit{Ranking-Servlet} is responsible to keep track of all games played.
 
 % Get request
-If a \texttt{GET} request is send to the \textit{Ranking-Servlet}, it will response an \texttt{HTML} page with the ranking of the Top 5 users. The ranking displays the name and the points of the user.
+If a \texttt{GET} request is send to the \textit{Ranking-Servlet}, it will response an \texttt{HTML} page with the ranking of the Top 5 users. The ranking displays the name and the points of the user. If no games have been played before, the ranking shows an empty list, as illustrated in \Fig{fig:03_impl_backend_ranking_page}.
+% Grid figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/ranking/ranking}
+\caption{The \textit{Ranking-Page} with an empty ranking on the left, and the Top 5 on the right}
+\label{fig:03_impl_backend_ranking_page}
+\end{figure}
+
 % View
 The view is implemented using a \texttt{JSP} view. It includes the current User and the Scoreboard via \texttt{jsp:useBean} to get its properties.
 % SHow the Top5
@@ -93,7 +108,14 @@ It is composed of the following parts:
 
 \subsubsection{index.html}\label{subsubsec:03_impl_frontend_index}
 % WHat
-The \textit{index.html} file defines the UI of the game, illustrated in FIG XY. It shows the grid of memory cards, a label that shows the number of tries, and a label that shows the current points. Additionally, at the top there is a Game Over! that is shown after the user has finishes the game.
+The \textit{index.html} file defines the UI of the game, illustrated in \Fig{fig:03_impl_frontend_index_grid}. It shows the grid of memory cards, a label that shows the number of tries, and a label that shows the current points. Additionally, at the top there is a Game Over! that is shown after the user has finishes the game.
+% Grid figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/frontend/grid}
+\caption{The Memory game grid}
+\label{fig:03_impl_frontend_index_grid}
+\end{figure}
 
 \subsubsection{game.js}\label{subsubsec:03_impl_frontend_index}
 % WHat
@@ -111,7 +133,7 @@ In both cases, success and failure, the first and second guess is set to \texttt
 %
 When the number if tries is equal to 8, the game has ended and selections are disabled. Then, the \texttt{onGameEnded} event is triggered.
 
-\subsubsection{memoryGame.js}\label{subsubsec:03_impl_frontend_index}
+\subsubsection{memoryGame.js}\label{subsubsec:03_impl_frontend_memGame}
 % What
 the memoryGame.js handle the interaction between the UI (introduced in \Sec{subsubsec:03_impl_frontend_index}), and the \texttt{Game} class (introduced in \Sec{subsubsec:03_impl_frontend_index}).
 % Game
@@ -124,7 +146,14 @@ Furthermore, a function \texttt{startGame} exists, that is being called after th
 % If click is allowed
 Click events are supposed to only work on cards, which presents the back (cards that have not been guessed already). Therefore, \texttt{memoryGame.js} keeps track of already guessed cards in the \texttt{alreadyGuessedElements} array. If the array contains the card element, the click listener will not be performed.
 % first and second choice
-Furthermore, the \texttt{memoryGame.js} saves the element of the first and the second guessed card, to flip those cards after a guess was incorrect.
+Furthermore, the \texttt{memoryGame.js} saves the element of the first and the second guessed card, to flip those cards after a guess was incorrect, this is illustrated in \Fig{fig:03_impl_frontend_memGame_flipped}.
+% Flipped figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.1]{images/03_impl/frontend/wrong-guess}
+\caption{Flipped cards after a wrong guess}
+\label{fig:03_impl_frontend_memGame_flipped}
+\end{figure}
 
 
 % On selection
@@ -133,9 +162,33 @@ If the Game class performs the \texttt{onSelection} event, \texttt{memoryGame.js
 Additionally, the UI gets updated, by updating the card image element image \texttt{src} attribute to the selected value. Furthermore, the event updates the label that shows the number of tries.
 
 % Success
-As explained before, if a guess is correct, the \texttt{onSuccess} event is triggered. This event adds the elements of the guessed pair to the \texttt{alreadyGuessedElements} array to disable click events for this elements. Additionally, the points label gets updated.
+As explained before, if a guess is correct, the \texttt{onSuccess} event is triggered. This event adds the elements of the guessed pair to the \texttt{alreadyGuessedElements} array to disable click events for this elements, and prevents the images to flip back (illustrated in \Fig{fig:03_impl_frontend_memGame_flippedCards}). Additionally, the points label gets updated.
+% Success figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.1]{images/03_impl/frontend/flipped-cards}
+\caption{Three successful guesses}
+\label{fig:03_impl_frontend_memGame_flippedCards}
+\end{figure}
 % Failure
 If the guess is incorrect, the \texttt{onFailure} event is triggered. This events updates the points label, and flips back the cards after one second.
+% Update labels figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{images/03_impl/frontend/updated-labels}
+\caption{Updated labels}
+\label{fig:03_impl_frontend_memGame_updateLabels}
+\end{figure}
+% Explain
+\Fig{fig:03_impl_frontend_memGame_updateLabels} shows the updated labels after \texttt{onSuccess} or \texttt{onFailure} was triggered.
+
 
 % onGameEnded
-After 8 tries, the \texttt{onGameEnded} event is triggered by the Game class. Then, all cards are added to the \texttt{alreadyGuessedElements} array to disable click events. Additionally, a \texttt{POST} request is send to the \textit{Ranking-Servlet} given the achieved points in the game by the user. The \texttt{POST} request body has the content type \texttt{application/x-www-form-urlencoded}. If the response is successful, the Game Over label is shown, and after 5 seconds, the user is redirected to the \textit{Ranking-Page}.
+After 8 tries, the \texttt{onGameEnded} event is triggered by the Game class. Then, all cards are added to the \texttt{alreadyGuessedElements} array to disable click events. Additionally, a \texttt{POST} request is send to the \textit{Ranking-Servlet} given the achieved points in the game by the user. The \texttt{POST} request body has the content type \texttt{application/x-www-form-urlencoded}. If the response is successful, the \textit{Game Over} label is shown (shown in \Fig{fig:03_impl_frontend_memGame_gameOver}), and after 5 seconds, the user is redirected to the \textit{Ranking-Page}.
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{images/03_impl/frontend/game-over}
+\caption{The \textit{Game Over} label}
+\label{fig:03_impl_frontend_memGame_gameOver}
+\end{figure}
