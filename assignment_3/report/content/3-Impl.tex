@@ -33,10 +33,18 @@ The \textit{Scoreboard} model saves User models and their points in a Map object
 Additionally, the \textit{Scoreboard} model provides a method called \texttt{getTop5} that returns the Top 5 scores. This used for the \textit{Ranking-Page}.
 
 % How
-FIG XY describes both models. The \textit{User} model will be saved in the HTTP session of the client. However, the same scoreboard instance needs to be available for all users. Therefore, the \textit{Scoreboard} model is saved in the servlet-context.
+\Fig{fig:subsubsec:03_impl_backend_models_uml} describes both models. The \textit{User} model will be saved in the HTTP session of the client. However, the same scoreboard instance needs to be available for all users. Therefore, the \textit{Scoreboard} model is saved in the servlet-context.
 % Java Bean
 Additionally, to use these models in \texttt{JSP} views, both models follow the Java Bean specification.
+% Model figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{images/03_impl/models}
+\caption{UML diagram describing the models}
+\label{fig:subsubsec:03_impl_backend_models_uml}
+\end{figure}
 
+\newpage
 \subsubsection{Welcome}\label{subsubsec:03_impl_backend_welcome}
 As introduced before, the user needs to authenticate itself with a username, and a password is not required. If the user is not authenticated, the user can not access the game or the ranking page.
 % Where
@@ -68,11 +76,28 @@ If a \texttt{GET} request is send to the \textit{Ranking-Servlet}, it will respo
 % View
 The view is implemented using a \texttt{JSP} view. It includes the current User and the Scoreboard via \texttt{jsp:useBean} to get its properties.
 % SHow the Top5
-Additionaly, it uses JSP - Standard Tag Library (JSTL) to show the Top 5 users, which is shown in LST XY. Furthermore, the ranking shows the name of the current user at the top.
+Additionaly, it uses JSP - Standard Tag Library (JSTL) to show the Top 5 users, which is shown in \Lst{lst:03_impl_backend_ranking_jstl}. Furthermore, the ranking shows the name of the current user at the top.
+% JSTL Listing
+\begin{lstlisting}[label=lst:03_impl_backend_ranking_jstl, caption=Show the Top 5 using JSTL, language=html]
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="scoreboard" class="it.unitn.disi.webarch.memory.models.Scoreboard" scope="application"/>
+<c:choose>
+  <c:when test="${scoreboard.isEmpty()}">
+    <p>Empty - No game played yet</p>
+  </c:when>
+  <c:otherwise>
+    <ul>
+      <c:forEach items="${scoreboard.getTop5()}" var="score">
+        <li>${score.get(1)} - ${score.get(0).getName()}</li>
+      </c:forEach>
+    </ul>
+  </c:otherwise>
+</c:choose>
+\end{lstlisting}
 
 
 % POST request
-To save a new score, the \textit{Ranking-Servlet} accepts \texttt{POST} request as well. It requires a number of points with the content-type of \texttt{bla bla}.
+To save a new score, the \textit{Ranking-Servlet} accepts \texttt{POST} request as well. It requires a number of points with the content-type of \texttt{application/x-www-form-urlencoded}.
 % Save
 The points will be added to the current score of the user of the client session using the \texttt{addScore} method of the \textit{Scoreboard} model.
 % Where is it saved
@@ -89,12 +114,34 @@ To recieve the value of a index in the grid, the frontend has to send a \texttt{
 The \textit{Memory-Grid-Servlet} will response the card value of the given index in text/plain.
 
 % Translate
-As being mentioned, the grid is a 2D list, that contains multiple lists of integers. Each Integer represents the card value at the given index. Therefore, to get the value for the given index in the \texttt{GET} request, it has to be translated into a 2D index (index in column and index in row). LST AB shows the method \texttt{translateIndexToValue} that is used to translate a single index into a 2D index which can be used to get the card value from the grid.
+As being mentioned, the grid is a 2D list, that contains multiple lists of integers. Each Integer represents the card value at the given index. Therefore, to get the value for the given index in the \texttt{GET} request, it has to be translated into a 2D index (index in column and index in row). \Lst{lst:03_impl_backend_backend_grid_translate} shows the method \texttt{translateIndexToValue} that is used to translate a single index into a 2D index which can be used to get the card value from the grid.
+% Listing
+\begin{lstlisting}[label=lst:03_impl_backend_backend_grid_translate, caption=The \texttt{translateIndexToValue} method, language=java]
+Integer translateIndexToValue(int index) {
+  int differentCards = 8;
+  int colIndex = (int) Math.floor(index / (differentCards / 2));
+  int rowIndex = index % (differentCards / 2);
+  int selectedValue = this.grid.get(colIndex).get(rowIndex);
+  return selectedValue;
+}
+\end{lstlisting}
 
 % Modes
-In addition, it is possible to set the operation mode, which decides if the grid is generated randomly or deterministic. This property is set as a \texttt{init-param} in the \path{web.xml}, as illustrated by FIG BC. Then, the \textit{Memory-Grid-Servlet} can read this value using \texttt{getInitParameter("mode")}.
+In addition, it is possible to set the operation mode, which decides if the grid is generated randomly or deterministic. This property is set as a \texttt{init-param} in the \path{web.xml}, as illustrated by \Lst{lst:03_impl_backend_backend_grid_mode}. Then, the \textit{Memory-Grid-Servlet} can read this value using \texttt{getInitParameter("mode")}.
+% Listing
+\begin{lstlisting}[label=lst:03_impl_backend_backend_grid_mode, caption=\texttt{init-param} to set the mode, language=xml]
+<servlet>
+  <servlet-name>MemoryGridServlet</servlet-name>
+  <servlet-class>it.unitn.disi.webarch.memory.controller.memory.MemoryGridServlet</servlet-class>
+  <init-param>
+    <param-name>mode</param-name>
+    <param-value>development</param-value>
+  </init-param>
+</servlet>
+\end{lstlisting}
 
 
+\newpage
 \subsection{Frontend}\label{subsec:03_impl_frontend}
 % What
 The frontend part of this application is the User Interface (UI) for the memory game. It is complety written in JavaScript and HTML.
@@ -137,7 +184,15 @@ When the number if tries is equal to 8, the game has ended and selections are di
 % What
 the memoryGame.js handle the interaction between the UI (introduced in \Sec{subsubsec:03_impl_frontend_index}), and the \texttt{Game} class (introduced in \Sec{subsubsec:03_impl_frontend_index}).
 % Game
-After constructing the Game class, it registers all necessary events.
+After constructing the Game class, it registers all necessary events. This is shown in \Lst{lst:03_impl_frontend_memGame_events}.
+% Listing
+\begin{lstlisting}[label=lst:03_impl_frontend_memGame_events, caption=Register all events]
+let game = new Game(8);
+game.setEventListener("onSelection", onSelection);
+game.setEventListener("onFailure", onFailure);
+game.setEventListener("onSuccess", onSuccess);
+game.setEventListener("onGameEnded", onGameEnded);
+\end{lstlisting}
 
 
 % DOM loaded
@@ -182,7 +237,7 @@ If the guess is incorrect, the \texttt{onFailure} event is triggered. This event
 % Explain
 \Fig{fig:03_impl_frontend_memGame_updateLabels} shows the updated labels after \texttt{onSuccess} or \texttt{onFailure} was triggered.
 
-
+\newpage
 % onGameEnded
 After 8 tries, the \texttt{onGameEnded} event is triggered by the Game class. Then, all cards are added to the \texttt{alreadyGuessedElements} array to disable click events. Additionally, a \texttt{POST} request is send to the \textit{Ranking-Servlet} given the achieved points in the game by the user. The \texttt{POST} request body has the content type \texttt{application/x-www-form-urlencoded}. If the response is successful, the \textit{Game Over} label is shown (shown in \Fig{fig:03_impl_frontend_memGame_gameOver}), and after 5 seconds, the user is redirected to the \textit{Ranking-Page}.
 % Figure
