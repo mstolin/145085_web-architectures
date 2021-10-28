@@ -53,7 +53,6 @@ public class MemoryGridServlet extends HttpServlet {
         if (mode.equals("development")) {
             grid = new ArrayList<>();
             grid.add(Arrays.asList(1, 1, 2, 2));
-            grid.add(Arrays.asList(1, 1, 2, 2));
             grid.add(Arrays.asList(3, 3, 4, 4));
             grid.add(Arrays.asList(5, 5, 6, 6));
             grid.add(Arrays.asList(7, 7, 8, 8));
