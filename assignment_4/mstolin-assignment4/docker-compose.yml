@@ -6,5 +6,5 @@ services:
     volumes:
       - ./target/assignment4-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/parliament.war
     ports:
-      - 8080:8080
+      - "8080:8080"
 
