@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Member} from "./models/member";
+import {MemberService} from "./services/member.service";
 
 @Component({
   selector: 'app-root',
@@ -8,31 +9,18 @@ import {Member} from "./models/member";
 })
 export class AppComponent {
 
-  members: Member[] = [
-      new Member(
-        1735,
-        "Constance, Angela",
-        "1970-07-15T00:00:00",
-        "http://scottishparliament.thirdlight.com/file/35820129812",
-        [],
-        []
-      ),
-      new Member(
-        1741,
-        "Goldie, Annabel",
-        "",
-        "",
-        [],
-        []
-      ),
-      new Member(
-        1742,
-        "Ewing, Annabelle",
-        "1960-08-20T00:00:00",
-        "http://scottishparliament.thirdlight.com/file/35960261933",
-        [],
-        []
-      )
-  ];
+  members: Member[] = [];
+
+  constructor(private memberService: MemberService) {
+
+  }
+
+  ngOnInit(): void {
+     this.memberService
+       .fetchMembers()
+       .subscribe(members => {
+         this.members = members;
+       });
+  }
 
 }

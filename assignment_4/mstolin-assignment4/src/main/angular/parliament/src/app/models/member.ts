@@ -1,4 +1,4 @@
-export class Member {
+/*export class Member {
   private _id: number;
   private _name: string;
   private _birthdate?: string; // ToDo: Member birthdate spaeter zu type Date, manchmal protected dann optional
@@ -40,4 +40,11 @@ export class Member {
     return this._websites;
   }
 
+}*/
+
+export interface Member {
+  PersonID: number;
+  PhotoURL: string;
+  BirthDate?: string;
+  ParliamentaryName: string;
 }
