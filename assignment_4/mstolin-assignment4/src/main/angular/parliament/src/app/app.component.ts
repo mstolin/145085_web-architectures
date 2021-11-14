@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {Member} from "./models/member";
-import {MemberService} from "./services/member.service";
 
 @Component({
   selector: 'app-root',
@@ -9,18 +7,8 @@ import {MemberService} from "./services/member.service";
 })
 export class AppComponent {
 
-  members: Member[] = [];
+  constructor() {
 
-  constructor(private memberService: MemberService) {
-
-  }
-
-  ngOnInit(): void {
-     this.memberService
-       .fetchMembers()
-       .subscribe(members => {
-         this.members = members;
-       });
   }
 
 }
