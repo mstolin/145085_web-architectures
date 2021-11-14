@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Member} from "../../models/member";
 
 @Component({
   selector: 'app-member-card',
@@ -7,12 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class MemberCardComponent implements OnInit {
 
-  @Input() name!: string;
-  @Input() photoUrl?: string;
+  @Input() member!: Member;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClick(): void {
+    console.log("MOING");
   }
 
 }

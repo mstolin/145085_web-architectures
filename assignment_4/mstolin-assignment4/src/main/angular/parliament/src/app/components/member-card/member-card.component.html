@@ -1,3 +1,4 @@
-<div>
-  <h2>{{ name }}</h2>
+<div (click)="onClick()">
+  <img *ngIf="member.photoUrl.length > 0" src="{{ member.photoUrl }}" width="300" height="300" />
+  <h2>{{ member.name }}</h2>
 </div>
