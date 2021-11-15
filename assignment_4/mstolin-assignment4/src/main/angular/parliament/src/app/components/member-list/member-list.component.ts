@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Member} from "../../models/member";
-import {MemberService} from "../../services/member.service";
+import {DataService} from "../../services/data/data.service";
 
 @Component({
   selector: 'app-member-list',
@@ -11,15 +11,16 @@ export class MemberListComponent implements OnInit {
 
   members: Member[] = [];
 
-  constructor(private memberService: MemberService) {
-
-  }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.memberService
-      .fetchMembers()
-      .subscribe(members => {
+    this.dataService
+      .fetchData()
+      .then(members => {
         this.members = members;
+      })
+      .catch(error => {
+        console.log('ERROR', error);
       });
   }
 
