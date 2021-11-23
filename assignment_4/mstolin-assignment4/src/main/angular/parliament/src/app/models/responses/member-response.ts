@@ -1,7 +1,7 @@
-/*export class Member {
+/*export class MemberResponse {
   private _id: number;
   private _name: string;
-  private _birthdate?: string; // ToDo: Member birthdate spaeter zu type Date, manchmal protected dann optional
+  private _birthdate?: string; // ToDo: MemberResponse birthdate spaeter zu type Date, manchmal protected dann optional
   private _photoUrl: string;
   private _parties: string[];
   private _websites: string[];
@@ -42,7 +42,7 @@
 
 }*/
 
-export interface Member {
+export interface MemberResponse {
   PersonID: number;
   PhotoURL: string;
   BirthDate?: string;

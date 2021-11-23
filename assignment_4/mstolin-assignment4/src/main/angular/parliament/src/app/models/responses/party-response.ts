@@ -1,4 +1,4 @@
-export interface Party {
+export interface PartyResponse {
   ID: number;
   Abbreviation: string;
   ActualName: string;

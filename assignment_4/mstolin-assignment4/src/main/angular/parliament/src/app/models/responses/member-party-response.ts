@@ -1,4 +1,4 @@
-export interface MemberParty {
+export interface MemberPartyResponse {
   ID: number;
   PersonID: number;
   PartyID: number;
