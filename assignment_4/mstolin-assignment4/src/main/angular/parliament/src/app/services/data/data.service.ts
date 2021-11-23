@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import {Member} from "../../models/member";
 import {HttpClient} from "@angular/common/http";
-import {forkJoin, Observable} from "rxjs";
+import {forkJoin, Observable, from} from "rxjs";
 import {MemberParty} from "../../models/member-party";
 import {DataResponse} from "../../models/data-response";
 import {Party} from "../../models/party";
 import {Website} from "../../models/website";
+import {MemberService} from "../members/member.service";
+
+type DataRequestSources = {
+  members: Observable<any>;
+  memberParties: Observable<any>;
+  parties: Observable<any>;
+  websites: Observable<any>;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +30,13 @@ export class DataService {
   private _parties: Party[] = [];
   private _websites: Website[] = [];
 
-  constructor(private http: HttpClient) { }
+  members$?: Observable<Member>;
+  memberParties$?: Observable<MemberParty>;
+  parties$?: Observable<Party>;
+  websites$?: Observable<Website>;
+
+
+  constructor(private http: HttpClient, private memberService: MemberService) { }
 
   private isDataAlreadyFetched(): boolean {
     return this._members.length > 0
@@ -33,31 +47,32 @@ export class DataService {
 
   public fetchData(): Promise<DataResponse> {
     if (!this.isDataAlreadyFetched()) {
-      let membersRequest = this.http.get<Member[]>(this.membersApiUrl);
+      let membersRequest = this.memberService.fetchData();
       let memberPartiesRequest = this.http.get<MemberParty[]>(this.memberPartiesApiUrl);
       let partiesRequest = this.http.get<Party[]>(this.partiesApiUrl);
       let websitesRequest = this.http.get<Website[]>(this.websitesApiUrl);
-      let requestSources: Observable<any>[] = [
-        membersRequest,
-        memberPartiesRequest,
-        partiesRequest,
-        websitesRequest
-      ];
+      let requestSources: DataRequestSources = {
+        members: membersRequest,
+        memberParties: memberPartiesRequest,
+        parties: partiesRequest,
+        websites: websitesRequest
+      };
 
       let promise = new Promise<DataResponse>((resolve, reject) => {
         forkJoin(requestSources)
           .subscribe(responses => {
-            let members: Member[] = responses[0];
-            let memberParties: MemberParty[] = responses[1];
-            let parties: Party[] = responses[2];
-            let websites: Website[] = responses[3];
+            this._members = responses.members;
+            this._memberParties = responses.memberParties;
+            this._parties = responses.parties;
+            this._websites = responses.websites;
 
-            this._members = members;
-            this._memberParties = memberParties;
-            this._parties = parties;
-            this._websites = websites;
+            this.members$ = from(this._members);
+            this.memberParties$ = from(this._memberParties);
+            this.parties$ = from(this._parties);
+            this.websites$ = from(this._websites);
 
-            resolve({members, memberParties, parties, websites})
+
+            resolve(responses)
           }, error => {
             reject(error);
           });
