@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Member} from "../../models/member";
+import {MemberResponse} from "../../models/responses/member-response";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class MemberCardComponent implements OnInit {
 
-  @Input() member!: Member;
+  @Input() member!: MemberResponse;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 

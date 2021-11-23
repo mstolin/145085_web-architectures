@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Member} from "../../models/member";
+import {MemberResponse} from "../../models/responses/member-response";
 import {DataService} from "../../services/data/data.service";
 
 @Component({
@@ -9,15 +9,15 @@ import {DataService} from "../../services/data/data.service";
 })
 export class MemberListComponent implements OnInit {
 
-  members: Member[] = [];
+  members: MemberResponse[] = [];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataService
       .fetchData()
-      .then(members => {
-        this.members = members;
+      .then(dataResponse => {
+        this.members = dataResponse.members;
       })
       .catch(error => {
         console.log('ERROR', error);

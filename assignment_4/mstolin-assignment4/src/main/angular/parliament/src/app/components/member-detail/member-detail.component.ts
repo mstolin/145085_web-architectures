@@ -3,10 +3,10 @@ import {ActivatedRoute} from "@angular/router";
 import {filter, Observable, of, groupBy, mergeMap, toArray, reduce, flatMap, map, mergeAll} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {DataService} from "../../services/data/data.service";
-import {Member} from "../../models/member";
-import {Website} from "../../models/website";
-import {Party} from "../../models/party";
-import {MemberParty} from "../../models/member-party";
+import {MemberResponse} from "../../models/responses/member-response";
+import {WebsiteResponse} from "../../models/responses/website-response";
+import {PartyResponse} from "../../models/responses/party-response";
+import {MemberPartyResponse} from "../../models/responses/member-party-response";
 import {flatten} from "@angular/compiler";
 
 @Component({
@@ -18,9 +18,9 @@ export class MemberDetailComponent implements OnInit {
 
   private memberId$?: Observable<number>;
 
-  member?: Member;
-  websites: Website[] = [];
-  parties: Party[] = [];
+  member?: MemberResponse;
+  websites: WebsiteResponse[] = [];
+  parties: PartyResponse[] = [];
 
   constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
@@ -68,7 +68,7 @@ export class MemberDetailComponent implements OnInit {
     );
   }
 
-  private mapPartyHistory(parties: MemberParty[]): MemberParty {
+  private mapPartyHistory(parties: MemberPartyResponse[]): MemberPartyResponse {
     let first = parties[0];
 
     // get smallest from
@@ -98,7 +98,7 @@ export class MemberDetailComponent implements OnInit {
     return first;
   }
 
-  private getParty(id: number): Party {
+  private getParty(id: number): PartyResponse {
     return this.dataService
       .parties
       .filter(party => party.ID == id)[0];
