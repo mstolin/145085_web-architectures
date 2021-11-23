@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {filter, Observable, of, groupBy, mergeMap, toArray, map} from 'rxjs';
+import {filter, Observable, of, groupBy, mergeMap, toArray, map, first} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {DataCacheService} from "../../services/data/data-cache.service";
 import {Member} from "../../models/member";
@@ -39,7 +39,7 @@ export class MemberDetailComponent implements OnInit {
         ).subscribe(website => this.websites.push(website));
 
         // get parties
-        this.dataService.memberParties$?.pipe(
+        let memberParties = this.dataService.memberParties$?.pipe(
           filter(memberParty => memberParty.personId == id), // only for current member
           groupBy(memberParty => memberParty.partyId), // group duplicate parties ...
           mergeMap(group =>
@@ -53,7 +53,11 @@ export class MemberDetailComponent implements OnInit {
             // und danach sortieren
             return this.getParty(memberParty.partyId);
           })*/
-        ).subscribe(party => {}); //this.parties.push(party)
+        ).subscribe(memberParty => {
+          this.dataService.parties$?.pipe(
+            filter(party => party.id == memberParty.partyId)
+          ).subscribe(party => this.parties.push(party));
+        });
       });
     }
   }
@@ -96,11 +100,5 @@ export class MemberDetailComponent implements OnInit {
 
     return first;
   }
-
-  /*private getParty(id: number): Party {
-    return this.dataService
-      .parties
-      .filter(party => party.id == id)[0];
-  }*/
 
 }
