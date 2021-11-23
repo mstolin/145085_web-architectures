@@ -1,1 +1,15 @@
-<h1 *ngIf="member">{{ member.ParliamentaryName }}</h1>
+<h2 *ngIf="member">{{ member.ParliamentaryName }}</h2>
+
+<h3>Websites</h3>
+<ul>
+  <li *ngFor="let website of websites">
+    <a href="{{ website.WebURL }}">{{ website.WebURL }}</a>
+  </li>
+</ul>
+
+<h3>Parties</h3>
+<ul>
+  <li *ngFor="let party of parties">
+    {{ party.ActualName }} ({{ party.Abbreviation }}) - {{ party.PreferredName }}
+  </li>
+</ul>
