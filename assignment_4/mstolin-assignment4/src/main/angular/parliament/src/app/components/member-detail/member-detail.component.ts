@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {filter, Observable, of, groupBy, mergeMap, toArray, reduce, flatMap, map, mergeAll} from 'rxjs';
+import {filter, Observable, of, groupBy, mergeMap, toArray, map} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {DataService} from "../../services/data/data.service";
-import {MemberResponse} from "../../models/responses/member-response";
-import {WebsiteResponse} from "../../models/responses/website-response";
-import {PartyResponse} from "../../models/responses/party-response";
-import {MemberPartyResponse} from "../../models/responses/member-party-response";
-import {flatten} from "@angular/compiler";
+import {Member} from "../../models/member";
+import {Website} from "../../models/website";
+import {Party} from "../../models/party";
+import {MemberParty} from "../../models/member-party";
 
 @Component({
   selector: 'app-member-detail',
@@ -18,9 +17,9 @@ export class MemberDetailComponent implements OnInit {
 
   private memberId$?: Observable<number>;
 
-  member?: MemberResponse;
-  websites: WebsiteResponse[] = [];
-  parties: PartyResponse[] = [];
+  member?: Member;
+  websites: Website[] = [];
+  parties: Party[] = [];
 
   constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
@@ -31,18 +30,18 @@ export class MemberDetailComponent implements OnInit {
       this.memberId$.subscribe(id => {
         // get current member
         this.dataService.members$!.pipe(
-          filter(member => member.PersonID == id)
+          filter(member => member.id == id)
         ).subscribe(member => { this.member = member; });
 
         // get websites
         this.dataService.websites$?.pipe(
-          filter(website => website.PersonID == id)
+          filter(website => website.personId == id)
         ).subscribe(website => { this.websites.push(website) });
 
         // get parties
         this.dataService.memberParties$?.pipe(
-          filter(memberParty => memberParty.PersonID == id), // only for current member
-          groupBy(memberParty => memberParty.PartyID), // group duplicate parties ...
+          filter(memberParty => memberParty.personId == id), // only for current member
+          groupBy(memberParty => memberParty.partyId), // group duplicate parties ...
           mergeMap(group =>
             group.pipe(
               toArray(),
@@ -52,7 +51,7 @@ export class MemberDetailComponent implements OnInit {
           map(memberParty => {
             // TODO: Map das in ein anderes model, sodass man noch das until und from anzeigen kann
             // und danach sortieren
-            return this.getParty(memberParty.PartyID);
+            return this.getParty(memberParty.partyId);
           })
         ).subscribe(party => this.parties.push(party));
       });
@@ -68,12 +67,12 @@ export class MemberDetailComponent implements OnInit {
     );
   }
 
-  private mapPartyHistory(parties: MemberPartyResponse[]): MemberPartyResponse {
+  private mapPartyHistory(parties: MemberParty[]): MemberParty {
     let first = parties[0];
 
     // get smallest from
     let from = parties
-      .map(party => new Date(party.ValidFromDate))
+      .map(party => party.validFrom)
       .reduce((previous, current) => {
         return (previous < current) ? previous : current;
       });
@@ -82,8 +81,8 @@ export class MemberDetailComponent implements OnInit {
     const now = new Date();
     let until = parties
       .map(party => {
-        if (party.ValidUntilDate != null) {
-          return new Date(party.ValidUntilDate);
+        if (party.validUntil != null) {
+          return party.validUntil;
         } else {
           return now;
         }
@@ -92,16 +91,16 @@ export class MemberDetailComponent implements OnInit {
         return (previous < current) ? current : previous;
       });
 
-    first.ValidFromDate = from.toDateString();
-    first.ValidUntilDate = until.toDateString();
+    //first.ValidFromDate = from.toDateString();
+    //first.ValidUntilDate = until.toDateString();
 
     return first;
   }
 
-  private getParty(id: number): PartyResponse {
+  private getParty(id: number): Party {
     return this.dataService
       .parties
-      .filter(party => party.ID == id)[0];
+      .filter(party => party.id == id)[0];
   }
 
 }

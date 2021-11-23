@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MemberResponse} from "../../models/responses/member-response";
 import {DataService} from "../../services/data/data.service";
+import {Member} from "../../models/member";
 
 @Component({
   selector: 'app-member-list',
@@ -9,7 +9,7 @@ import {DataService} from "../../services/data/data.service";
 })
 export class MemberListComponent implements OnInit {
 
-  members: MemberResponse[] = [];
+  members: Member[] = [];
 
   constructor(private dataService: DataService) { }
 

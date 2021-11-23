@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MemberResponse} from "../../models/responses/member-response";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Member} from "../../models/member";
 
 @Component({
   selector: 'app-member-card',
@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class MemberCardComponent implements OnInit {
 
-  @Input() member!: MemberResponse;
+  @Input() member!: Member;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
@@ -17,7 +17,7 @@ export class MemberCardComponent implements OnInit {
   }
 
   onClick(): void {
-    this.router.navigate(['/detail', this.member.PersonID], {relativeTo: this.route});
+    this.router.navigate(['/detail', this.member.id], {relativeTo: this.route});
   }
 
 }
