@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {filter, Observable, of, groupBy, mergeMap, toArray, map} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {DataService} from "../../services/data/data.service";
+import {DataCacheService} from "../../services/data/data-cache.service";
 import {Member} from "../../models/member";
 import {Website} from "../../models/website";
 import {Party} from "../../models/party";
@@ -21,7 +21,7 @@ export class MemberDetailComponent implements OnInit {
   websites: Website[] = [];
   parties: Party[] = [];
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private dataService: DataCacheService) { }
 
   ngOnInit(): void {
     this.receiveMemberId();
@@ -31,12 +31,12 @@ export class MemberDetailComponent implements OnInit {
         // get current member
         this.dataService.members$!.pipe(
           filter(member => member.id == id)
-        ).subscribe(member => { this.member = member; });
+        ).subscribe(member => this.member = member);
 
         // get websites
         this.dataService.websites$?.pipe(
           filter(website => website.personId == id)
-        ).subscribe(website => { this.websites.push(website) });
+        ).subscribe(website => this.websites.push(website));
 
         // get parties
         this.dataService.memberParties$?.pipe(
@@ -48,12 +48,12 @@ export class MemberDetailComponent implements OnInit {
               map(groupedParties => this.mapPartyHistory(groupedParties))
             )
           ),
-          map(memberParty => {
+          /*map(memberParty => {
             // TODO: Map das in ein anderes model, sodass man noch das until und from anzeigen kann
             // und danach sortieren
             return this.getParty(memberParty.partyId);
-          })
-        ).subscribe(party => this.parties.push(party));
+          })*/
+        ).subscribe(party => {}); //this.parties.push(party)
       });
     }
   }
@@ -97,10 +97,10 @@ export class MemberDetailComponent implements OnInit {
     return first;
   }
 
-  private getParty(id: number): Party {
+  /*private getParty(id: number): Party {
     return this.dataService
       .parties
       .filter(party => party.id == id)[0];
-  }
+  }*/
 
 }

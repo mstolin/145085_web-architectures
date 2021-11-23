@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from "../../services/data/data.service";
+import {DataCacheService} from "../../services/data/data-cache.service";
 import {Member} from "../../models/member";
 
 @Component({
@@ -11,17 +11,15 @@ export class MemberListComponent implements OnInit {
 
   members: Member[] = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataCacheService: DataCacheService) { }
 
   ngOnInit(): void {
-    this.dataService
+    this.dataCacheService
       .fetchData()
-      .then(dataResponse => {
-        this.members = dataResponse.members;
-      })
-      .catch(error => {
-        console.log('ERROR', error);
-      });
+      .then(dataResponse =>
+        dataResponse.members$.subscribe(member => this.members.push(member))
+      )
+      .catch(error => console.log('ERROR', error));
   }
 
 }
