@@ -7,7 +7,7 @@ import {PartyResponse} from "../../models/responses/party-response";
 @Injectable({
   providedIn: 'root'
 })
-export class PartyServiceService {
+export class PartyService {
 
   private readonly partiesApiUrl: string = 'https://data.parliament.scot/api/parties';
 

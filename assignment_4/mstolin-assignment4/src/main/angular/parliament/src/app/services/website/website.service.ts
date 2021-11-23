@@ -7,7 +7,7 @@ import {WebsiteResponse} from "../../models/responses/website-response";
 @Injectable({
   providedIn: 'root'
 })
-export class WebsiteServiceService {
+export class WebsiteService {
 
   private readonly websitesApiUrl: string = 'https://data.parliament.scot/api/websites';
 
