@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Member} from "../../models/member";
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, Observable, from} from "rxjs";
+import {DataResponse} from "../../models/responses/data-response";
+import {MemberService} from "../member/member.service";
+import {MemberPartyService} from "../member-party/member-party.service";
+import {PartyService} from "../party/party.service";
+import {WebsiteService} from "../website/website.service";
+import {Member} from "../../models/member";
 import {MemberParty} from "../../models/member-party";
-import {DataResponse} from "../../models/data-response";
 import {Party} from "../../models/party";
 import {Website} from "../../models/website";
-import {MemberService} from "../members/member.service";
 
 type DataRequestSources = {
   members: Observable<any>;
@@ -20,11 +23,6 @@ type DataRequestSources = {
 })
 export class DataService {
 
-  private membersApiUrl: string = 'https://data.parliament.scot/api/members';
-  private memberPartiesApiUrl: string = 'https://data.parliament.scot/api/memberparties';
-  private partiesApiUrl: string = 'https://data.parliament.scot/api/parties';
-  private websitesApiUrl: string = 'https://data.parliament.scot/api/websites';
-
   private _members: Member[] = [];
   private _memberParties: MemberParty[] = [];
   private _parties: Party[] = [];
@@ -36,7 +34,13 @@ export class DataService {
   websites$?: Observable<Website>;
 
 
-  constructor(private http: HttpClient, private memberService: MemberService) { }
+  constructor(
+    private http: HttpClient,
+    private memberService: MemberService,
+    private memberPartyService: MemberPartyService,
+    private partyService: PartyService,
+    private websiteService: WebsiteService
+  ) { }
 
   private isDataAlreadyFetched(): boolean {
     return this._members.length > 0
@@ -46,16 +50,23 @@ export class DataService {
   }
 
   public fetchData(): Promise<DataResponse> {
+    /*
+    TODO:
+
+    - services fuer alle models machen
+    - in den services auf richtiges model mappen
+    - typen hier und in den components anpassen
+     */
     if (!this.isDataAlreadyFetched()) {
-      let membersRequest = this.memberService.fetchData();
-      let memberPartiesRequest = this.http.get<MemberParty[]>(this.memberPartiesApiUrl);
-      let partiesRequest = this.http.get<Party[]>(this.partiesApiUrl);
-      let websitesRequest = this.http.get<Website[]>(this.websitesApiUrl);
+      let memberData = this.memberService.fetchData();
+      let memberPartiesData = this.memberPartyService.fetchData();
+      let partyData = this.partyService.fetchData();
+      let websiteData = this.websiteService.fetchData();
       let requestSources: DataRequestSources = {
-        members: membersRequest,
-        memberParties: memberPartiesRequest,
-        parties: partiesRequest,
-        websites: websitesRequest
+        members: memberData,
+        memberParties: memberPartiesData,
+        parties: partyData,
+        websites: websiteData
       };
 
       let promise = new Promise<DataResponse>((resolve, reject) => {
@@ -70,7 +81,6 @@ export class DataService {
             this.memberParties$ = from(this._memberParties);
             this.parties$ = from(this._parties);
             this.websites$ = from(this._websites);
-
 
             resolve(responses)
           }, error => {

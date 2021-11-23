@@ -1,13 +1,13 @@
-import {MemberResponse} from "./member-response";
-import {MemberPartyResponse} from "./member-party-response";
-import {PartyResponse} from "./party-response";
-import {WebsiteResponse} from "./website-response";
+import {Member} from "../member";
+import {MemberParty} from "../member-party";
+import {Party} from "../party";
+import {Website} from "../website";
 
 export interface DataResponse {
 
-  members: MemberResponse[];
-  memberParties: MemberPartyResponse[];
-  parties: PartyResponse[];
-  websites: WebsiteResponse[];
+  members: Member[];
+  memberParties: MemberParty[];
+  parties: Party[];
+  websites: Website[];
 
 }
