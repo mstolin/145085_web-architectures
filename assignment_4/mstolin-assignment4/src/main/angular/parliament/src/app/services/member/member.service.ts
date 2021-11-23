@@ -17,9 +17,7 @@ export class MemberService {
     return this.http
       .get<MemberResponse[]>(this.membersApiUrl)
       .pipe(
-        map(response => {
-          return response.map(memberResponse => new Member(memberResponse));
-        })
+        map(response => response.map(memberResponse => new Member(memberResponse)))
       );
   }
 }

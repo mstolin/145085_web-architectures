@@ -17,9 +17,7 @@ export class PartyServiceService {
     return this.http
       .get<PartyResponse[]>(this.partiesApiUrl)
       .pipe(
-        map(response => {
-          return response.map(partyResponse => new Party(partyResponse));
-        })
+        map(response => response.map(partyResponse => new Party(partyResponse)))
       );
   }
 
