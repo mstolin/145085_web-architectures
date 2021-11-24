@@ -1,15 +1,28 @@
-<h2 *ngIf="member">{{ member.name }}</h2>
+<div *ngIf="member">
+  <h2>Member {{ member.id }}</h2>
 
-<h3>Websites</h3>
-<ul>
-  <li *ngFor="let website of websites">
-    <a href="{{ website.url }}">{{ website.url }}</a>
-  </li>
-</ul>
+  <div>
+    <!--<img src="{{ member.photoUrl }}" alt="Profile Picture" />-->
+    <h3>{{ member.name }}</h3>
+    <em *ngIf="member.birthdate">{{ getFormattedBirthdate(member.birthdate) }}</em>
+  </div>
 
-<h3>Parties</h3>
-<ul>
-  <li *ngFor="let party of parties">
-    {{ party.name }} ({{ party.abbreviation }})
-  </li>
-</ul>
+  <div>
+    <h3>Parties</h3>
+    <ul>
+      <li *ngFor="let membership of partyMemberships">
+        {{ membership.party.name }} ({{ membership.party.abbreviation }}) {{ membership.from }} - {{ membership.until }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="websites.length > 0">
+    <h3>Websites</h3>
+    <ul>
+      <li *ngFor="let website of websites">
+        <a href="{{ website.url }}">{{ website.url }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+

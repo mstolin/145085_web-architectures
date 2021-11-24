@@ -47,6 +47,10 @@ export class MemberDetailComponent implements OnInit {
     }
   }
 
+  getFormattedBirthdate(date: Date): string {
+    return `${date.getMonth()}, ${date.getDay()} ${date.getFullYear()}`;
+  }
+
   private receiveMemberId(): void {
     this.memberId$ = this.route.paramMap.pipe(
       switchMap(params => {
