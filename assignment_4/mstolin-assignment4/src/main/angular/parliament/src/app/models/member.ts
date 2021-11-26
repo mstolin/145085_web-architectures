@@ -4,13 +4,18 @@ export class Member {
   private readonly _id: number;
   private readonly _name: string;
   private readonly _birthdate?: Date;
-  private readonly _photoUrl: string;
+  private readonly _photoUrl?: string;
 
 
   constructor(memberResponse: MemberResponse) {
     this._id = memberResponse.PersonID;
     this._name = memberResponse.ParliamentaryName;
-    this._photoUrl = memberResponse.PhotoURL;
+
+    if (memberResponse.PhotoURL.length > 0) {
+      this._photoUrl = memberResponse.PhotoURL;
+    } else {
+      this._photoUrl = undefined;
+    }
 
     if (typeof memberResponse.BirthDate !== 'undefined') {
       this._birthdate = new Date(memberResponse.BirthDate);
@@ -29,7 +34,7 @@ export class Member {
     return this._birthdate;
   }
 
-  get photoUrl(): string {
+  get photoUrl(): string | undefined {
     return this._photoUrl;
   }
 }
