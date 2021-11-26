@@ -20,4 +20,12 @@ export class MemberCardComponent implements OnInit {
     this.router.navigate(['/detail', this.member.id], {relativeTo: this.route});
   }
 
+  getProfilePictureUrl(): string {
+    if (this.member.photoUrl.length > 0) {
+      return this.member.photoUrl;
+    } else {
+      return 'assets/dummy-profile-pic.png';
+    }
+  }
+
 }

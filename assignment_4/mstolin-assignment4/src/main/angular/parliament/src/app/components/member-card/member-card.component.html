@@ -1,4 +1,7 @@
-<div (click)="onClick()">
-  <!--<img *ngIf="member.PhotoURL.length > 0" src="{{ member.PhotoURL }}" width="300" height="300" />-->
-  <h2>{{ member.name }}</h2>
+<div class="card" style="width: 18rem;">
+  <img src="{{ getProfilePictureUrl() }}" class="card-img-top" alt="Profile Picture">
+  <div class="card-body">
+    <h5 class="card-title">{{ member.name }}</h5>
+    <button type="button" class="btn btn-primary" (click)="onClick()">Details</button>
+  </div>
 </div>

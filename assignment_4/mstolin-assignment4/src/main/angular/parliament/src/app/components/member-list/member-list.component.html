@@ -1,1 +1,10 @@
-<app-member-card *ngFor="let member of members" [member]="member"></app-member-card>
+<main class="bg-light text-dark p-5 text-center">
+  <div class="container">
+    <div *ngFor="let row of grid" class="row">
+      <div *ngFor="let member of row" class="col">
+        <app-member-card [member]="member"></app-member-card>
+      </div>
+    </div>
+  </div>
+</main>
+

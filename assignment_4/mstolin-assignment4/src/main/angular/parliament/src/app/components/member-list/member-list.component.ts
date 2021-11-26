@@ -9,7 +9,10 @@ import {Member} from "../../models/member";
 })
 export class MemberListComponent implements OnInit {
 
-  members: Member[] = [];
+  private readonly cols = 3;
+  private countOfMembers = 0;
+
+  grid: Member[][] = [];
 
   constructor(private dataCacheService: DataCacheService) { }
 
@@ -17,9 +20,21 @@ export class MemberListComponent implements OnInit {
     this.dataCacheService
       .fetchData()
       .then(dataResponse =>
-        dataResponse.members$.subscribe(member => this.members.push(member))
+        dataResponse.members$.subscribe(member => this.addMemberToGrid(member))
       )
       .catch(error => console.log('ERROR', error));
+  }
+
+  private addMemberToGrid(member: Member): void {
+    let colIndex = Math.floor(this.countOfMembers / this.cols);
+
+    if (typeof this.grid[colIndex] !== "undefined") {
+      this.grid[colIndex].push(member);
+    } else {
+      let row: Member[] = [member];
+      this.grid[colIndex] = row;
+    }
+    this.countOfMembers = this.countOfMembers + 1;
   }
 
 }
