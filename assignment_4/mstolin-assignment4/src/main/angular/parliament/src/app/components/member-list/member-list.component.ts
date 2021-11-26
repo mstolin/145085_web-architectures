@@ -28,7 +28,7 @@ export class MemberListComponent implements OnInit {
   private addMemberToGrid(member: Member): void {
     let colIndex = Math.floor(this.countOfMembers / this.cols);
 
-    if (typeof this.grid[colIndex] !== "undefined") {
+    if (typeof this.grid[colIndex] !== 'undefined') {
       this.grid[colIndex].push(member);
     } else {
       let row: Member[] = [member];

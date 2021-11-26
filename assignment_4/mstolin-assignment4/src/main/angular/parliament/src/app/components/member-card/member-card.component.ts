@@ -21,7 +21,7 @@ export class MemberCardComponent implements OnInit {
   }
 
   getProfilePictureUrl(): string {
-    if (this.member.photoUrl.length > 0) {
+    if (typeof this.member.photoUrl !== 'undefined') {
       return this.member.photoUrl;
     } else {
       return 'assets/dummy-profile-pic.png';
