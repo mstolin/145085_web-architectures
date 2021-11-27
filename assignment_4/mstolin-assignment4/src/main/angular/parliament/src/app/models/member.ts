@@ -2,14 +2,17 @@ import {MemberResponse} from "./responses/member-response";
 
 export class Member {
   private readonly _id: number;
-  private readonly _name: string;
+  private readonly _firstName: string;
+  private readonly _lastName: string;
   private readonly _birthdate?: Date;
   private readonly _photoUrl?: string;
 
-
   constructor(memberResponse: MemberResponse) {
     this._id = memberResponse.PersonID;
-    this._name = memberResponse.ParliamentaryName;
+
+    let splitName = this.getSplitName(memberResponse.ParliamentaryName)
+    this._firstName = splitName.firstName;
+    this._lastName = splitName.lastName;
 
     if (memberResponse.PhotoURL.length > 0) {
       this._photoUrl = memberResponse.PhotoURL;
@@ -26,8 +29,16 @@ export class Member {
     return this._id;
   }
 
-  get name(): string {
-    return this._name;
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
+
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
 
   get birthdate(): Date | undefined {
@@ -36,5 +47,13 @@ export class Member {
 
   get photoUrl(): string | undefined {
     return this._photoUrl;
+  }
+
+  private getSplitName(name: string): {firstName: string, lastName: string} {
+    let splitName = name.split(',');
+    return {
+      firstName: splitName[1],
+      lastName: splitName[0]
+    };
   }
 }
