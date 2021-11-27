@@ -1,0 +1,7 @@
+.member-row {
+  padding: 1rem 4rem;
+}
+
+.member-row:first-child {
+  padding-top: 2rem;
+}
