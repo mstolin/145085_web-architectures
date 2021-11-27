@@ -16,8 +16,8 @@ type Membership = {
 
 type PartyMembership = {
   party: Party
-  from: String
-  until: String
+  from: Date
+  until?: Date
 }
 
 @Component({
@@ -85,7 +85,9 @@ export class MemberDetailComponent implements OnInit {
     ).subscribe(membership => {
       this.dataCacheService.parties$?.pipe(
         filter(party => party.id == membership.memberParty.partyId), // only parties of current member
-        map(party => this.generatePartyMembership(party, membership)) // generate partyMemberships
+        map(party => {
+          return {party, from: membership.from, until: membership.until}; // generate partyMemberships objects
+        })
       ).subscribe(partyMembership => this.partyMemberships.push(partyMembership)); // push to array
     });
   }
@@ -117,21 +119,8 @@ export class MemberDetailComponent implements OnInit {
     return {
       memberParty,
       from,
-      until: until != now ? until: undefined
+      until: (until != now && until > from) ? until: undefined
     };
-  }
-
-  private generatePartyMembership(party: Party, membership: Membership): PartyMembership {
-    let from = this.getFormattedDate(membership.from);
-    let until = typeof membership.until !== 'undefined'
-      ? this.getFormattedDate(membership.until)
-      : 'Today';
-
-    return {party, from, until};
-  }
-
-  private getFormattedDate(date: Date): string {
-    return `${date.getMonth()}/${date.getFullYear()}`;
   }
 
 }

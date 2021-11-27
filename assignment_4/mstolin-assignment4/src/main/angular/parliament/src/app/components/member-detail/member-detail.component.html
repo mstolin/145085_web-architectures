@@ -10,7 +10,7 @@
         </div>
         <div class="member-info-container">
           <h3>{{ member.name }}</h3>
-          <em *ngIf="member.birthdate">{{ getFormattedBirthdate(member.birthdate) }}</em>
+          <span *ngIf="member.birthdate">{{ member.birthdate | date: 'longDate' }}</span>
         </div>
       </div>
 
@@ -18,7 +18,9 @@
         <h3>Parties</h3>
         <ul>
           <li *ngFor="let membership of partyMemberships">
-            {{ membership.party.name }} ({{ membership.party.abbreviation }}) | From {{ membership.from }} until {{ membership.until }}
+            {{ membership.party.name }} ({{ membership.party.abbreviation }})
+            | <span>From {{ membership.from | date: 'longDate' }}</span>
+            <span *ngIf="membership.until"> until {{ membership.until | date: 'longDate' }}</span>
           </li>
         </ul>
       </div>
