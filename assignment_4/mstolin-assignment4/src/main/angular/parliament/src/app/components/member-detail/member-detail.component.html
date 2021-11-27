@@ -9,7 +9,7 @@
           <img src="{{ member.photoUrl }}" class="img-fluid rounded shadow" alt="Profile Picture" />
         </div>
         <div class="member-info-container">
-          <h3>{{ member.name }}</h3>
+          <h3>{{ member.fullName }}</h3>
           <span *ngIf="member.birthdate">{{ member.birthdate | date: 'longDate' }}</span>
         </div>
       </div>
