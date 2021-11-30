@@ -1,0 +1,48 @@
+\section{Comments and Notes}\label{sec:04_comments}
+
+
+\subsection{Routing}\label{subsec:04_comments_routing}
+% Whats the problem
+A requirement was to deploy the \textit{Angular} application on a \textit{Tomcat} webserver. However, \textit{Angular} uses a virtual DOM and redirects all requests to a route to the index.html.
+% Example
+For example, requesting the page \url{http://localhost:8080/detail/1735} will not work, because a directory \path{detail/1735} does not exists. Then, the \textit{Tomcat} webserver responses a 404 error page.
+
+% Solution
+The solution to this problem, is to use the \texttt{HashLocationStrategy}\footnote{\url{https://angular.io/api/common/HashLocationStrategy}}. \Lst{lst:04_comments_routing_hashrouting} shows how it is implemented in the application.
+% What happens
+Then, the previously mentioned URL can be accessed as \url{http://localhost:8080/#/detail/1735}.
+% Implementation
+\begin{lstlisting}[label=lst:04_comments_routing_hashrouting, caption=Application routing configuration of \texttt{app-routing.module.ts}, language=java]
+const routes: Routes = [
+  { path: '', component: MemberListComponent },
+  { path: 'detail/:memberId', component: MemberDetailComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  exports: [RouterModule]
+})
+\end{lstlisting}
+
+
+\subsection{Building the Angular Application}\label{subsec:04_comments_building}
+% What
+Another problem is how to build the \textit{Angular} application, which is also related to the \textit{Tomcat} webserver.
+The \textit{Tomcat} webserver requires static files (e.g.: HTML files, Javascript libraries) to be located at \path{PROJECT\_ROOT/src/main/webapp}.
+Therefore, whenever the angular application is built, the output has to be saved it. this directory
+
+% Solution
+To solve this issue, \textit{Angular} allows to define \texttt{outputPath} whenever the application is built using \texttt{ng build}. \Lst{lst:04_comments_building_config} shows the \path{angular.json} configuration.
+
+Additionally, it is important to define the base-href, which defines the the path where the application is located on the webserver. This application is supposed to be available via the root path \path{/} (e.g.: \url{http://localhost:8080/}).
+
+Therefore, the command \texttt{\$ ng build -{}-base-href /} needs to be used to build the application.
+
+\begin{lstlisting}[label=lst:04_comments_building_config, caption=\texttt{angular.json} configuration]
+...
+"build": {
+  "builder": "@angular-devkit/build-angular:browser",
+  "options": {
+    "outputPath": "../../webapp",
+...
+\end{lstlisting}

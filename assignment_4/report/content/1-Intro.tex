@@ -1,11 +1,15 @@
 \section{Introduction}\label{sec:01_intro}
-% Intro to the Task
-The task of the third assignment is to create a web version of the Memory game. In this game, different users can play a game and see the high score of all users who have played before.
+% Intro
+The third assignment is about creating an \textit{Angular} application that presents all members of the Scottish parliament.
+% What
+Is is supposed to consist of two components, a list, and a member detail page.
 
-% Server side
-The application is composed of two systems, the backend, and the frontend.
-% Backend
-The backend is responsible to authenticate the user with a username, save the high score of each user, and respond the number of points for each guess made by the user. Additionally, it should be possible to set a \textit{development mode}, where the grid of the memory is deterministic. Otherwise, in \textit{production mode}, the grid is generated randomly.
+% List
+The list is responsible to list all member of the Scottish parliament. It shows the profile picture of the member and the name. If the a profile picture is not available, a dummy image is supposed to be presented.
 
-% Frontend
-The frontend side consists of the game (User Interface), where the user can play the actual game. This frontend has to be implemented using JavaScript and it should communicate with the backend using Ajax.
+% Detail page
+After the user clicks on a list item, the user will be forwarded to the detail page of the member. There, the user can see more details about the member. It shows, the member ID, the profile picture, the name, the birthdate, all current and past party memberships, and all associated websites.
+
+
+% Deployment
+Another requirement is, that the \textit{Angular} application must be delivered as a \texttt{.war} using \textit{Tomcat}.
