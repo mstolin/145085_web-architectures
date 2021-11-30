@@ -12,7 +12,7 @@ For example, requesting the page \url{http://localhost:8080/parliament/detail/17
 % Solution
 The solution to this problem, is to use the \texttt{HashLocationStrategy}\footnote{\url{https://angular.io/api/common/HashLocationStrategy}}. \Lst{lst:04_comments_routing_hashrouting} shows how it is implemented in the application.
 % What happens
-Then, the previously mentioned URL can be accessed as \url{http://localhost:8080/parliament/#/detail/1735}.
+Then, the previously mentioned URL can be accessed via \url{http://localhost:8080/parliament/#/detail/1735}.
 % Implementation
 \begin{lstlisting}[label=lst:04_comments_routing_hashrouting, caption=Application routing configuration of \texttt{app-routing.module.ts}, language=java]
 const routes: Routes = [
@@ -29,8 +29,8 @@ const routes: Routes = [
 
 \subsection{Building the Angular Application}\label{subsec:04_comments_building}
 % What
-Another problem is how to build the \textit{Angular} application, which is also related to the \textit{Tomcat} web server.
-The \textit{Tomcat} web server requires static files (e.g.: HTML files, Javascript libraries) to be located at \path{PROJECT\_ROOT/src/main/webapp}.
+Another problem is how to build the \textit{Angular} application.
+A \textit{JS-Servlet} project requires static files (e.g.: HTML files, Javascript libraries) to be located at \path{PROJECT\_ROOT/src/main/webapp}.
 Therefore, whenever the angular application is built, the output has to be saved in this directory.
 
 % Solution
