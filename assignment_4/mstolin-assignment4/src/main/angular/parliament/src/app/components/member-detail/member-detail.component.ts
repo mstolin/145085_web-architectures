@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {filter, Observable, of, groupBy, mergeMap, toArray, map, first} from 'rxjs';
+import {filter, Observable, of, groupBy, mergeMap, toArray, map} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {DataCacheService} from "../../services/data/data-cache.service";
 import {Member} from "../../models/member";
@@ -39,11 +39,13 @@ export class MemberDetailComponent implements OnInit {
     this.receiveMemberId();
 
     if (typeof this.memberId$ !== 'undefined') {
-      this.memberId$.subscribe(memberId => {
-        this.receiveMember(memberId);
-        this.receiveWebsites(memberId);
-        this.receiveParties(memberId);
-      });
+      this.dataCacheService.fetchData().then(_ =>
+        this.memberId$?.subscribe(memberId => {
+          this.receiveMember(memberId);
+          this.receiveWebsites(memberId);
+          this.receiveParties(memberId);
+        })
+      );
     }
   }
 
@@ -61,7 +63,7 @@ export class MemberDetailComponent implements OnInit {
   }
 
   private receiveMember(memberId: number): void {
-    this.dataCacheService.members$!.pipe(
+    this.dataCacheService.members$?.pipe(
       filter(member => member.id == memberId)
     ).subscribe(member => this.member = member);
   }
@@ -84,7 +86,7 @@ export class MemberDetailComponent implements OnInit {
       )
     ).subscribe(membership => {
       this.dataCacheService.parties$?.pipe(
-        filter(party => party.id == membership.memberParty.partyId), // only parties of current member
+        filter(party => party.id == membership.memberParty.partyId), // party for the partyId
         map(party => {
           return {party, from: membership.from, until: membership.until}; // generate partyMemberships objects
         })
