@@ -7,12 +7,12 @@ This section describes the problems encountered during the development of the ap
 % Whats the problem
 A requirement was to deploy the \textit{Angular} application on a \textit{Tomcat} webserver. However, \textit{Angular} redirects all requests to the \path{index.html}.
 % Example
-For example, requesting the page \url{http://localhost:8080/parliament/detail/1735} will not work, because a directory \path{detail/1735} does not exist. Then, the \textit{Tomcat} web server responses a 404 error page.
+For example, requesting the page \url{http://localhost:8080/marcel-stolin/detail/1735} will not work, because a directory \path{detail/1735} does not exist. Then, the \textit{Tomcat} web server responses a 404 error page.
 
 % Solution
 The solution to this problem, is to use the \texttt{HashLocationStrategy}\footnote{\url{https://angular.io/api/common/HashLocationStrategy}}. \Lst{lst:04_comments_routing_hashrouting} shows how it is implemented in the application.
 % What happens
-Then, the previously mentioned URL can be accessed via \url{http://localhost:8080/parliament/#/detail/1735}.
+Then, the previously mentioned URL can be accessed via \url{http://localhost:8080/marcel-stolin/#/detail/1735}.
 % Implementation
 \begin{lstlisting}[label=lst:04_comments_routing_hashrouting, caption=Application routing configuration of \texttt{app-routing.module.ts}, language=java]
 const routes: Routes = [
@@ -47,7 +47,7 @@ To solve this issue, \textit{Angular} allows to define the \texttt{outputPath} f
 
 
 % Base href
-Additionally, it is important to define the \textit{base-href}, that defines the path where the application is located on the web server. This application is supposed to be available via the path \path{/parliament} (e.g.: \url{http://localhost:8080/parliament/}).
+Additionally, it is important to define the \textit{base-href}, that defines the path where the application is located on the web server. This application is supposed to be available via the path \path{/marcel-stolin} (e.g.: \url{http://localhost:8080/marcel-stolin/}).
 
 
-Therefore, the command \texttt{\$ ng build -{}-base-href /parliament/} has to be used to build the application.
+Therefore, the command \texttt{\$ ng build -{}-base-href /marcel-stolin/} has to be used to build the application.
