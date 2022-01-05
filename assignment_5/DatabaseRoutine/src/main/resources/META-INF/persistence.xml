@@ -4,6 +4,20 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="default">
-        <jta-data-source>java:jboss/datasources/AccommodationsDS</jta-data-source>
+        <class>it.unitn.disi.webarch.mstolin.entities.AccommodationEntity</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.ApartmentEntity</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.HotelEntity</class>
+        <properties>
+            <property name="hibernate.connection.url"
+                      value="jdbc:h2:tcp://localhost/~/workspace/145085_web-architectures/assignment_5/accommodations"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value="sa"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+        </properties>
     </persistence-unit>
 </persistence>
+
