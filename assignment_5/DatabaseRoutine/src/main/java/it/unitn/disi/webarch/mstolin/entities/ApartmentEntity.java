@@ -2,6 +2,7 @@ package it.unitn.disi.webarch.mstolin.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity()
@@ -14,6 +15,10 @@ public class ApartmentEntity extends AccommodationEntity implements Serializable
     @Basic
     @Column(name = "MAX_PERSONS", nullable = true)
     private Integer maxPersons;
+
+    @OneToMany(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "ACCOMMODATION_ID")
+    private Set<ReservationEntity> reservations;
 
     public ApartmentEntity(String name, int price, int finalCleaningFee, int maxPersons) {
         super();
@@ -41,5 +46,13 @@ public class ApartmentEntity extends AccommodationEntity implements Serializable
 
     public void setMaxPersons(Integer maxPersons) {
         this.maxPersons = maxPersons;
+    }
+
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
     }
 }
