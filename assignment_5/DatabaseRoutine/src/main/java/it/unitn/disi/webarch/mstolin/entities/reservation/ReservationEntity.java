@@ -1,12 +1,16 @@
-package it.unitn.disi.webarch.mstolin.entities;
+package it.unitn.disi.webarch.mstolin.entities.reservation;
+
+import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "RESERVATION", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("BASIC_RESERVATION")
 public class ReservationEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
