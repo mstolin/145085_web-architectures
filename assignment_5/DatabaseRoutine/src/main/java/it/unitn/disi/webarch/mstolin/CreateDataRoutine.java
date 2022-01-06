@@ -1,61 +1,132 @@
 package it.unitn.disi.webarch.mstolin;
 
-import it.unitn.disi.webarch.mstolin.entities.ApartmentEntity;
-import it.unitn.disi.webarch.mstolin.entities.HotelEntity;
-import it.unitn.disi.webarch.mstolin.entities.ReservationEntity;
+import it.unitn.disi.webarch.mstolin.data.Store;
+import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
+import it.unitn.disi.webarch.mstolin.entities.accommodation.ApartmentEntity;
+import it.unitn.disi.webarch.mstolin.entities.accommodation.HotelEntity;
+import it.unitn.disi.webarch.mstolin.entities.reservation.HotelReservationEntity;
+import it.unitn.disi.webarch.mstolin.entities.reservation.ReservationEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.sql.Timestamp;
-import java.util.HashSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-public class CreateDatabase {
+public class CreateDataRoutine {
 
-    public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+    private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+    private CreateDataRoutine(Set<Map<String, Object>> apartments, Set<Map<String, Object>> hotels) {
+        EntityTransaction transaction = this.entityManager.getTransaction();
         try {
             transaction.begin();
-
-            writeApartments(entityManager);
-            //writeHotels(entityManager);
-
+            this.writeApartments(apartments);
+            this.writeHotels(hotels);
             transaction.commit();
+        } catch (ParseException e) {
+            e.printStackTrace();
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            entityManager.close();
-            entityManagerFactory.close();
+            this.entityManager.close();
+            this.entityManagerFactory.close();
         }
     }
 
-    private static void writeApartments(EntityManager entityManager) {
-        ApartmentEntity pietraBianca = new ApartmentEntity("Pietra Bianca", 40, 15, 4);
-        HashSet<ReservationEntity> reservations = new HashSet<ReservationEntity>();
-        ReservationEntity testReservation = new ReservationEntity("Mock Guest", pietraBianca, new Timestamp(1000), new Timestamp(20000));
-        reservations.add(testReservation);
-        pietraBianca.setReservations(reservations);
-        entityManager.persist(pietraBianca);
-        /*ApartmentEntity saporeDiSale = new ApartmentEntity("Sapore Di Sale", 80, 20, 8);
-        entityManager.persist(saporeDiSale);
-        ApartmentEntity tenutaDiArtmimino = new ApartmentEntity("Tenuta Di Artimino", 60, 12, 6);
-        entityManager.persist(tenutaDiArtmimino);*/
+    public static void main(String[] args) {
+        new CreateDataRoutine(Store.generateApartments(), Store.generateHotels());
     }
 
-    private static void writeHotels(EntityManager entityManager) {
-        HotelEntity artemide = new HotelEntity("Artemide", 100, 20, 4, 60);
-        entityManager.persist(artemide);
-        HotelEntity majestic = new HotelEntity("Majestic", 65, 15, 3, 50);
-        entityManager.persist(majestic);
-        HotelEntity palace = new HotelEntity("Palace", 200, 30, 5, 25);
-        entityManager.persist(palace);
-        HotelEntity zenith = new HotelEntity("Zenith", 70, 18, 3, 40);
-        entityManager.persist(zenith);
+    private void writeApartments(Set<Map<String, Object>> apartments) throws ParseException {
+        for (Map<String, Object> apartment : apartments) {
+            ApartmentEntity apartmentEntity = new ApartmentEntity(
+                    (String) apartment.get("name"),
+                    (int) apartment.get("price"),
+                    (int) apartment.get("finalCleaningFee"),
+                    (int) apartment.get("maxPersons")
+            );
+            Set<ReservationEntity> reservations = this.generateApartmentReservations(apartmentEntity);
+            apartmentEntity.setReservations(reservations);
+            this.entityManager.persist(apartmentEntity);
+        }
+    }
+
+    private void writeHotels(Set<Map<String, Object>> hotels) throws ParseException {
+        for (Map<String, Object> hotel : hotels) {
+            HotelEntity hotelEntity = new HotelEntity(
+                    (String) hotel.get("name"),
+                    (int) hotel.get("price"),
+                    (int) hotel.get("extraHalfBoard"),
+                    (int) hotel.get("stars"),
+                    (int) hotel.get("places")
+            );
+            Set<ReservationEntity> reservations = this.generateHotelReservations(hotelEntity);
+            hotelEntity.setReservations(reservations);
+            this.entityManager.persist(hotelEntity);
+        }
+    }
+
+    private Set<ReservationEntity> generateApartmentReservations(AccommodationEntity accommodation) throws ParseException {
+        Set<ReservationEntity> reservations = new HashSet<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
+        Set<Integer> randomDays = this.getRandomNumberSet(4, 1, 28);
+        for (Integer randomDay : randomDays) {
+            Date dateOfReservation = formatter.parse("2022-2-" + randomDay);
+            ReservationEntity reservation = new ReservationEntity(
+                    "Mock Guest",
+                    accommodation,
+                    dateOfReservation,
+                    dateOfReservation
+            );
+            reservations.add(reservation);
+        }
+        return reservations;
+    }
+
+    private Set<ReservationEntity> generateHotelReservations(AccommodationEntity accommodation) throws java.text.ParseException {
+        Set<ReservationEntity> reservations = new HashSet<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
+        for (int i = 1; i <= 28; i++) {
+            Date dateOfReservation = formatter.parse("2022-2-" + i);
+            int randomOccupancy = (int) Math.round(
+                    this.getRandomNumber(0.9, 1) * ((HotelEntity) accommodation).getPlaces()
+            );
+            HotelReservationEntity reservation = new HotelReservationEntity(
+                    "Mock Guest",
+                    accommodation,
+                    dateOfReservation,
+                    dateOfReservation,
+                    randomOccupancy
+            );
+            reservations.add(reservation);
+        }
+        return reservations;
+    }
+
+    private Set<Integer> getRandomNumberSet(int length, int min, int max) {
+        // Create all days
+        ArrayList<Integer> allNums = new ArrayList<>();
+        for (int i = min; i < max; i++) {
+            allNums.add(i);
+        }
+        // Shuffle all days
+        Collections.shuffle(allNums);
+        // Select n random days
+        Set<Integer> randomNums = new HashSet<>();
+        for (int i = 0; i < length; i++) {
+            randomNums.add(allNums.get(i));
+        }
+        return randomNums;
+    }
+
+    double getRandomNumber(double min, double max) {
+        Random random = new Random();
+        return min + (max - min) * random.nextDouble();
     }
 
 }
