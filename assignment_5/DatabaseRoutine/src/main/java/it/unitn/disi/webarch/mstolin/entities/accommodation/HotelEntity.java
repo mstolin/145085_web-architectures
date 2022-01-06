@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.mstolin.entities;
+package it.unitn.disi.webarch.mstolin.entities.accommodation;
 
 import javax.persistence.*;
 import java.io.Serializable;

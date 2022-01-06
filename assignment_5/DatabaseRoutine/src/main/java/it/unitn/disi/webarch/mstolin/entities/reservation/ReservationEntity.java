@@ -3,6 +3,7 @@ package it.unitn.disi.webarch.mstolin.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "RESERVATION", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
@@ -21,16 +22,16 @@ public class ReservationEntity implements Serializable {
     private String guestName;
 
     @Column(name = "START_DATE", nullable = false)
-    private Timestamp startDate;
+    private Date startDate;
 
     @Basic
     @Column(name = "END_DATE", nullable = false)
-    private Timestamp endDate;
+    private Date endDate;
 
     public ReservationEntity() {
     }
 
-    public ReservationEntity(String guestName, AccommodationEntity accommodation, Timestamp startDate, Timestamp endDate) {
+    public ReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate) {
         this.guestName = guestName;
         this.accommodation = accommodation;
         this.startDate = startDate;
@@ -61,19 +62,19 @@ public class ReservationEntity implements Serializable {
         this.guestName = guestName;
     }
 
-    public Timestamp getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Timestamp getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

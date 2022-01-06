@@ -1,14 +1,17 @@
-package it.unitn.disi.webarch.mstolin.entities;
+package it.unitn.disi.webarch.mstolin.entities.accommodation;
+
+import it.unitn.disi.webarch.mstolin.entities.reservation.ReservationEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "ACCOMMODATION", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.STRING)
-//@DiscriminatorValue("ACCOMMODATION")
 public abstract class AccommodationEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false, updatable = false)
@@ -22,17 +25,12 @@ public abstract class AccommodationEntity implements Serializable {
     @Column(name = "PRICE", nullable = false)
     protected int price;
 
+    @OneToMany(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "ACCOMMODATION_ID")
+    private Set<ReservationEntity> reservations;
+
     public AccommodationEntity() {
-        //this.id = (int) System.nanoTime();
     }
-
-    /*public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }*/
 
     public String getName() {
         return name;
@@ -48,6 +46,14 @@ public abstract class AccommodationEntity implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
     }
 
     /*@Override
