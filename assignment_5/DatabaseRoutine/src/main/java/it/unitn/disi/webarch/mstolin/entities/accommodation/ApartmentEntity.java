@@ -1,12 +1,11 @@
 package it.unitn.disi.webarch.mstolin.entities.accommodation;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Entity()
 @DiscriminatorValue("APARTMENT")
-public class ApartmentEntity extends AccommodationEntity implements Serializable {
+public class ApartmentEntity extends AccommodationEntity {
     @Basic
     @Column(name = "FINAL_CLEANING_FEE", nullable = true)
     private Integer finalCleaningFee;

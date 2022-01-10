@@ -3,12 +3,11 @@ package it.unitn.disi.webarch.mstolin.entities.reservation;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("HOTEL_RESERVATION")
-public class HotelReservationEntity extends ReservationEntity implements Serializable {
+public class HotelReservationEntity extends ReservationEntity {
 
     @Basic
     @Column(name = "GUESTS")

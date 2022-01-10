@@ -6,12 +6,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("APARTMENT_OCCUPANCY")
-public class ApartmentOccupancy extends AccommodationOccupancy implements Serializable {
+public class ApartmentOccupancy extends AccommodationOccupancy {
     @Basic
     @Column(name = "IS_AVAILABLE")
     private boolean isAvailable;

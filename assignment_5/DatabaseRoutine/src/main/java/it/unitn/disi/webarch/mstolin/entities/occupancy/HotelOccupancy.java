@@ -6,12 +6,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("HOTEL_OCCUPANCY")
-public class HotelOccupancy extends AccommodationOccupancy implements Serializable {
+public class HotelOccupancy extends AccommodationOccupancy {
     @Basic
     @Column(name = "TOTAL_RESERVATIONS")
     private int totalReservations;

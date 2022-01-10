@@ -3,7 +3,6 @@ package it.unitn.disi.webarch.mstolin.entities.reservation;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -11,7 +10,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("BASIC_RESERVATION")
-public class ReservationEntity implements Serializable {
+public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "ID", nullable = false)
@@ -44,10 +43,6 @@ public class ReservationEntity implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public AccommodationEntity getAccommodation() {
