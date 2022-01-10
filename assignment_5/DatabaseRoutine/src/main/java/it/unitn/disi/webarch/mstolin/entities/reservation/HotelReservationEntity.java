@@ -11,23 +11,23 @@ import java.util.Date;
 public class HotelReservationEntity extends ReservationEntity implements Serializable {
 
     @Basic
-    @Column(name = "OCCUPANCY")
-    int occupancy;
+    @Column(name = "GUESTS")
+    int guests;
 
     public HotelReservationEntity() {
     }
 
-    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int occupancy) {
+    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests) {
         super(guestName, accommodation, startDate, endDate);
-        this.occupancy = occupancy;
+        this.guests = guests;
     }
 
-    public int getOccupancy() {
-        return occupancy;
+    public int getGuests() {
+        return guests;
     }
 
-    public void setOccupancy(int occupancy) {
-        this.occupancy = occupancy;
+    public void setGuests(int guests) {
+        this.guests = guests;
     }
 
 }
