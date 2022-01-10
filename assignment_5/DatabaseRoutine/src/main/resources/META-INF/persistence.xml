@@ -9,6 +9,9 @@
         <class>it.unitn.disi.webarch.mstolin.entities.accommodation.HotelEntity</class>
         <class>it.unitn.disi.webarch.mstolin.entities.reservation.ReservationEntity</class>
         <class>it.unitn.disi.webarch.mstolin.entities.reservation.HotelReservationEntity</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancy</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.ApartmentOccupancy</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.HotelOccupancy</class>
         <properties>
             <property name="hibernate.connection.url"
                       value="jdbc:h2:tcp://localhost/~/workspace/145085_web-architectures/assignment_5/accommodations"/>
