@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="ejb-jar" name="WebServices:ejb">
+    <output-path>$PROJECT_DIR$/WebServices/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>WebServices</module>
+        <packaging>ejb</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="WebServices.1.0-SNAPSHOT.jar">
+      <element id="artifact" artifact-name="WebServices:ejb exploded" />
+    </root>
+  </artifact>
+</component>
