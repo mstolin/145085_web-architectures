@@ -28,11 +28,11 @@ public abstract class AccommodationEntity implements Serializable {
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    private Set<ReservationEntity> reservations;
+    protected Set<ReservationEntity> reservations;
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    private Set<AccommodationOccupancy> occupancies;
+    protected Set<AccommodationOccupancy> occupancies;
 
     public AccommodationEntity() {
     }
