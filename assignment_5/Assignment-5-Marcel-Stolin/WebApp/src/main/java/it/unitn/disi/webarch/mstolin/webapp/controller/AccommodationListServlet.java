@@ -21,27 +21,9 @@ public class AccommodationListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            AccommodationService accommodationService = ServiceFactory.initializeService(
-                    ServiceFactory.ACCOMMODATION_BEAN,
-                    AccommodationService.class.getName()
-            );
-            List<AccommodationEntity> allAccommodations = accommodationService.getAll();
-
-            response.setContentType("text/html");
-            PrintWriter writer = response.getWriter();
-            writer.println("<html><body>");
-            for(AccommodationEntity accommodation: allAccommodations) {
-                if (accommodation instanceof ApartmentEntity) {
-                    writer.println("<a href=\"" + request.getContextPath() + "/accommodation/" + accommodation.getId() + "\">Apartment: " + accommodation.getName() + "</a><br/>");
-                } else if (accommodation instanceof HotelEntity) {
-                    writer.println("<a href=\"" + request.getContextPath() + "/accommodation/" + accommodation.getId() + "\">Hotel: " + accommodation.getName() + "</a><br/>");
-                }
-            }
-            writer.println("</body></html>");
-        } catch (NamingException e) {
-            this.logger.log(Level.SEVERE, null, e);
-        }
+        this.getServletContext()
+                .getRequestDispatcher("/views/AccommodationListView.jsp")
+                .forward(request, response);
     }
 
     @Override
