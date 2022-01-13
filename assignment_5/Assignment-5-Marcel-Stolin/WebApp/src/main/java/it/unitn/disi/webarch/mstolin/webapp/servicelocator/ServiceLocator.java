@@ -14,14 +14,14 @@ public class ServiceLocator {
 
     private Context context;
 
-    public static synchronized ServiceLocator getInstance() {
+    public static synchronized ServiceLocator getInstance() throws NamingException {
         if (instance == null) {
             instance = new ServiceLocator();
         }
         return instance;
     }
 
-    private ServiceLocator() {
+    private ServiceLocator() throws NamingException {
         this.context = this.getContext();
     }
 
@@ -38,19 +38,14 @@ public class ServiceLocator {
         return jndiProperties;
     }
 
-    private Context getContext() {
+    private Context getContext() throws NamingException {
         final Hashtable jndiProperties = this.getJNDIProperties();
-        try {
-            Context context = new InitialContext(jndiProperties);
-            return context;
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        Context context = new InitialContext(jndiProperties);
+        return context;
     }
 
-    public <T extends Object> T getService(String lookup) throws NamingException {
-        T service = (T) this.context.lookup(lookup);
+    public <T extends Object> T getService(String address) throws NamingException {
+        T service = (T) this.context.lookup(address);
         return service;
     }
 }
