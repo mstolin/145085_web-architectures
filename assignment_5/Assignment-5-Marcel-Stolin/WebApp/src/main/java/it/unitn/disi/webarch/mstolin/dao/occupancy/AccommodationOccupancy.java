@@ -22,6 +22,7 @@ public abstract class AccommodationOccupancy implements Serializable {
     private AccommodationEntity accommodation;
 
     @Column(name = "DAY_OF_YEAR", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date dayOfYear;
 
     public AccommodationOccupancy() {

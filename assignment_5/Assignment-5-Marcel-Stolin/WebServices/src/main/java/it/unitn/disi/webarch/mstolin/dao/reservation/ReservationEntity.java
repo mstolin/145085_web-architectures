@@ -26,10 +26,12 @@ public class ReservationEntity implements Serializable {
     private String guestName;
 
     @Column(name = "START_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Basic
     @Column(name = "END_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     public ReservationEntity() {
@@ -77,5 +79,4 @@ public class ReservationEntity implements Serializable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
 }

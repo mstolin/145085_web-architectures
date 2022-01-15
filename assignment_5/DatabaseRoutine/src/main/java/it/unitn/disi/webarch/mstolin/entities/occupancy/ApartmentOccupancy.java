@@ -12,7 +12,7 @@ import java.util.Date;
 @DiscriminatorValue("APARTMENT_OCCUPANCY")
 public class ApartmentOccupancy extends AccommodationOccupancy {
     @Basic
-    @Column(name = "IS_AVAILABLE")
+    @Column(name = "IS_AVAILABLE", columnDefinition = "INTEGER")
     private boolean isAvailable;
 
     public ApartmentOccupancy() {
