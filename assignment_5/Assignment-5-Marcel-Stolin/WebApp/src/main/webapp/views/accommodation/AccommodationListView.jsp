@@ -3,25 +3,17 @@
 <jsp:useBean id="accommodationListModel"
              class="it.unitn.disi.webarch.mstolin.webapp.models.AccommodationListModel"
              scope="session"/>
+<jsp:useBean id="searchResult"
+             class="it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationSearchResult"
+             scope="request"/>
 <html>
 <head>
     <title>Accommodations</title>
 </head>
 <body>
-
-<form method="POST" action="<% config.getServletContext(); %>">
-    <label for="startDate">Start Date</label>
-    <input type="date" id="startDate" name="startDate">
-    <label for="endDate">End Date</label>
-    <input type="date" id="endDate" name="endDate">
-    <label for="numberPersons">Number of Persons</label>
-    <input id="numberPersons" type="number" name="numberPersons" value="0" min="0">
-    <input type="submit" title="Search" />
-</form>
-
 <h1>Available Accommodations</h1>
 <ul>
-    <c:forEach items="${accommodationListModel.getAllAccommodations()}" var="accommodation">
+    <c:forEach items="${searchResult.getAccommodations()}" var="accommodation">
         <li>
             <a href="<% config.getServletContext(); %>/accommodation/${accommodation.getId()}">${accommodation.getName()}</a>
         </li>
