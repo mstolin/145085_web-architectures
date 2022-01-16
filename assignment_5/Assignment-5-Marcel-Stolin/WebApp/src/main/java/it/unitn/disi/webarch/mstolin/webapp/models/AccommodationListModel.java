@@ -7,6 +7,7 @@ import it.unitn.disi.webarch.mstolin.webservices.accommodations.AccommodationSer
 import javax.naming.NamingException;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class AccommodationListModel implements Serializable {
@@ -28,6 +29,14 @@ public class AccommodationListModel implements Serializable {
     public List<AccommodationEntity> getAllAccommodations() {
         if (this.accommodationService != null) {
             return this.accommodationService.getAll();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public List<AccommodationEntity> getAvailableApartments(Date startDate, Date endDate, int persons) {
+        if (this.accommodationService != null) {
+            return this.accommodationService.getApartments(startDate, endDate, persons);
         } else {
             return Collections.emptyList();
         }
