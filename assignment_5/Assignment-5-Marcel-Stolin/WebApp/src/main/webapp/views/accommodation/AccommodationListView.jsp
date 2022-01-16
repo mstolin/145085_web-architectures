@@ -10,11 +10,11 @@
 <body>
 
 <form method="POST" action="<% config.getServletContext(); %>">
-    <label>Start Date</label>
+    <label for="startDate">Start Date</label>
     <input type="date" id="startDate" name="startDate">
-    <label>End Date</label>
+    <label for="endDate">End Date</label>
     <input type="date" id="endDate" name="endDate">
-    <label>Max. Persons</label>
+    <label for="numberPersons">Number of Persons</label>
     <input id="numberPersons" type="number" name="numberPersons" value="0" min="0">
     <input type="submit" title="Search" />
 </form>
