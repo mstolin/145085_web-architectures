@@ -5,5 +5,10 @@
              version="2.2">
     <persistence-unit name="default">
         <jta-data-source>java:jboss/datasources/AccommodationsDS</jta-data-source>
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
     </persistence-unit>
 </persistence>
