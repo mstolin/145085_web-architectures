@@ -3,13 +3,17 @@ package it.unitn.disi.webarch.mstolin.webservices.accommodations;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
+import it.unitn.disi.webarch.mstolin.dao.occupancy.AccommodationOccupancy;
+import it.unitn.disi.webarch.mstolin.dao.occupancy.ApartmentOccupancy;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Stateless
 @Remote(AccommodationService.class)
@@ -17,6 +21,7 @@ public class AccommodationBean implements AccommodationService {
     private final String ACCOMMODATION_ENTITY_NAME = "AccommodationEntity";
     private final String APARTMENT_ENTITY_NAME = "ApartmentEntity";
     private final String HOTEL_ENTITY_NAME = "HotelEntity";
+    private final String APARTMENT_OCCUPANCY_ENTITY_NAME = "ApartmentOccupancy";
 
     @PersistenceContext(unitName = "default")
     private EntityManager entityManager;
@@ -30,12 +35,53 @@ public class AccommodationBean implements AccommodationService {
         return result;
     }
 
+    private long getDifferenceOfDates(Date startDate, Date endDate) {
+        long diffInMillies = Math.abs(startDate.getTime() - endDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return diff;
+    }
+
     @Override
     public List<AccommodationEntity> getAll() {
         String hqlQuery = "FROM " + this.ACCOMMODATION_ENTITY_NAME;
         Query query = entityManager.createQuery(hqlQuery);
         List<AccommodationEntity> result = (List<AccommodationEntity>) query.getResultList();
         return result;
+    }
+
+    @Override
+    public List<AccommodationEntity> getApartments(Date startDate, Date endDate, int persons) {
+        // Build query and get all occupancies
+        String hqlQuery = "FROM " + this.APARTMENT_OCCUPANCY_ENTITY_NAME + " o " +
+                "WHERE o.isAvailable IS TRUE " +
+                "AND o.accommodation.maxPersons >= :persons " +
+                "AND o.dayOfYear BETWEEN :startDate AND :endDate";
+        Query query = entityManager.createQuery(hqlQuery)
+                .setParameter("persons", persons)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate);
+        List<ApartmentOccupancy> apartmentOccupancies = query.getResultList();
+
+        // Map accommodations with the number of their count in the query
+        Map<AccommodationEntity, Long> countOfAccommodation = apartmentOccupancies
+                .stream()
+                .collect(Collectors.groupingBy(ApartmentOccupancy::getAccommodation, Collectors.counting()));
+
+        /*
+        Check if the count of the accommodation is equal to the difference
+        of days between the two dates.
+        If yes, add the accommodation to the result list
+         */
+        List<AccommodationEntity> accommodationEntities = new ArrayList<>();
+        long daysDiff = this.getDifferenceOfDates(startDate, endDate);
+        for (Map.Entry<AccommodationEntity, Long> entry : countOfAccommodation.entrySet()) {
+            AccommodationEntity accommodation = entry.getKey();
+            Long count = entry.getValue();
+            if (count == daysDiff) {
+                accommodationEntities.add(accommodation);
+            }
+        }
+        return accommodationEntities;
     }
 
     @Override
