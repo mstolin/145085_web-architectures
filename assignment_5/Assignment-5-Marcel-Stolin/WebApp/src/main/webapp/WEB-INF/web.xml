@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>AccommodationListServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationListServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationResultServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccommodationListServlet</servlet-name>

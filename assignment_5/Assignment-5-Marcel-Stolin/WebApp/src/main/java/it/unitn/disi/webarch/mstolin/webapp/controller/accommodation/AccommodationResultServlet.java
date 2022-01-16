@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class AccommodationListServlet extends HttpServlet {
+public class AccommodationResultServlet extends HttpServlet {
 
-    private final Logger logger = Logger.getLogger(AccommodationListServlet.class.getName());
+    private final Logger logger = Logger.getLogger(AccommodationResultServlet.class.getName());
 
     private Date parseStringToDate(String dateString) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,10 +57,11 @@ public class AccommodationListServlet extends HttpServlet {
                     // get results and create result bean
                     List<AccommodationEntity> results = this.getAvailableAccommodations(startDate, endDate, numberOfPersons);
                     AccommodationSearchResult searchResult = new AccommodationSearchResult(results);
+                    this.logger.info("Received " + results.size() + " results");
                     request.setAttribute("searchResult", searchResult);
 
                     this.getServletContext()
-                            .getRequestDispatcher("/views/accommodation/AccommodationListView.jsp")
+                            .getRequestDispatcher("/views/accommodation/AccommodationResultView.jsp")
                             .forward(request, response);
                 } else {
                     String message = "Parameters are invalid. " +
