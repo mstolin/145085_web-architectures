@@ -5,19 +5,28 @@
          version="4.0">
     <servlet>
         <servlet-name>AccommodationListServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.AccommodationListServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccommodationListServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/results</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>AccommodationPageServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.AccommodationPageServlet</servlet-class>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationPageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccommodationPageServlet</servlet-name>
         <url-pattern>/accommodation/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccommodationSearchServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccommodationSearchServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>
