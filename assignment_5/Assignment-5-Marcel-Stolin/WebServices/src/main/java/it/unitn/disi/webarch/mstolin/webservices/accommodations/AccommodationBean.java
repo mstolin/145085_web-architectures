@@ -11,6 +11,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -21,7 +23,7 @@ public class AccommodationBean implements AccommodationService {
     private final String ACCOMMODATION_ENTITY_NAME = "AccommodationEntity";
     private final String APARTMENT_ENTITY_NAME = "ApartmentEntity";
     private final String HOTEL_ENTITY_NAME = "HotelEntity";
-    private final String APARTMENT_OCCUPANCY_ENTITY_NAME = "ApartmentOccupancy";
+    private final String ACCOMMODATION_OCCUPANCY_ENTITY_NAME = "AccommodationOccupancy";
 
     @PersistenceContext(unitName = "default")
     private EntityManager entityManager;
@@ -51,36 +53,35 @@ public class AccommodationBean implements AccommodationService {
 
     @Override
     public List<AccommodationEntity> getApartments(Date startDate, Date endDate, int persons) {
+        /*
+        Idea:
+        Select all apartments and hotels that are available or have free places between the given days.
+        Count the number of occurrences of an accommodation to be equal than the number of days
+        in the interval.
+
+        Example Query:
+        SELECT a.accommodation
+        FROM AccommodationOccupancy a
+        WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= 1) OR ((a.accommodation.places - a.totalReservations) >= 1)))
+        AND a.dayOfYear BETWEEN '2022-02-01' AND '2022-02-05'
+        GROUP BY a.accommodation.id
+        HAVING COUNT(*) = 5
+        */
         // Build query and get all occupancies
-        String hqlQuery = "FROM " + this.APARTMENT_OCCUPANCY_ENTITY_NAME + " o " +
-                "WHERE o.isAvailable IS TRUE " +
-                "AND o.accommodation.maxPersons >= :persons " +
-                "AND o.dayOfYear BETWEEN :startDate AND :endDate";
+        String hqlQuery = "SELECT a.accommodation " +
+                "FROM " + this.ACCOMMODATION_OCCUPANCY_ENTITY_NAME + " a " +
+                "WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= :persons) OR ((a.accommodation.places - a.totalReservations) >= :persons))) " +
+                "AND a.dayOfYear BETWEEN :startDate AND :endDate " +
+                "GROUP BY a.accommodation.id " +
+                "HAVING COUNT(*) = :daysDiff";
+
+        long daysDiff = this.getDifferenceOfDates(startDate, endDate);
         Query query = entityManager.createQuery(hqlQuery)
                 .setParameter("persons", persons)
                 .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate);
-        List<ApartmentOccupancy> apartmentOccupancies = query.getResultList();
-
-        // Map accommodations with the number of their count in the query
-        Map<AccommodationEntity, Long> countOfAccommodation = apartmentOccupancies
-                .stream()
-                .collect(Collectors.groupingBy(ApartmentOccupancy::getAccommodation, Collectors.counting()));
-
-        /*
-        Check if the count of the accommodation is equal to the difference
-        of days between the two dates.
-        If yes, add the accommodation to the result list
-         */
-        List<AccommodationEntity> accommodationEntities = new ArrayList<>();
-        long daysDiff = this.getDifferenceOfDates(startDate, endDate);
-        for (Map.Entry<AccommodationEntity, Long> entry : countOfAccommodation.entrySet()) {
-            AccommodationEntity accommodation = entry.getKey();
-            Long count = entry.getValue();
-            if (count == daysDiff) {
-                accommodationEntities.add(accommodation);
-            }
-        }
+                .setParameter("endDate", endDate)
+                .setParameter("daysDiff", daysDiff);
+        List<AccommodationEntity> accommodationEntities = query.getResultList();
         return accommodationEntities;
     }
 
