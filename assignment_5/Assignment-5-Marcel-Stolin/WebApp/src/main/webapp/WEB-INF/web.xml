@@ -13,15 +13,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AccommodationPageServlet</servlet-name>
-        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationPageServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AccommodationPageServlet</servlet-name>
-        <url-pattern>/accommodation/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>AccommodationSearchServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.accommodation.AccommodationSearchServlet</servlet-class>
     </servlet>
