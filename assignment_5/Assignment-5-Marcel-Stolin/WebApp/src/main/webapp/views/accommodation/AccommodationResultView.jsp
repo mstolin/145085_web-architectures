@@ -1,3 +1,4 @@
+<%@ page import="it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="accommodationListModel"
@@ -11,13 +12,37 @@
     <title>Accommodations</title>
 </head>
 <body>
-<h1>Available Accommodations</h1>
-<ul>
-    <c:forEach items="${searchResult.getAccommodations()}" var="accommodation">
-        <li>
-            <a href="<% config.getServletContext(); %>/accommodation/${accommodation.getId()}">${accommodation.getName()}</a>
-        </li>
-    </c:forEach>
-</ul>
+    <h1>Available Accommodations</h1>
+    <c:choose>
+        <c:when test="${searchResult.getAccommodations().size() > 0}">
+            <ul>
+                <c:forEach items="${searchResult.getAccommodations()}" var="accommodation">
+                    <li>
+                        <c:choose>
+                            <c:when test="${accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity'}">
+                                <jsp:include page="ApartmentDetailView.jsp" >
+                                    <jsp:param name="id" value="${accommodation.getId()}"/>
+                                    <jsp:param name="name" value="${accommodation.getName()}"/>
+                                    <jsp:param name="maxPersons" value="${accommodation.getMaxPersons()}"/>
+                                    <jsp:param name="price" value="${accommodation.getPrice()}"/>
+                                </jsp:include>
+                            </c:when>
+                            <c:otherwise>
+                                <jsp:include page="HotelDetailView.jsp" >
+                                    <jsp:param name="id" value="${accommodation.getId()}"/>
+                                    <jsp:param name="name" value="${accommodation.getName()}"/>
+                                    <jsp:param name="stars" value="${accommodation.getStars()}"/>
+                                    <jsp:param name="price" value="${accommodation.getPrice()}"/>
+                                </jsp:include>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:when>
+        <c:otherwise>
+            <p>Sorry, no accommodation available</p>
+        </c:otherwise>
+    </c:choose>
 </body>
 </html>
