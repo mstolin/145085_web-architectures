@@ -1,4 +1,3 @@
-<%@ page import="it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="accommodationListModel"
@@ -27,14 +26,14 @@
                                     <jsp:param name="price" value="${accommodation.getPrice()}"/>
                                 </jsp:include>
                             </c:when>
-                            <c:otherwise>
+                            <c:when test="${accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity'}">
                                 <jsp:include page="HotelDetailView.jsp" >
                                     <jsp:param name="id" value="${accommodation.getId()}"/>
                                     <jsp:param name="name" value="${accommodation.getName()}"/>
                                     <jsp:param name="stars" value="${accommodation.getStars()}"/>
                                     <jsp:param name="price" value="${accommodation.getPrice()}"/>
                                 </jsp:include>
-                            </c:otherwise>
+                            </c:when>
                         </c:choose>
                     </li>
                 </c:forEach>
