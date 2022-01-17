@@ -20,4 +20,14 @@
         <servlet-name>AccommodationSearchServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.reservation.ReservationSummaryServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <url-pattern>/reservation</url-pattern>
+    </servlet-mapping>
 </web-app>
