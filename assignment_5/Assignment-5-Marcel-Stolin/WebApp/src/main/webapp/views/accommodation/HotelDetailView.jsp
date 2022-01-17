@@ -10,6 +10,7 @@
         </p>
     </div>
     <div>
-        <a href="/reservation?accommodationId=${param.id}">Book Hotel</a>
+        <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book
+            Hotel</a>
     </div>
 </div>

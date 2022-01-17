@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="accommodationListModel"
-             class="it.unitn.disi.webarch.mstolin.webapp.models.AccommodationListModel"
-             scope="session"/>
 <jsp:useBean id="searchResult"
              class="it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationSearchResult"
              scope="request"/>
