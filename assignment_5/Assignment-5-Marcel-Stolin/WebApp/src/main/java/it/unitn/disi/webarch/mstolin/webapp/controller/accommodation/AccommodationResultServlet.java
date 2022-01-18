@@ -1,6 +1,7 @@
 package it.unitn.disi.webarch.mstolin.webapp.controller.accommodation;
 
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
+import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationResultDetail;
 import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationSearchResult;
 import it.unitn.disi.webarch.mstolin.webapp.servicelocator.ServiceFactory;
 import it.unitn.disi.webarch.mstolin.webservices.accommodations.AccommodationService;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class AccommodationResultServlet extends HttpServlet {
 
@@ -25,17 +27,20 @@ public class AccommodationResultServlet extends HttpServlet {
         return formatter.parse(dateString);
     }
 
-    private List<AccommodationEntity> getAvailableAccommodations(Date startDate, Date endDate, int persons) {
-        try {
-            AccommodationService accommodationService = ServiceFactory.initializeService(
-                    ServiceFactory.ACCOMMODATION_BEAN,
-                    AccommodationService.class.getName()
-            );
-            return accommodationService.getApartments(startDate, endDate, persons);
-        } catch (NamingException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
+    private List<AccommodationResultDetail> getAccommodationResults(Date startDate, Date endDate, int persons) throws NamingException {
+        AccommodationService accommodationService = ServiceFactory.initializeService(
+                ServiceFactory.ACCOMMODATION_BEAN,
+                AccommodationService.class.getName()
+        );
+        List<AccommodationEntity> accommodationEntities = accommodationService.getApartments(startDate, endDate, persons);
+        List<AccommodationResultDetail> accommodationResults = accommodationEntities
+                .stream()
+                .map(accommodationEntity -> {
+                    AccommodationResultDetail resultDetail = new AccommodationResultDetail(accommodationEntity, 20.00, 30.00);
+                    return resultDetail;
+                })
+                .collect(Collectors.toList());
+        return accommodationResults;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class AccommodationResultServlet extends HttpServlet {
                 // check if parameters are valid
                 if (numberOfPersons >= 1 && endDate.after(startDate)) {
                     // get results and create result bean
-                    List<AccommodationEntity> results = this.getAvailableAccommodations(startDate, endDate, numberOfPersons);
+                    List<AccommodationResultDetail> results = this.getAccommodationResults(startDate, endDate, numberOfPersons);
                     AccommodationSearchResult searchResult = new AccommodationSearchResult(results);
                     this.logger.info("Received " + results.size() + " results");
                     request.setAttribute("searchResult", searchResult);
@@ -73,7 +78,10 @@ public class AccommodationResultServlet extends HttpServlet {
                 }
             } catch (ParseException exception) {
                 exception.printStackTrace();
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            } catch (NamingException exception) {
+                exception.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         } else {
             String message = "None or missing parameters. " +
