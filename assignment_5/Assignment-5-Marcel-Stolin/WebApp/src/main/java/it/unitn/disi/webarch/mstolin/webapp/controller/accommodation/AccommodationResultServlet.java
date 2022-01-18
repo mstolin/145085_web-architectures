@@ -1,10 +1,13 @@
 package it.unitn.disi.webarch.mstolin.webapp.controller.accommodation;
 
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
+import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
+import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
 import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationResultDetail;
 import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationSearchResult;
 import it.unitn.disi.webarch.mstolin.webapp.servicelocator.ServiceFactory;
 import it.unitn.disi.webarch.mstolin.webservices.accommodations.AccommodationService;
+import it.unitn.disi.webarch.mstolin.webservices.reservations.ReservationService;
 
 import javax.naming.NamingException;
 import javax.servlet.*;
@@ -12,11 +15,10 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class AccommodationResultServlet extends HttpServlet {
 
@@ -27,19 +29,36 @@ public class AccommodationResultServlet extends HttpServlet {
         return formatter.parse(dateString);
     }
 
+    private double getPriceForAccommadation(AccommodationEntity accommodation, Date startDate, Date endDate, int persons, boolean isHalfBoardRequested) throws NamingException {
+        ReservationService reservationService = ServiceFactory.initializeService(
+                ServiceFactory.RESERVATION_BEAN,
+                ReservationService.class.getName()
+        );
+
+        if (accommodation instanceof ApartmentEntity) {
+            ApartmentEntity apartmentEntity = (ApartmentEntity) accommodation;
+            return reservationService.calculateApartmentReservationPrice(apartmentEntity, startDate, endDate);
+        } else if (accommodation instanceof HotelEntity) {
+            HotelEntity hotelEntity = (HotelEntity) accommodation;
+            return reservationService.calculateHotelReservationPrice(hotelEntity, startDate, endDate, persons, isHalfBoardRequested);
+        } else {
+            return 0;
+        }
+    }
+
     private List<AccommodationResultDetail> getAccommodationResults(Date startDate, Date endDate, int persons) throws NamingException {
         AccommodationService accommodationService = ServiceFactory.initializeService(
                 ServiceFactory.ACCOMMODATION_BEAN,
                 AccommodationService.class.getName()
         );
         List<AccommodationEntity> accommodationEntities = accommodationService.getApartments(startDate, endDate, persons);
-        List<AccommodationResultDetail> accommodationResults = accommodationEntities
-                .stream()
-                .map(accommodationEntity -> {
-                    AccommodationResultDetail resultDetail = new AccommodationResultDetail(accommodationEntity, 20.00, 30.00);
-                    return resultDetail;
-                })
-                .collect(Collectors.toList());
+        List<AccommodationResultDetail> accommodationResults = new ArrayList<>();
+        for (AccommodationEntity accommodationEntity: accommodationEntities) {
+            double totalPrice = this.getPriceForAccommadation(accommodationEntity, startDate, endDate, persons, false);
+            double totalPriceExtraHalfBoard = this.getPriceForAccommadation(accommodationEntity, startDate, endDate, persons, true);
+            AccommodationResultDetail resultDetail = new AccommodationResultDetail(accommodationEntity, totalPrice, totalPriceExtraHalfBoard);
+            accommodationResults.add(resultDetail);
+        }
         return accommodationResults;
     }
 
