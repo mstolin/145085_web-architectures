@@ -10,25 +10,29 @@
 <body>
     <h1>Available Accommodations</h1>
     <c:choose>
-        <c:when test="${searchResult.getAccommodations().size() > 0}">
+        <c:when test="${searchResult.getResults().size() > 0}">
             <ul>
-                <c:forEach items="${searchResult.getAccommodations()}" var="accommodation">
+                <c:forEach items="${searchResult.getResults()}" var="result">
                     <li>
                         <c:choose>
-                            <c:when test="${accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity'}">
+                            <c:when test="${result.accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity'}">
                                 <jsp:include page="ApartmentDetailView.jsp" >
-                                    <jsp:param name="id" value="${accommodation.getId()}"/>
-                                    <jsp:param name="name" value="${accommodation.getName()}"/>
-                                    <jsp:param name="maxPersons" value="${accommodation.getMaxPersons()}"/>
-                                    <jsp:param name="price" value="${accommodation.getPrice()}"/>
+                                    <jsp:param name="id" value="${result.accommodation.getId()}"/>
+                                    <jsp:param name="name" value="${result.accommodation.getName()}"/>
+                                    <jsp:param name="maxPersons" value="${result.accommodation.getMaxPersons()}"/>
+                                    <jsp:param name="price" value="${result.accommodation.getPrice()}"/>
+                                    <jsp:param name="totalPrice" value="${result.getTotalPrice()}"/>
                                 </jsp:include>
                             </c:when>
-                            <c:when test="${accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity'}">
+                            <c:when test="${result.accommodation.getClass().name == 'it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity'}">
                                 <jsp:include page="HotelDetailView.jsp" >
-                                    <jsp:param name="id" value="${accommodation.getId()}"/>
-                                    <jsp:param name="name" value="${accommodation.getName()}"/>
-                                    <jsp:param name="stars" value="${accommodation.getStars()}"/>
-                                    <jsp:param name="price" value="${accommodation.getPrice()}"/>
+                                    <jsp:param name="id" value="${result.accommodation.getId()}"/>
+                                    <jsp:param name="name" value="${result.accommodation.getName()}"/>
+                                    <jsp:param name="stars" value="${result.accommodation.getStars()}"/>
+                                    <jsp:param name="price" value="${result.accommodation.getPrice()}"/>
+                                    <jsp:param name="halfBoardPrice" value="${result.accommodation.getExtraHalfBoard()}"/>
+                                    <jsp:param name="totalPrice" value="${result.getTotalPrice()}"/>
+                                    <jsp:param name="totalPriceExtraHalfBoard" value="${result.getTotalPriceExtraHalfBoard()}"/>
                                 </jsp:include>
                             </c:when>
                         </c:choose>
@@ -37,7 +41,7 @@
             </ul>
         </c:when>
         <c:otherwise>
-            <p>Sorry, no accommodation available</p>
+            <p>Sorry, no accommodations available</p>
         </c:otherwise>
     </c:choose>
 </body>

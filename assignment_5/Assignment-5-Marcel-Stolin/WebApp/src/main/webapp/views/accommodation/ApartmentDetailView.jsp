@@ -14,7 +14,6 @@
         </p>
     </div>
     <div>
-        <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book
-            Apartment</a>
+        <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book Apartment for ${param.totalPrice}€</a>
     </div>
 </div>
