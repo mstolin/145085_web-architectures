@@ -1,27 +1,25 @@
 package it.unitn.disi.webarch.mstolin.webapp.models.accommodation;
 
-import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class AccommodationSearchResult implements Serializable {
 
-    private List<AccommodationEntity> accommodations;
+    private List<AccommodationResultDetail> results;
 
     public AccommodationSearchResult() {
     }
 
-    public AccommodationSearchResult(List<AccommodationEntity> accommodations) {
-        this.accommodations = accommodations;
+    public AccommodationSearchResult(List<AccommodationResultDetail> results) {
+        this.results = results;
     }
 
-    public List<AccommodationEntity> getAccommodations() {
-        return accommodations;
+    public List<AccommodationResultDetail> getResults() {
+        return results;
     }
 
-    public void setAccommodations(List<AccommodationEntity> accommodations) {
-        this.accommodations = accommodations;
+    public void setResults(List<AccommodationResultDetail> results) {
+        this.results = results;
     }
 
 }
