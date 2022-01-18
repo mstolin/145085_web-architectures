@@ -7,6 +7,7 @@ public class ServiceFactory {
     private final static String APP_NAME = "WebServices.1.0-SNAPSHOT";
 
     public final static String ACCOMMODATION_BEAN = "AccommodationBean";
+    public final static String RESERVATION_BEAN = "ReservationBean";
 
     private static String generateBeanAddress(String beanName, String className) {
         return "ejb:/" + APP_NAME + "/" + beanName + "!" + className;
