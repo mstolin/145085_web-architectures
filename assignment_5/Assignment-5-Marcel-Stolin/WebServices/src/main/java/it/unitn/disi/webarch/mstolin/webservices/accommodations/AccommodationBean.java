@@ -3,19 +3,14 @@ package it.unitn.disi.webarch.mstolin.webservices.accommodations;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
-import it.unitn.disi.webarch.mstolin.dao.occupancy.AccommodationOccupancy;
-import it.unitn.disi.webarch.mstolin.dao.occupancy.ApartmentOccupancy;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Stateless
 @Remote(AccommodationService.class)
@@ -23,7 +18,7 @@ public class AccommodationBean implements AccommodationService {
     private final String ACCOMMODATION_ENTITY_NAME = "AccommodationEntity";
     private final String APARTMENT_ENTITY_NAME = "ApartmentEntity";
     private final String HOTEL_ENTITY_NAME = "HotelEntity";
-    private final String ACCOMMODATION_OCCUPANCY_ENTITY_NAME = "AccommodationOccupancy";
+    private final String ACCOMMODATION_OCCUPANCY_ENTITY_NAME = "AccommodationOccupancyEntity";
 
     @PersistenceContext(unitName = "default")
     private EntityManager entityManager;
@@ -61,7 +56,7 @@ public class AccommodationBean implements AccommodationService {
 
         Example Query:
         SELECT a.accommodation
-        FROM AccommodationOccupancy a
+        FROM AccommodationOccupancyEntity a
         WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= 1) OR ((a.accommodation.places - a.totalReservations) >= 1)))
         AND a.dayOfYear BETWEEN '2022-02-01' AND '2022-02-05'
         GROUP BY a.accommodation.id

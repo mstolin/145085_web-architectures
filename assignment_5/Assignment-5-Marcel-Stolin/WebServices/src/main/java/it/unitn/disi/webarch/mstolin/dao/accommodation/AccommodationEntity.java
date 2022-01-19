@@ -1,6 +1,6 @@
 package it.unitn.disi.webarch.mstolin.dao.accommodation;
 
-import it.unitn.disi.webarch.mstolin.dao.occupancy.AccommodationOccupancy;
+import it.unitn.disi.webarch.mstolin.dao.occupancy.AccommodationOccupancyEntity;
 import it.unitn.disi.webarch.mstolin.dao.reservation.ReservationEntity;
 
 import javax.persistence.*;
@@ -32,7 +32,7 @@ public abstract class AccommodationEntity implements Serializable {
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    protected Set<AccommodationOccupancy> occupancies;
+    protected Set<AccommodationOccupancyEntity> occupancies;
 
     public AccommodationEntity() {
     }
@@ -65,11 +65,11 @@ public abstract class AccommodationEntity implements Serializable {
         this.reservations = reservations;
     }
 
-    public Set<AccommodationOccupancy> getOccupancies() {
+    public Set<AccommodationOccupancyEntity> getOccupancies() {
         return occupancies;
     }
 
-    public void setOccupancies(Set<AccommodationOccupancy> occupancies) {
+    public void setOccupancies(Set<AccommodationOccupancyEntity> occupancies) {
         this.occupancies = occupancies;
     }
 }

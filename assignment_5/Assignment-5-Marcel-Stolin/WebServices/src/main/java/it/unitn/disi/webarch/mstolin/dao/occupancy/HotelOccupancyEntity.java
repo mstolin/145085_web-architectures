@@ -11,15 +11,15 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("HOTEL_OCCUPANCY")
-public class HotelOccupancy extends AccommodationOccupancy implements Serializable {
+public class HotelOccupancyEntity extends AccommodationOccupancyEntity implements Serializable {
     @Basic
     @Column(name = "TOTAL_RESERVATIONS")
     private int totalReservations;
 
-    public HotelOccupancy() {
+    public HotelOccupancyEntity() {
     }
 
-    public HotelOccupancy(AccommodationEntity accommodation, Date day, int totalReservations) {
+    public HotelOccupancyEntity(AccommodationEntity accommodation, Date day, int totalReservations) {
         super(accommodation, day);
         this.totalReservations = totalReservations;
     }
