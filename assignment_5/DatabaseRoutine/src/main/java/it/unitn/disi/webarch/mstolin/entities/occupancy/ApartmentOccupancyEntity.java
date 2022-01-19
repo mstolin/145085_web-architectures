@@ -10,15 +10,15 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("APARTMENT_OCCUPANCY")
-public class ApartmentOccupancy extends AccommodationOccupancy {
+public class ApartmentOccupancyEntity extends AccommodationOccupancyEntity {
     @Basic
     @Column(name = "IS_AVAILABLE", columnDefinition = "INTEGER")
     private boolean isAvailable;
 
-    public ApartmentOccupancy() {
+    public ApartmentOccupancyEntity() {
     }
 
-    public ApartmentOccupancy(AccommodationEntity accommodation, Date day, boolean isAvailable) {
+    public ApartmentOccupancyEntity(AccommodationEntity accommodation, Date day, boolean isAvailable) {
         super(accommodation, day);
         this.isAvailable = isAvailable;
     }

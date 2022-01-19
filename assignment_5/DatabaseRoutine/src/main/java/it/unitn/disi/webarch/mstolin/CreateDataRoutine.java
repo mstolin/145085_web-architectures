@@ -4,9 +4,9 @@ import it.unitn.disi.webarch.mstolin.data.Store;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.HotelEntity;
-import it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancy;
-import it.unitn.disi.webarch.mstolin.entities.occupancy.ApartmentOccupancy;
-import it.unitn.disi.webarch.mstolin.entities.occupancy.HotelOccupancy;
+import it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancyEntity;
+import it.unitn.disi.webarch.mstolin.entities.occupancy.ApartmentOccupancyEntity;
+import it.unitn.disi.webarch.mstolin.entities.occupancy.HotelOccupancyEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -51,7 +51,7 @@ public class CreateDataRoutine {
                     (int) apartment.get("finalCleaningFee"),
                     (int) apartment.get("maxPersons")
             );
-            Set<AccommodationOccupancy> occupancies = this.generateApartmentOccupancies(apartmentEntity);
+            Set<AccommodationOccupancyEntity> occupancies = this.generateApartmentOccupancies(apartmentEntity);
             apartmentEntity.setOccupancies(occupancies);
             this.entityManager.persist(apartmentEntity);
         }
@@ -66,39 +66,39 @@ public class CreateDataRoutine {
                     (int) hotel.get("stars"),
                     (int) hotel.get("places")
             );
-            Set<AccommodationOccupancy> occupancies = this.generateHotelOccupancies(hotelEntity);
+            Set<AccommodationOccupancyEntity> occupancies = this.generateHotelOccupancies(hotelEntity);
             hotelEntity.setOccupancies(occupancies);
             this.entityManager.persist(hotelEntity);
         }
     }
 
-    private Set<AccommodationOccupancy> generateApartmentOccupancies(AccommodationEntity accommodation) throws ParseException {
-        Set<AccommodationOccupancy> occupancies = new HashSet<>();
+    private Set<AccommodationOccupancyEntity> generateApartmentOccupancies(AccommodationEntity accommodation) throws ParseException {
+        Set<AccommodationOccupancyEntity> occupancies = new HashSet<>();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
         Set<Integer> randomDays = this.getRandomNumberSet(4, 1, 28);
         for (Integer i = 1; i <= 28; i++) {
             Date dateOfReservation = formatter.parse("2022-2-" + i);
             boolean isAvailable = !randomDays.contains(i);
-            ApartmentOccupancy apartmentOccupancy = new ApartmentOccupancy(
+            ApartmentOccupancyEntity apartmentOccupancyEntity = new ApartmentOccupancyEntity(
                     accommodation,
                     dateOfReservation,
                     isAvailable
             );
-            occupancies.add(apartmentOccupancy);
+            occupancies.add(apartmentOccupancyEntity);
         }
         return occupancies;
     }
 
-    private Set<AccommodationOccupancy> generateHotelOccupancies(AccommodationEntity accommodation) throws java.text.ParseException {
-        Set<AccommodationOccupancy> occupancies = new HashSet<>();
+    private Set<AccommodationOccupancyEntity> generateHotelOccupancies(AccommodationEntity accommodation) throws java.text.ParseException {
+        Set<AccommodationOccupancyEntity> occupancies = new HashSet<>();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
         for (int i = 1; i <= 28; i++) {
             Date dateOfReservation = formatter.parse("2022-2-" + i);
             int randomOccupancy = (int) Math.round(
                     this.getRandomNumber(0.9, 1) * ((HotelEntity) accommodation).getPlaces()
             );
-            HotelOccupancy hotelOccupancy = new HotelOccupancy(accommodation, dateOfReservation, randomOccupancy);
-            occupancies.add(hotelOccupancy);
+            HotelOccupancyEntity hotelOccupancyEntity = new HotelOccupancyEntity(accommodation, dateOfReservation, randomOccupancy);
+            occupancies.add(hotelOccupancyEntity);
         }
         return occupancies;
     }

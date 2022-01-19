@@ -10,7 +10,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("BASIC_OCCUPANCY")
-public abstract class AccommodationOccupancy {
+public abstract class AccommodationOccupancyEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "ID", nullable = false)
@@ -24,10 +24,10 @@ public abstract class AccommodationOccupancy {
     @Temporal(TemporalType.DATE)
     private Date dayOfYear;
 
-    public AccommodationOccupancy() {
+    public AccommodationOccupancyEntity() {
     }
 
-    public AccommodationOccupancy(AccommodationEntity accommodation, Date dayOfYear) {
+    public AccommodationOccupancyEntity(AccommodationEntity accommodation, Date dayOfYear) {
         this.accommodation = accommodation;
         this.dayOfYear = dayOfYear;
     }

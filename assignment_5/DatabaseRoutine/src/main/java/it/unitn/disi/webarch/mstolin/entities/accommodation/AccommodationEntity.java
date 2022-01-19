@@ -1,6 +1,6 @@
 package it.unitn.disi.webarch.mstolin.entities.accommodation;
 
-import it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancy;
+import it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancyEntity;
 import it.unitn.disi.webarch.mstolin.entities.reservation.ReservationEntity;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public abstract class AccommodationEntity {
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    private Set<AccommodationOccupancy> occupancies;
+    private Set<AccommodationOccupancyEntity> occupancies;
 
     public AccommodationEntity() {
     }
@@ -64,11 +64,11 @@ public abstract class AccommodationEntity {
         this.reservations = reservations;
     }
 
-    public Set<AccommodationOccupancy> getOccupancies() {
+    public Set<AccommodationOccupancyEntity> getOccupancies() {
         return occupancies;
     }
 
-    public void setOccupancies(Set<AccommodationOccupancy> occupancies) {
+    public void setOccupancies(Set<AccommodationOccupancyEntity> occupancies) {
         this.occupancies = occupancies;
     }
 }
