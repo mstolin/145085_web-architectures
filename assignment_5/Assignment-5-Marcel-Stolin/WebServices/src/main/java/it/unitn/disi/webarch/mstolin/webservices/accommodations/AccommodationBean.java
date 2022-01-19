@@ -3,34 +3,21 @@ package it.unitn.disi.webarch.mstolin.webservices.accommodations;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
+import it.unitn.disi.webarch.mstolin.dao.occupancy.AccommodationOccupancyEntity;
+import it.unitn.disi.webarch.mstolin.webservices.database.LocalDatabaseBean;
 
+import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Stateless
 @Remote(AccommodationService.class)
 public class AccommodationBean implements AccommodationService {
-    private final String ACCOMMODATION_ENTITY_NAME = "AccommodationEntity";
-    private final String APARTMENT_ENTITY_NAME = "ApartmentEntity";
-    private final String HOTEL_ENTITY_NAME = "HotelEntity";
-    private final String ACCOMMODATION_OCCUPANCY_ENTITY_NAME = "AccommodationOccupancyEntity";
 
-    @PersistenceContext(unitName = "default")
-    private EntityManager entityManager;
-
-    private <T extends AccommodationEntity> T getSingleEntity(int id, String entityName) {
-        String hqlQuery = "FROM " + entityName + " WHERE id = :id";
-        Query query = entityManager
-                .createQuery(hqlQuery)
-                .setParameter("id", id);
-        T result = (T) query.getSingleResult();
-        return result;
-    }
+    @EJB()
+    private LocalDatabaseBean databaseBean;
 
     private long getDifferenceOfDates(Date startDate, Date endDate) {
         long diffInMillies = Math.abs(startDate.getTime() - endDate.getTime());
@@ -40,10 +27,7 @@ public class AccommodationBean implements AccommodationService {
 
     @Override
     public List<AccommodationEntity> getAll() {
-        String hqlQuery = "FROM " + this.ACCOMMODATION_ENTITY_NAME;
-        Query query = entityManager.createQuery(hqlQuery);
-        List<AccommodationEntity> result = (List<AccommodationEntity>) query.getResultList();
-        return result;
+        return this.databaseBean.getAllEntities(AccommodationEntity.class.getSimpleName());
     }
 
     @Override
@@ -62,37 +46,30 @@ public class AccommodationBean implements AccommodationService {
         GROUP BY a.accommodation.id
         HAVING COUNT(*) = 5
         */
-        // Build query and get all occupancies
+        String entityName = AccommodationOccupancyEntity.class.getSimpleName();
         String hqlQuery = "SELECT a.accommodation " +
-                "FROM " + this.ACCOMMODATION_OCCUPANCY_ENTITY_NAME + " a " +
-                "WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= :persons) OR ((a.accommodation.places - a.totalReservations) >= :persons))) " +
-                "AND a.dayOfYear BETWEEN :startDate AND :endDate " +
+                "FROM " + entityName + " a " +
+                "WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= ?0) OR ((a.accommodation.places - a.totalReservations) >= ?0))) " +
+                "AND a.dayOfYear BETWEEN ?1 AND ?2 " +
                 "GROUP BY a.accommodation.id " +
-                "HAVING COUNT(*) = :daysDiff";
-
+                "HAVING COUNT(*) = ?3";
         long daysDiff = this.getDifferenceOfDates(startDate, endDate);
-        Query query = entityManager.createQuery(hqlQuery)
-                .setParameter("persons", persons)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .setParameter("daysDiff", daysDiff);
-        List<AccommodationEntity> accommodationEntities = query.getResultList();
-        return accommodationEntities;
+        Object[] parameters = new Object[]{persons, startDate, endDate, daysDiff};
+        return this.databaseBean.getEntitiesForQuery(hqlQuery, parameters);
     }
 
     @Override
     public AccommodationEntity getAccommodation(int id) {
-        return this.getSingleEntity(id, this.ACCOMMODATION_ENTITY_NAME);
+        return this.databaseBean.getSingleEntityForId(id, AccommodationEntity.class.getSimpleName());
     }
 
     @Override
     public ApartmentEntity getApartment(int id) {
-        return this.getSingleEntity(id, this.APARTMENT_ENTITY_NAME);
+        return this.databaseBean.getSingleEntityForId(id, ApartmentEntity.class.getSimpleName());
     }
 
     @Override
     public HotelEntity getHotel(int id) {
-        return this.getSingleEntity(id, this.HOTEL_ENTITY_NAME);
+        return this.databaseBean.getSingleEntityForId(id, HotelEntity.class.getSimpleName());
     }
-
 }
