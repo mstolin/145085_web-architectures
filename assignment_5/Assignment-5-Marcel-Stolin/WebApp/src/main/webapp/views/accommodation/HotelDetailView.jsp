@@ -15,6 +15,6 @@
     </div>
     <div>
         <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book Hotel for ${param.totalPrice}€</a>
-        <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}&isExtraHalfBoardRequested=true">Book Hotel for ${param.totalPriceExtraHalfBoard}€ with extra Half Board</a>
+        <a href="/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}&isHalfBoardRequested=true">Book Hotel for ${param.totalPriceExtraHalfBoard}€ with extra Half Board</a>
     </div>
 </div>
