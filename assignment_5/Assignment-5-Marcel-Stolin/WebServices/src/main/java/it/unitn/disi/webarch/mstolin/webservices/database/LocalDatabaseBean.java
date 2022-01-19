@@ -4,6 +4,7 @@ import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -37,6 +38,10 @@ public class LocalDatabaseBean {
             query.setParameter(i, parameters[i]);
         }
         return query.getResultList();
+    }
+
+    public void persistEntity(Object entity) {
+        this.entityManager.persist(entity);
     }
 
 }

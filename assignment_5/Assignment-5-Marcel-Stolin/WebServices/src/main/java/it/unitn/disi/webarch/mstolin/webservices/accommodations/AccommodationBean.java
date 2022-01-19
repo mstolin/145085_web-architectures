@@ -26,7 +26,7 @@ public class AccommodationBean implements AccommodationService {
     }
 
     @Override
-    public List<AccommodationEntity> getAll() {
+    public List<AccommodationEntity> getAccommodations() {
         return this.databaseBean.getAllEntities(AccommodationEntity.class.getSimpleName());
     }
 
