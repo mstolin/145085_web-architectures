@@ -1,11 +1,15 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Implementation}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Loading and caching Data}{section.2}% 3
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Loading single Data Objects}{subsection.2.1}% 4
-\BOOKMARK [3][-]{subsubsection.2.1.2}{Loading all Data at once}{subsection.2.1}% 5
-\BOOKMARK [2][-]{subsection.2.2}{Member List}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.3}{Detail Page}{section.2}% 7
-\BOOKMARK [1][-]{section.3}{Deployment}{}% 8
-\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 9
-\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 11
+\BOOKMARK [2][-]{subsection.2.1}{Database Routine}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Entities}{subsection.2.1}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Enterprise Java Beans}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Web Application}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.4}{Loading and caching Data}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Loading single Data Objects}{subsection.2.4}% 8
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Loading all Data at once}{subsection.2.4}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Member List}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.6}{Detail Page}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Deployment}{}% 12
+\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 15

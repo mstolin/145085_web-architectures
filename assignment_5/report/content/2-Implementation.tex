@@ -3,6 +3,74 @@
 This section describes the most important parts of the implementation of the application.
 % What technology
 
+
+\subsection{Database Routine}
+% Intro
+A database routine needs to be implemented to seed the database, that is supposed to be used in the application.
+% No EJB
+This routine is not implemented as a EJB, instead, it will run as a standalone Java application.
+% What data
+The accommodations, as well as the occupancies of accommodatios are given by the task description.
+
+% Technology
+The following technologies are used to implement the database routine:
+\begin{itemize}
+\item Hibernate
+\item JPA
+\end{itemize}
+
+\subsubsection{Entities}
+% What
+\Fig{fig:subsubsec:02_impl_db_entities} visualizes the UML diagram of the entities, used for the database.
+% Overall
+Overall, the database is used to save the following information:
+\begin{itemize}
+\item Accommodations which represent either an apartment or a hotel
+\item Occupancy, represents the availability of an accommodation entity for a specific day
+\item Reservation which represent a single reservation made by a user
+\end{itemize}
+
+% Figure
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{images/02_impl/entities}
+\caption{UML diagram of all database entities}
+\label{fig:subsubsec:02_impl_db_entities}
+\end{figure}
+
+% Accommodatins
+\paragraph{Accommodations}
+Two types of accommodations exists for this application: Apartments and Hotels. 
+% Properties
+All accommadtions have a name, and a daily price. Additionally, an apartment has a final cleaning fee, an a number of maximum persons. A hotel has a rating of start, a number of free places, and a price for extra half-board.
+
+% Classes
+To implement the entities, an ApartmentEntity, and a HotelEntity have been implemented. Both classes inherit from the abstract AccommodationEntity class.
+
+
+% Occupancies
+\paragraph{Occupancies}
+% What
+Each accommodation needs an occupancy information for a specific date. The occupancy information describes if an accommodation is available on a specific date. The difference between an apartment and a hotel is, that a hotel has a specific number of reservation, and an aprtment is either available or unavaible, independetly of the number of persons.
+
+% classes
+To implement the occupancies, a parent class called HotelOccupancy exists, that includes only the date. Additionally, a class called ApartmentOccupancy saves the occupancies information for a hotel, which includes a boolean value called isAvailable that specifies, if the aprtment is avaiable for the specific date or not. Furthemore, a class called HotelEntity represent the occupancy of a hotel, which is a number of reservation for a specific date.
+
+
+% Reservations
+\paragraph{Reservations}
+% What 
+A user can make reservation that are saved to the database. A reservation consists of a start date and an end date that represent the date interval of the stay, and the name of the guest. These informations are saved by the ReservationEntity. Additionally, a classes called HotelReservationEntity, which inherits the ReservationEntity, is used to save the number of guests for on reservation of a hotel. An apartment does not need extra information, because it is either avaible or not, which is represented by the existance of a ReservationEntity in the table for the specific apartment for a specific date interval.
+
+
+
+
+\subsection{Enterprise Java Beans}
+
+\subsection{Web Application}
+
+
+
 \subsection{Loading and caching Data}\label{subsec:02_impl_data}
 % What
 To be able to present all members of the Scottish parliament with all their detailed information, the application needs to load the following data:
