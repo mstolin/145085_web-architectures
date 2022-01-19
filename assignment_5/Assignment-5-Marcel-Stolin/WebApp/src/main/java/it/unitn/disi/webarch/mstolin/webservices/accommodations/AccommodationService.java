@@ -11,7 +11,7 @@ public interface AccommodationService {
 
     public List<AccommodationEntity> getAll();
 
-    public List<AccommodationEntity> getApartments(Date startDate, Date endDate, int persons);
+    public List<AccommodationEntity> getAvailableAccommodations(Date startDate, Date endDate, int persons);
 
     public AccommodationEntity getAccommodation(int id);
 

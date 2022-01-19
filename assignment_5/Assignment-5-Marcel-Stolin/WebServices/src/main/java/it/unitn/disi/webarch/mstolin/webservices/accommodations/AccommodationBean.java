@@ -47,7 +47,7 @@ public class AccommodationBean implements AccommodationService {
     }
 
     @Override
-    public List<AccommodationEntity> getApartments(Date startDate, Date endDate, int persons) {
+    public List<AccommodationEntity> getAvailableAccommodations(Date startDate, Date endDate, int persons) {
         /*
         Idea:
         Select all apartments and hotels that are available or have free places between the given days.

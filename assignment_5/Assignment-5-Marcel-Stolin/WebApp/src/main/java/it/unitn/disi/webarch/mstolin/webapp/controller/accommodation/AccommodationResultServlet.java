@@ -51,7 +51,7 @@ public class AccommodationResultServlet extends HttpServlet {
                 ServiceFactory.ACCOMMODATION_BEAN,
                 AccommodationService.class.getName()
         );
-        List<AccommodationEntity> accommodationEntities = accommodationService.getApartments(startDate, endDate, persons);
+        List<AccommodationEntity> accommodationEntities = accommodationService.getAvailableAccommodations(startDate, endDate, persons);
         List<AccommodationResultDetail> accommodationResults = new ArrayList<>();
         for (AccommodationEntity accommodationEntity: accommodationEntities) {
             double totalPrice = this.getPriceForAccommadation(accommodationEntity, startDate, endDate, persons, false);
