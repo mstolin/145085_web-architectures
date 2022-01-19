@@ -1,6 +1,7 @@
 package it.unitn.disi.webarch.mstolin.webapp.models.reservation;
 
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
+import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,14 +16,20 @@ public class ReservationSummary implements Serializable {
 
     private int numberPersons;
 
+    private boolean isHalfBoardRequested;
+
+    private double totalPrice;
+
     public ReservationSummary() {
     }
 
-    public ReservationSummary(AccommodationEntity accommodation, Date startDate, Date endDate, int numberPersons) {
+    public ReservationSummary(AccommodationEntity accommodation, Date startDate, Date endDate, int numberPersons, boolean isHalfBoardRequested, double totalPrice) {
         this.accommodation = accommodation;
         this.startDate = startDate;
         this.endDate = endDate;
         this.numberPersons = numberPersons;
+        this.isHalfBoardRequested = isHalfBoardRequested;
+        this.totalPrice = totalPrice;
     }
 
     public AccommodationEntity getAccommodation() {
@@ -55,6 +62,26 @@ public class ReservationSummary implements Serializable {
 
     public void setNumberPersons(int numberPersons) {
         this.numberPersons = numberPersons;
+    }
+
+    public boolean isHalfBoardRequested() {
+        return isHalfBoardRequested;
+    }
+
+    public void setHalfBoardRequested(boolean halfBoardRequested) {
+        isHalfBoardRequested = halfBoardRequested;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public boolean isAccommodationApartment() {
+        return this.accommodation instanceof ApartmentEntity;
     }
 
 }
