@@ -8,13 +8,13 @@ import javax.persistence.*;
 public class ApartmentEntity extends AccommodationEntity {
     @Basic
     @Column(name = "FINAL_CLEANING_FEE", nullable = true)
-    private Integer finalCleaningFee;
+    private Double finalCleaningFee;
 
     @Basic
     @Column(name = "MAX_PERSONS", nullable = true)
     private Integer maxPersons;
 
-    public ApartmentEntity(String name, int price, int finalCleaningFee, int maxPersons) {
+    public ApartmentEntity(String name, Double price, Double finalCleaningFee, int maxPersons) {
         super();
         this.name = name;
         this.price = price;
@@ -26,11 +26,11 @@ public class ApartmentEntity extends AccommodationEntity {
         super();
     }
 
-    public Integer getFinalCleaningFee() {
+    public Double getFinalCleaningFee() {
         return finalCleaningFee;
     }
 
-    public void setFinalCleaningFee(Integer finalCleaningFee) {
+    public void setFinalCleaningFee(Double finalCleaningFee) {
         this.finalCleaningFee = finalCleaningFee;
     }
 

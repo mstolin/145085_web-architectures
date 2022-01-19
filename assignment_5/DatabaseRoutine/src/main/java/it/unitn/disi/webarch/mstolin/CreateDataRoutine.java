@@ -47,8 +47,8 @@ public class CreateDataRoutine {
         for (Map<String, Object> apartment : apartments) {
             ApartmentEntity apartmentEntity = new ApartmentEntity(
                     (String) apartment.get("name"),
-                    (int) apartment.get("price"),
-                    (int) apartment.get("finalCleaningFee"),
+                    (double) apartment.get("price"),
+                    (double) apartment.get("finalCleaningFee"),
                     (int) apartment.get("maxPersons")
             );
             Set<AccommodationOccupancyEntity> occupancies = this.generateApartmentOccupancies(apartmentEntity);
@@ -61,8 +61,8 @@ public class CreateDataRoutine {
         for (Map<String, Object> hotel : hotels) {
             HotelEntity hotelEntity = new HotelEntity(
                     (String) hotel.get("name"),
-                    (int) hotel.get("price"),
-                    (int) hotel.get("extraHalfBoard"),
+                    (double) hotel.get("price"),
+                    (double) hotel.get("extraHalfBoard"),
                     (int) hotel.get("stars"),
                     (int) hotel.get("places")
             );

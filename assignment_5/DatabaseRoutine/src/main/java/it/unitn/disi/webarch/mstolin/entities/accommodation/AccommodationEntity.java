@@ -23,7 +23,7 @@ public abstract class AccommodationEntity {
 
     @Basic
     @Column(name = "PRICE", nullable = false)
-    protected int price;
+    protected Double price;
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
@@ -48,11 +48,11 @@ public abstract class AccommodationEntity {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

@@ -12,7 +12,7 @@ public class HotelEntity extends AccommodationEntity implements Serializable {
 
     @Basic
     @Column(name = "EXTRA_HALF_BOARD", nullable = true)
-    private Integer extraHalfBoard;
+    private Double extraHalfBoard;
 
     @Basic
     @Column(name = "STARS", nullable = true)
@@ -22,7 +22,7 @@ public class HotelEntity extends AccommodationEntity implements Serializable {
     @Column(name = "PLACES", nullable = true)
     private Integer places;
 
-    public HotelEntity(String name, int price, int extraHalfBoard, int stars, int places) {
+    public HotelEntity(String name, Double price, Double extraHalfBoard, int stars, int places) {
         super();
         this.name = name;
         this.price = price;
@@ -35,11 +35,11 @@ public class HotelEntity extends AccommodationEntity implements Serializable {
         super();
     }
 
-    public Integer getExtraHalfBoard() {
+    public Double getExtraHalfBoard() {
         return extraHalfBoard;
     }
 
-    public void setExtraHalfBoard(Integer extraHalfBoard) {
+    public void setExtraHalfBoard(Double extraHalfBoard) {
         this.extraHalfBoard = extraHalfBoard;
     }
 

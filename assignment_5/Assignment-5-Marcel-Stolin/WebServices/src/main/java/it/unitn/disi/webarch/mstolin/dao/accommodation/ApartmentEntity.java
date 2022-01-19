@@ -12,13 +12,13 @@ import java.io.Serializable;
 public class ApartmentEntity extends AccommodationEntity implements Serializable {
     @Basic
     @Column(name = "FINAL_CLEANING_FEE", nullable = true)
-    private Integer finalCleaningFee;
+    private Double finalCleaningFee;
 
     @Basic
     @Column(name = "MAX_PERSONS", nullable = true)
     private Integer maxPersons;
 
-    public ApartmentEntity(String name, int price, int finalCleaningFee, int maxPersons) {
+    public ApartmentEntity(String name, Double price, Double finalCleaningFee, int maxPersons) {
         super();
         this.name = name;
         this.price = price;
@@ -30,11 +30,11 @@ public class ApartmentEntity extends AccommodationEntity implements Serializable
         super();
     }
 
-    public Integer getFinalCleaningFee() {
+    public Double getFinalCleaningFee() {
         return finalCleaningFee;
     }
 
-    public void setFinalCleaningFee(Integer finalCleaningFee) {
+    public void setFinalCleaningFee(Double finalCleaningFee) {
         this.finalCleaningFee = finalCleaningFee;
     }
 
@@ -45,5 +45,4 @@ public class ApartmentEntity extends AccommodationEntity implements Serializable
     public void setMaxPersons(Integer maxPersons) {
         this.maxPersons = maxPersons;
     }
-
 }

@@ -12,7 +12,6 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DISC", discriminatorType = DiscriminatorType.STRING)
 public abstract class AccommodationEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false, updatable = false)
@@ -24,15 +23,15 @@ public abstract class AccommodationEntity implements Serializable {
 
     @Basic
     @Column(name = "PRICE", nullable = false)
-    protected int price;
+    protected Double price;
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    protected Set<ReservationEntity> reservations;
+    private Set<ReservationEntity> reservations;
 
     @OneToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ACCOMMODATION_ID")
-    protected Set<AccommodationOccupancyEntity> occupancies;
+    private Set<AccommodationOccupancyEntity> occupancies;
 
     public AccommodationEntity() {
     }
@@ -49,11 +48,11 @@ public abstract class AccommodationEntity implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
