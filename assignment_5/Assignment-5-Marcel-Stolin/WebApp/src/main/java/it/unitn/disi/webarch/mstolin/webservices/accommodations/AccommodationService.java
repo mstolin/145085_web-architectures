@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AccommodationService {
 
-    public List<AccommodationEntity> getAll();
+    public List<AccommodationEntity> getAccommodations();
 
     public List<AccommodationEntity> getAvailableAccommodations(Date startDate, Date endDate, int persons);
 
