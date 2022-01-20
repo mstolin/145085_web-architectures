@@ -26,6 +26,15 @@ public class LocalDatabaseBean {
         return result;
     }
 
+    public <T> T getSingleEnetityForQuery(String hqlQuery, Object[] parameters) {
+        Query query = entityManager.createQuery(hqlQuery);
+        for (int i = 0; i < parameters.length; i++) {
+            query.setParameter(i, parameters[i]);
+        }
+        T result = (T) query.getSingleResult();
+        return result;
+    }
+
     public <T> List<T> getAllEntities(String entityName) {
         String hqlQuery = "FROM " + entityName;
         Query query = entityManager.createQuery(hqlQuery);
@@ -42,6 +51,10 @@ public class LocalDatabaseBean {
 
     public void persistEntity(Object entity) {
         this.entityManager.persist(entity);
+    }
+
+    public void updateEntity(Object entity) {
+        this.entityManager.merge(entity);
     }
 
 }
