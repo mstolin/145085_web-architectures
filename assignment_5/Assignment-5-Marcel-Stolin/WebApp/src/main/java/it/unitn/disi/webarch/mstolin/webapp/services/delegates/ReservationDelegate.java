@@ -3,6 +3,7 @@ package it.unitn.disi.webarch.mstolin.webapp.services.delegates;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
+import it.unitn.disi.webarch.mstolin.dao.reservation.ReservationEntity;
 import it.unitn.disi.webarch.mstolin.webapp.services.servicelocator.ServiceFactory;
 import it.unitn.disi.webarch.mstolin.webservices.reservations.ReservationService;
 
@@ -26,6 +27,10 @@ public class ReservationDelegate extends ServiceDelegate <ReservationService> {
         } else {
             throw new IOException("Accommodation is neither an ApartmentEntity nor a HotelEntity");
         }
+    }
+
+    public void addReservation(ReservationEntity reservationEntity) throws NamingException {
+        this.getService().persistReservation(reservationEntity);
     }
 
 }
