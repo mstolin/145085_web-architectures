@@ -1,12 +1,10 @@
 package it.unitn.disi.webarch.mstolin.webapp.controller.reservation;
 
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
-import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
-import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
-import it.unitn.disi.webarch.mstolin.webapp.helper.AccommodationServiceHandler;
 import it.unitn.disi.webarch.mstolin.webapp.helper.ControllerHelper;
-import it.unitn.disi.webarch.mstolin.webapp.helper.ReservationServiceHandler;
 import it.unitn.disi.webarch.mstolin.webapp.models.reservation.ReservationSummary;
+import it.unitn.disi.webarch.mstolin.webapp.services.delegates.AccommodationDelegate;
+import it.unitn.disi.webarch.mstolin.webapp.services.delegates.ReservationDelegate;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -22,17 +20,8 @@ public class ReservationSummaryServlet extends HttpServlet {
 
     private final Logger logger = Logger.getLogger(ReservationSummaryServlet.class.getName());
 
-    private double getPriceForReservation(AccommodationEntity accommodation, Date startDate, Date endDate, int persons, boolean isHalfBoardRequested) throws NamingException, IOException {
-        if (accommodation instanceof ApartmentEntity) {
-            ApartmentEntity apartmentEntity = (ApartmentEntity) accommodation;
-            return ReservationServiceHandler.getInstance().getPriceForApartmentReservation(apartmentEntity, startDate, endDate);
-        } else if (accommodation instanceof HotelEntity) {
-            HotelEntity hotelEntity = (HotelEntity) accommodation;
-            return ReservationServiceHandler.getInstance().getPriceForHotelReservation(hotelEntity, startDate, endDate, persons, isHalfBoardRequested);
-        } else {
-            throw new IOException("Accommodation is neither an ApartmentEntity nor a HotelEntity");
-        }
-    }
+    private AccommodationDelegate accommodationDelegate = new AccommodationDelegate();
+    private ReservationDelegate reservationDelegate = new ReservationDelegate();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,10 +43,8 @@ public class ReservationSummaryServlet extends HttpServlet {
                     isHalfBoardRequested = Boolean.parseBoolean(isHalfBoardRequestedParameter);
                 }
 
-                AccommodationEntity accommodation = AccommodationServiceHandler
-                        .getInstance()
-                        .getAccommodation(accommodationId);
-                double totalPrice = this.getPriceForReservation(
+                AccommodationEntity accommodation = this.accommodationDelegate.getAccommodation(accommodationId);
+                double totalPrice = this.reservationDelegate.getPriceForReservation(
                         accommodation,
                         startDate,
                         endDate,

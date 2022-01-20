@@ -1,20 +1,17 @@
 package it.unitn.disi.webarch.mstolin.webapp.controller.accommodation;
 
 import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
-import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
-import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
+import it.unitn.disi.webarch.mstolin.webapp.helper.ControllerHelper;
 import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationResultDetail;
 import it.unitn.disi.webarch.mstolin.webapp.models.accommodation.AccommodationSearchResult;
-import it.unitn.disi.webarch.mstolin.webapp.servicelocator.ServiceFactory;
-import it.unitn.disi.webarch.mstolin.webservices.accommodations.AccommodationService;
-import it.unitn.disi.webarch.mstolin.webservices.reservations.ReservationService;
+import it.unitn.disi.webarch.mstolin.webapp.services.delegates.AccommodationDelegate;
+import it.unitn.disi.webarch.mstolin.webapp.services.delegates.ReservationDelegate;
 
 import javax.naming.NamingException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,39 +20,16 @@ import java.util.logging.Logger;
 public class AccommodationResultServlet extends HttpServlet {
 
     private final Logger logger = Logger.getLogger(AccommodationResultServlet.class.getName());
+    private AccommodationDelegate accommodationDelegate = new AccommodationDelegate();
+    private ReservationDelegate reservationDelegate = new ReservationDelegate();
 
-    private Date parseStringToDate(String dateString) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter.parse(dateString);
-    }
-
-    private double getPriceForAccommadation(AccommodationEntity accommodation, Date startDate, Date endDate, int persons, boolean isHalfBoardRequested) throws NamingException {
-        ReservationService reservationService = ServiceFactory.initializeService(
-                ServiceFactory.RESERVATION_BEAN,
-                ReservationService.class.getName()
-        );
-
-        if (accommodation instanceof ApartmentEntity) {
-            ApartmentEntity apartmentEntity = (ApartmentEntity) accommodation;
-            return reservationService.calculateApartmentReservationPrice(apartmentEntity, startDate, endDate);
-        } else if (accommodation instanceof HotelEntity) {
-            HotelEntity hotelEntity = (HotelEntity) accommodation;
-            return reservationService.calculateHotelReservationPrice(hotelEntity, startDate, endDate, persons, isHalfBoardRequested);
-        } else {
-            return 0;
-        }
-    }
-
-    private List<AccommodationResultDetail> getAccommodationResults(Date startDate, Date endDate, int persons) throws NamingException {
-        AccommodationService accommodationService = ServiceFactory.initializeService(
-                ServiceFactory.ACCOMMODATION_BEAN,
-                AccommodationService.class.getName()
-        );
-        List<AccommodationEntity> accommodationEntities = accommodationService.getAvailableAccommodations(startDate, endDate, persons);
+    private List<AccommodationResultDetail> getAccommodationResults(Date startDate, Date endDate, int persons) throws NamingException, IOException {
+        List<AccommodationEntity> accommodationEntities = this.accommodationDelegate.getAvailableAccommodations(startDate, endDate, persons);
         List<AccommodationResultDetail> accommodationResults = new ArrayList<>();
         for (AccommodationEntity accommodationEntity: accommodationEntities) {
-            double totalPrice = this.getPriceForAccommadation(accommodationEntity, startDate, endDate, persons, false);
-            double totalPriceExtraHalfBoard = this.getPriceForAccommadation(accommodationEntity, startDate, endDate, persons, true);
+            double totalPrice = 0;
+            totalPrice = this.reservationDelegate.getPriceForReservation(accommodationEntity, startDate, endDate, persons, false);
+            double totalPriceExtraHalfBoard = this.reservationDelegate.getPriceForReservation(accommodationEntity, startDate, endDate, persons, true);
             AccommodationResultDetail resultDetail = new AccommodationResultDetail(accommodationEntity, totalPrice, totalPriceExtraHalfBoard);
             accommodationResults.add(resultDetail);
         }
@@ -72,8 +46,8 @@ public class AccommodationResultServlet extends HttpServlet {
         if (startDateParameter != null && endDateParameter != null && numberOfPersonsParameter != null) {
             try {
                 // parse parameters to objects
-                Date startDate = this.parseStringToDate(startDateParameter);
-                Date endDate = this.parseStringToDate(endDateParameter);
+                Date startDate = ControllerHelper.parseStringToDate(startDateParameter);
+                Date endDate = ControllerHelper.parseStringToDate(endDateParameter);
                 int numberOfPersons = Integer.parseInt(numberOfPersonsParameter);
 
                 // check if parameters are valid
