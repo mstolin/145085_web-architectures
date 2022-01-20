@@ -1,4 +1,4 @@
-package it.unitn.disi.webarch.mstolin.webapp.servicelocator;
+package it.unitn.disi.webarch.mstolin.webapp.services.servicelocator;
 
 import javax.naming.NamingException;
 
