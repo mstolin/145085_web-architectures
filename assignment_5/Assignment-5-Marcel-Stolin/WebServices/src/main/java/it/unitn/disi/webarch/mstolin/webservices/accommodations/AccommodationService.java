@@ -4,7 +4,7 @@ import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.ApartmentEntity;
 import it.unitn.disi.webarch.mstolin.dao.accommodation.HotelEntity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface AccommodationService {
