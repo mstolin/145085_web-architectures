@@ -4,7 +4,7 @@ import it.unitn.disi.webarch.mstolin.dao.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "OCCUPANCY", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
@@ -22,7 +22,6 @@ public abstract class AccommodationOccupancyEntity implements Serializable {
     private AccommodationEntity accommodation;
 
     @Column(name = "DAY_OF_YEAR", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date dayOfYear;
 
     public AccommodationOccupancyEntity() {
