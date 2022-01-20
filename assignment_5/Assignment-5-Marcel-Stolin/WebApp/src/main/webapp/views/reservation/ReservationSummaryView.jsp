@@ -45,18 +45,15 @@
             </p>
         </div>
         <div>
-            <form method="POST" action="<% config.getServletContext(); %>/create">
+            <form method="POST" action="<% config.getServletContext(); %>/reservation/confirm">
                 <input type="hidden" name="accommodationId" value="${param.accommodationId}"/>
                 <input type="hidden" name="numberPersons" value="${param.numberPersons}"/>
                 <input type="hidden" name="startDate" value="${param.startDate}"/>
                 <input type="hidden" name="endDate" value="${param.endDate}"/>
+                <input type="hidden" name="guestName" value="Mock Guest"/>
                 <c:if test="${not empty param.isHalfBoardRequested}" >
                     <input type="hidden" name="isHalfBoardRequested" value="${param.isHalfBoardRequested}"/>
                 </c:if>
-                <label for="guestName">
-                    Your Name:
-                </label>
-                <input type="text" name="guestName" id="guestName" value="Mock Guest" disabled/>
                 <input type="submit" value="Confirm Reservation"/>
             </form>
         </div>
