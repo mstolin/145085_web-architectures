@@ -5,7 +5,7 @@ import it.unitn.disi.webarch.mstolin.webapp.services.servicelocator.ServiceFacto
 import it.unitn.disi.webarch.mstolin.webservices.accommodations.AccommodationService;
 
 import javax.naming.NamingException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class AccommodationDelegate extends ServiceDelegate <AccommodationService> {
