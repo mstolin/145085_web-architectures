@@ -14,6 +14,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.*;
 
 public class CreateDataRoutine {
@@ -74,10 +75,11 @@ public class CreateDataRoutine {
 
     private Set<AccommodationOccupancyEntity> generateApartmentOccupancies(AccommodationEntity accommodation) throws ParseException {
         Set<AccommodationOccupancyEntity> occupancies = new HashSet<>();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Set<Integer> randomDays = this.getRandomNumberSet(4, 1, 28);
         for (Integer i = 1; i <= 28; i++) {
-            Date dateOfReservation = formatter.parse("2022-2-" + i);
+            //Date dateOfReservation = formatter.parse("2022-2-" + i);
+            Date dateOfReservation = Date.valueOf("2022-2-" + i);
             boolean isAvailable = !randomDays.contains(i);
             ApartmentOccupancyEntity apartmentOccupancyEntity = new ApartmentOccupancyEntity(
                     accommodation,
@@ -91,9 +93,10 @@ public class CreateDataRoutine {
 
     private Set<AccommodationOccupancyEntity> generateHotelOccupancies(AccommodationEntity accommodation) throws java.text.ParseException {
         Set<AccommodationOccupancyEntity> occupancies = new HashSet<>();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-d");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 1; i <= 28; i++) {
-            Date dateOfReservation = formatter.parse("2022-2-" + i);
+            //Date dateOfReservation = formatter.parse("2022-2-" + i);
+            Date dateOfReservation = Date.valueOf("2022-2-" + i);
             int randomOccupancy = (int) Math.round(
                     this.getRandomNumber(0.9, 1) * ((HotelEntity) accommodation).getPlaces()
             );

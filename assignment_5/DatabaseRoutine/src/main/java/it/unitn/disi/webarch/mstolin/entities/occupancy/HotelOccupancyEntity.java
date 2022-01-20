@@ -6,7 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @DiscriminatorValue("HOTEL_OCCUPANCY")

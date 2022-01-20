@@ -3,7 +3,7 @@ package it.unitn.disi.webarch.mstolin.entities.reservation;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @DiscriminatorValue("HOTEL_RESERVATION")
@@ -16,7 +16,7 @@ public class HotelReservationEntity extends ReservationEntity {
     public HotelReservationEntity() {
     }
 
-    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests) {
+    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, java.sql.Date startDate, Date endDate, int guests) {
         super(guestName, accommodation, startDate, endDate);
         this.guests = guests;
     }

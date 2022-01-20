@@ -3,7 +3,7 @@ package it.unitn.disi.webarch.mstolin.entities.occupancy;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "OCCUPANCY", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
@@ -21,7 +21,6 @@ public abstract class AccommodationOccupancyEntity {
     private AccommodationEntity accommodation;
 
     @Column(name = "DAY_OF_YEAR", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date dayOfYear;
 
     public AccommodationOccupancyEntity() {

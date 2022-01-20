@@ -3,7 +3,7 @@ package it.unitn.disi.webarch.mstolin.entities.reservation;
 import it.unitn.disi.webarch.mstolin.entities.accommodation.AccommodationEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "RESERVATION", schema = "PUBLIC", catalog = "ACCOMMODATIONS")
@@ -25,12 +25,10 @@ public class ReservationEntity {
     private String guestName;
 
     @Column(name = "START_DATE", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Basic
     @Column(name = "END_DATE", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     public ReservationEntity() {
