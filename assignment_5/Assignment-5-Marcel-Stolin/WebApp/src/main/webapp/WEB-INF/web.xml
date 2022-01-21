@@ -22,12 +22,32 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <servlet-name>ReservationSummaryServlet</servlet-name>
         <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.reservation.ReservationSummaryServlet
         </servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <servlet-name>ReservationSummaryServlet</servlet-name>
         <url-pattern>/reservation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.reservation.ReservationConfirmServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationConfirmServlet</servlet-name>
+        <url-pattern>/reservation/confirm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationListServlet</servlet-name>
+        <servlet-class>it.unitn.disi.webarch.mstolin.webapp.controller.reservation.ReservationListServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationListServlet</servlet-name>
+        <url-pattern>/reservations</url-pattern>
     </servlet-mapping>
 </web-app>
