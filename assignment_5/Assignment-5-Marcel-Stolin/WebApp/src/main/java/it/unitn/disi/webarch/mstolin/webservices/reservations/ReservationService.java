@@ -19,4 +19,6 @@ public interface ReservationService {
 
     public void persistReservation(ReservationEntity reservationEntity);
 
+    public List<ReservationEntity> getReservationsForGuest(String guestName);
+
 }

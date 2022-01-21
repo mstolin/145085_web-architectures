@@ -10,6 +10,7 @@ import it.unitn.disi.webarch.mstolin.webservices.reservations.ReservationService
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 public class ReservationDelegate extends ServiceDelegate <ReservationService> {
 
@@ -31,6 +32,10 @@ public class ReservationDelegate extends ServiceDelegate <ReservationService> {
 
     public void addReservation(ReservationEntity reservationEntity) throws NamingException {
         this.getService().persistReservation(reservationEntity);
+    }
+
+    public List<ReservationEntity> getReservationForGuest(String guestName) throws NamingException {
+        return this.getService().getReservationsForGuest(guestName);
     }
 
 }

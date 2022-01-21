@@ -110,4 +110,12 @@ public class ReservationBean implements ReservationService  {
         }
     }
 
+    @Override
+    public List<ReservationEntity> getReservationsForGuest(String guestName) {
+        String hqlQyery = "FROM " + ReservationEntity.class.getSimpleName() + " " +
+                "WHERE guestName = ?0";
+        Object[] parameters = new Object[]{guestName};
+        return this.databaseBean.getEntitiesForQuery(hqlQyery, parameters);
+    }
+
 }
