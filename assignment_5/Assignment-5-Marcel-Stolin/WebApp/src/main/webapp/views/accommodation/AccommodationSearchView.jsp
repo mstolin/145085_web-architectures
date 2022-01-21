@@ -2,26 +2,35 @@
 <html>
 <head>
     <title>Search for Accommodations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<body>
-    <div>
-        <form method="GET" action="<% config.getServletContext(); %>/results">
-            <div>
-                <label for="startDate">Start Date</label>
-                <input type="date" id="startDate" name="startDate">
+<body class="bg-light">
+    <main>
+        <jsp:include page="../HeaderView.jsp"/>
+        <div class="d-flex justify-content-center">
+            <div class="container bg-white">
+                <div class="row">
+                    <h2>Search for Accommodations</h2>
+                </div>
+                <div class="row">
+                    <form method="GET" action="<% config.getServletContext(); %>/results">
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input class="form-control" type="date" id="startDate" name="startDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="endDate" class="form-label">End Date</label>
+                            <input class="form-control" type="date" id="endDate" name="endDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="numberPersons" class="form-label">Number of Persons</label>
+                            <input class="form-control" id="numberPersons" type="number" name="numberPersons" value="0" min="0">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
             </div>
-            <div>
-                <label for="endDate">End Date</label>
-                <input type="date" id="endDate" name="endDate">
-            </div>
-            <div>
-                <label for="numberPersons">Number of Persons</label>
-                <input id="numberPersons" type="number" name="numberPersons" value="0" min="0">
-            </div>
-            <div>
-                <input type="submit" title="Search" />
-            </div>
-        </form>
-    </div>
+        </div>
+    </main>
 </body>
 </html>
