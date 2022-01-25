@@ -22,12 +22,12 @@ public class ReservationConfirmServlet extends HttpServlet {
     private AccommodationDelegate accommodationDelegate = new AccommodationDelegate();
     private ReservationDelegate reservationDelegate = new ReservationDelegate();
 
-    private ReservationEntity generateReservationEntity(AccommodationEntity accommodationEntity, String guestName, Date startDate, Date endDate, int persons) {
+    private ReservationEntity generateReservationEntity(AccommodationEntity accommodationEntity, String guestName, Date startDate, Date endDate, int persons, double totalPrice) {
         if (accommodationEntity instanceof HotelEntity) {
             HotelEntity hotelEntity = (HotelEntity) accommodationEntity;
-            return new HotelReservationEntity(guestName, hotelEntity, startDate, endDate, persons);
+            return new HotelReservationEntity(guestName, hotelEntity, startDate, endDate, persons, totalPrice);
         } else {
-            return new ReservationEntity(guestName, accommodationEntity, startDate, endDate);
+            return new ReservationEntity(guestName, accommodationEntity, startDate, endDate, totalPrice);
         }
     }
 
@@ -38,6 +38,7 @@ public class ReservationConfirmServlet extends HttpServlet {
         String endDateParameter = request.getParameter("endDate");
         String guestName = request.getParameter("guestName");
         String numberOfPersonsParameter = request.getParameter("numberPersons");
+        String isHalfBoardRequestedParameter = request.getParameter("isHalfBoardRequested");
 
         if (accommodationIdParameter != null && startDateParameter != null && endDateParameter != null && numberOfPersonsParameter != null) {
             try {
@@ -46,11 +47,16 @@ public class ReservationConfirmServlet extends HttpServlet {
                 Date startDate = ControllerHelper.parseStringToDate(startDateParameter);
                 Date endDate = ControllerHelper.parseStringToDate(endDateParameter);
                 int numberOfPersons = Integer.parseInt(numberOfPersonsParameter);
+                boolean isHalfBoardRequested = false;
+                if (isHalfBoardRequestedParameter != null) {
+                    isHalfBoardRequested = Boolean.parseBoolean(isHalfBoardRequestedParameter);
+                }
 
                 // check validity
                 if (numberOfPersons >= 1 && startDate.before(endDate)) {
                     AccommodationEntity accommodation = this.accommodationDelegate.getAccommodation(accommodationId);
-                    ReservationEntity reservation = this.generateReservationEntity(accommodation, guestName, startDate, endDate, numberOfPersons);
+                    double totalPrice = this.reservationDelegate.getPriceForReservation(accommodation, startDate, endDate, numberOfPersons, isHalfBoardRequested);
+                    ReservationEntity reservation = this.generateReservationEntity(accommodation, guestName, startDate, endDate, numberOfPersons, totalPrice);
                     this.reservationDelegate.addReservation(reservation);
 
                     this.getServletContext()

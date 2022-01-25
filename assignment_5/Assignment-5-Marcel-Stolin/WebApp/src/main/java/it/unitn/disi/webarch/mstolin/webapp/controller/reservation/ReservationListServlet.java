@@ -19,7 +19,6 @@ public class ReservationListServlet extends HttpServlet {
         try {
             List<ReservationEntity> reservations = this.reservationDelegate.getReservationForGuest("Mock Guest");
             ReservationListModel reservationListModel = new ReservationListModel(reservations, "Mock Guest");
-            System.out.println("NUMBER OF RES.: " + reservationListModel.getReservationEntities().size());
             request.setAttribute("model", reservationListModel);
             this.getServletContext()
                     .getRequestDispatcher("/views/reservation/ReservationListView.jsp")

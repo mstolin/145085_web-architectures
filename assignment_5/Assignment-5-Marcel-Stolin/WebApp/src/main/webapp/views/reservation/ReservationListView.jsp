@@ -27,7 +27,7 @@
                                 </p>
                                 <p class="mb-1">
                                     <strong>Price:</strong>
-                                    <span>1.000.000</span>
+                                    <span>${reservation.getTotalPrice()}€</span>
                                 </p>
                             </div>
                         </c:forEach>
