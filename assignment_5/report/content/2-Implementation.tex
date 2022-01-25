@@ -130,11 +130,53 @@ After that it is important, thte the count of numbers of the accommodation, in t
 
 
 \subsubsection{ReservationService}
+% Describe
+To read from and write to the reservation table of the database, the ReservationService is used. It allows to persist new reservations to the database, and to get all reservations for a specific customer name.
+
+% Adding new reservations
+When adding a new reservation to the database, the \texttt{ReservationService} is also responsible to update the occupancies (mentioned in XY) of the selected accommodation. Then, it is necessary to add the number of guests, of the new reservation, to each entry of the accommodation occupancy.
+
+% Calculating the price
+Additionally, the ReservationService provides an interface to calculate the price of a reservation for either a Hotel or an Apartment.
 
 
 \subsubsection{Build Process}
+% Jar
+The project is build using the \texttt{maven-ejb-plugin} maven plugin to create a EJB-Jar file.
+% How
+Then, the artifact can be built using the \texttt{mvn clean build} command.
+
+% Settings
+\Lst{lst:02_impl_ejb_buildprocess_pluginconfig} shows the configuration of the \texttt{maven-ejb-plugin} plugin.
+% Config
+\begin{lstlisting}[label=lst:02_impl_ejb_buildprocess_pluginconfig, caption=\texttt{maven-ejb-plugin} plugin configuration, language=xml]
+<packaging>ejb</packaging>
+...
+<build>
+  <finalName>${artifactId}.${version}</finalName>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-ejb-plugin</artifactId>
+      <version>3.1.0</version>
+    </plugin>
+  </plugins>
+</build>
+\end{lstlisting}
+
 
 
 % =====================
 % =====================
 \subsection{Web Application}
+% What parts
+
+\subsubsection{Search}
+
+\subsubsection{Results}
+
+\subsubsection{Reservation Summary}
+
+\subsubsection{Reservation Confirm}
+
+\subsubsection{My Reservations}
