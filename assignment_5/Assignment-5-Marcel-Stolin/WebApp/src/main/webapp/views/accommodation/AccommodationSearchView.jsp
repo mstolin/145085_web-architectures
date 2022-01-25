@@ -14,16 +14,22 @@
                 </div>
                 <div class="row">
                     <form method="GET" action="<% config.getServletContext(); %>/results">
-                        <div class="mb-3">
-                            <label for="startDate" class="form-label">Start Date</label>
-                            <input class="form-control" type="date" id="startDate" name="startDate">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="startDate" class="form-label">From:</label>
+                                    <input class="form-control" type="date" id="startDate" name="startDate"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="endDate" class="form-label">To:</label>
+                                    <input class="form-control" type="date" id="endDate" name="endDate"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="endDate" class="form-label">End Date</label>
-                            <input class="form-control" type="date" id="endDate" name="endDate">
-                        </div>
-                        <div class="mb-3">
-                            <label for="numberPersons" class="form-label">Number of Persons</label>
+                            <label for="numberPersons" class="form-label">Number of Guests:</label>
                             <input class="form-control" id="numberPersons" type="number" name="numberPersons" value="0" min="0">
                         </div>
                         <button type="submit" class="btn btn-primary">Search</button>
