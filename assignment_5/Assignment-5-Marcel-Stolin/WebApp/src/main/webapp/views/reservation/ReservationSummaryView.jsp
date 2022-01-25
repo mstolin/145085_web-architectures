@@ -32,9 +32,16 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Date:</strong> <span>From ${param.startDate} to ${param.endDate}</span></li>
+                            <li class="list-group-item"><strong>Number of Guests:</strong> <span>${reservationSummary.getNumberPersons()}</span></li>
+                            <c:if test="${reservationSummary.isAccommodationApartment()}">
+                                <li class="list-group-item"><strong>Max. Guests:</strong> <span>${reservationSummary.accommodation.getMaxPersons()}</span></li>
+                                <li class="list-group-item"><strong>Final Cleaning Fee:</strong> <span>${reservationSummary.accommodation.getFinalCleaningFee()}€</span></li>
+                            </c:if>
                             <c:if test="${not reservationSummary.isAccommodationApartment()}">
-                                <li class="list-group-item"><strong>Number of Guests:</strong> <span>${reservationSummary.getNumberPersons()}</span></li>
-                                <li class="list-group-item"><strong>Is half board requested:</strong> <span>${reservationSummary.isHalfBoardRequested()}</span></li>
+                                <li class="list-group-item"><strong>Is Half-Board requested:</strong> <span>${reservationSummary.isHalfBoardRequested()}</span></li>
+                                <c:if test="${reservationSummary.isHalfBoardRequested()}">
+                                    <li class="list-group-item"><strong>Daily Half-Board Price:</strong> <span>${reservationSummary.accommodation.getExtraHalfBoard()}€</span></li>
+                                </c:if>
                             </c:if>
                             <li class="list-group-item"><strong>Total Price:</strong> <span>${reservationSummary.getTotalPrice()}€</span></li>
                         </ul>
@@ -44,10 +51,17 @@
                                 <input type="hidden" name="numberPersons" value="${param.numberPersons}"/>
                                 <input type="hidden" name="startDate" value="${param.startDate}"/>
                                 <input type="hidden" name="endDate" value="${param.endDate}"/>
-                                <input type="hidden" name="guestName" value="Mock Guest"/>
                                 <c:if test="${not empty param.isHalfBoardRequested}" >
                                     <input type="hidden" name="isHalfBoardRequested" value="${param.isHalfBoardRequested}"/>
                                 </c:if>
+                                <div class="mb-3">
+                                    <label for="guestName" class="form-label">Your Name:</label>
+                                    <input class="form-control" type="text" id="guestName" name="guestName" value="Mock Guest"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="creditCard" class="form-label">Credit Card:</label>
+                                    <input class="form-control" type="text" id="creditCard" name="creditCard" value="4000-1234-5678-9010"/>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Confirm Reservation</button>
                                 <a class="btn btn-secondary" href="<% config.getServletContext(); %>/results?startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Cancel</a>
                             </form>
