@@ -54,9 +54,19 @@
                                 <c:if test="${not empty param.isHalfBoardRequested}" >
                                     <input type="hidden" name="isHalfBoardRequested" value="${param.isHalfBoardRequested}"/>
                                 </c:if>
-                                <div class="mb-3">
-                                    <label for="guestName" class="form-label">Your Name:</label>
-                                    <input class="form-control" type="text" id="guestName" name="guestName" value="Mock Guest"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="firstName" class="form-label">First Name:</label>
+                                            <input class="form-control" placeholder="First Name" type="text" id="firstName" name="firstName" value="Mock"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="lastName" class="form-label">Last Name:</label>
+                                            <input class="form-control" placeholder="Last Name" type="text" id="lastName" name="lastName" value="Guest"/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="creditCard" class="form-label">Credit Card:</label>

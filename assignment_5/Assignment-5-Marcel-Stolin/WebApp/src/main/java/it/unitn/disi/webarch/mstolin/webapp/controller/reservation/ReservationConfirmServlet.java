@@ -22,13 +22,19 @@ public class ReservationConfirmServlet extends HttpServlet {
     private AccommodationDelegate accommodationDelegate = new AccommodationDelegate();
     private ReservationDelegate reservationDelegate = new ReservationDelegate();
 
-    private ReservationEntity generateReservationEntity(AccommodationEntity accommodationEntity, String guestName, Date startDate, Date endDate, int persons, double totalPrice) {
+    private ReservationEntity generateReservationEntity(AccommodationEntity accommodationEntity, String guestName, Date startDate, Date endDate, int persons, double totalPrice, String creditCard) {
         if (accommodationEntity instanceof HotelEntity) {
             HotelEntity hotelEntity = (HotelEntity) accommodationEntity;
-            return new HotelReservationEntity(guestName, hotelEntity, startDate, endDate, persons, totalPrice);
+            return new HotelReservationEntity(guestName, hotelEntity, startDate, endDate, persons, totalPrice, creditCard);
         } else {
-            return new ReservationEntity(guestName, accommodationEntity, startDate, endDate, totalPrice);
+            return new ReservationEntity(guestName, accommodationEntity, startDate, endDate, totalPrice, creditCard);
         }
+    }
+
+    private String generateGuestName(String firstName, String lastName) {
+        firstName = firstName.trim();
+        lastName = lastName.trim();
+        return firstName + " " + lastName;
     }
 
     @Override
@@ -36,11 +42,13 @@ public class ReservationConfirmServlet extends HttpServlet {
         String accommodationIdParameter = request.getParameter("accommodationId");
         String startDateParameter = request.getParameter("startDate");
         String endDateParameter = request.getParameter("endDate");
-        String guestName = request.getParameter("guestName");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String creditCard = request.getParameter("creditCard");
         String numberOfPersonsParameter = request.getParameter("numberPersons");
         String isHalfBoardRequestedParameter = request.getParameter("isHalfBoardRequested");
 
-        if (accommodationIdParameter != null && startDateParameter != null && endDateParameter != null && numberOfPersonsParameter != null) {
+        if (accommodationIdParameter != null && startDateParameter != null && endDateParameter != null && firstName != null && lastName != null && numberOfPersonsParameter != null && creditCard != null) {
             try {
                 // parse parameters
                 int accommodationId = Integer.parseInt(accommodationIdParameter);
@@ -53,10 +61,11 @@ public class ReservationConfirmServlet extends HttpServlet {
                 }
 
                 // check validity
-                if (numberOfPersons >= 1 && startDate.before(endDate)) {
+                if (numberOfPersons >= 1 && startDate.before(endDate) && firstName.length() > 0 && lastName.length() > 0 && creditCard.length() > 0) {
+                    String guestName = this.generateGuestName(firstName, lastName);
                     AccommodationEntity accommodation = this.accommodationDelegate.getAccommodation(accommodationId);
                     double totalPrice = this.reservationDelegate.getPriceForReservation(accommodation, startDate, endDate, numberOfPersons, isHalfBoardRequested);
-                    ReservationEntity reservation = this.generateReservationEntity(accommodation, guestName, startDate, endDate, numberOfPersons, totalPrice);
+                    ReservationEntity reservation = this.generateReservationEntity(accommodation, guestName, startDate, endDate, numberOfPersons, totalPrice, creditCard);
                     this.reservationDelegate.addReservation(reservation);
 
                     this.getServletContext()
