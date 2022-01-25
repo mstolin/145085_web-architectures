@@ -36,15 +36,20 @@ public class ReservationEntity implements Serializable {
     @Column(name = "TOTAL_PRICE", nullable = false)
     private double totalPrice;
 
+    @Basic
+    @Column(name = "CREDIT_CARD", nullable = false)
+    private String creditCard;
+
     public ReservationEntity() {
     }
 
-    public ReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, double totalPrice) {
+    public ReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, double totalPrice, String creditCard) {
         this.guestName = guestName;
         this.accommodation = accommodation;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalPrice = totalPrice;
+        this.creditCard = creditCard;
     }
 
     public int getId() {
@@ -89,5 +94,13 @@ public class ReservationEntity implements Serializable {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
     }
 }

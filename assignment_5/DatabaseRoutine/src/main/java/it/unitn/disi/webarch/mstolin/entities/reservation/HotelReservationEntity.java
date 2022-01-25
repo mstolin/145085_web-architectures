@@ -16,8 +16,8 @@ public class HotelReservationEntity extends ReservationEntity {
     public HotelReservationEntity() {
     }
 
-    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests, double totalPrice) {
-        super(guestName, accommodation, startDate, endDate, totalPrice);
+    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests, double totalPrice, String creditCard) {
+        super(guestName, accommodation, startDate, endDate, totalPrice, creditCard);
         this.guests = guests;
     }
 
