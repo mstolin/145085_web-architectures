@@ -12,7 +12,6 @@ import java.sql.Date;
 @Entity
 @DiscriminatorValue("HOTEL_RESERVATION")
 public class HotelReservationEntity extends ReservationEntity implements Serializable {
-
     @Basic
     @Column(name = "GUESTS")
     int guests;
@@ -20,8 +19,8 @@ public class HotelReservationEntity extends ReservationEntity implements Seriali
     public HotelReservationEntity() {
     }
 
-    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests) {
-        super(guestName, accommodation, startDate, endDate);
+    public HotelReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, int guests, double totalPrice) {
+        super(guestName, accommodation, startDate, endDate, totalPrice);
         this.guests = guests;
     }
 
@@ -32,5 +31,4 @@ public class HotelReservationEntity extends ReservationEntity implements Seriali
     public void setGuests(int guests) {
         this.guests = guests;
     }
-
 }

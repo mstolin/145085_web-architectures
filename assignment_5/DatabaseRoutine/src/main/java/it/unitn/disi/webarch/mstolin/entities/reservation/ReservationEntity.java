@@ -31,14 +31,19 @@ public class ReservationEntity {
     @Column(name = "END_DATE", nullable = false)
     private Date endDate;
 
+    @Basic
+    @Column(name = "TOTAL_PRICE", nullable = false)
+    private double totalPrice;
+
     public ReservationEntity() {
     }
 
-    public ReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate) {
+    public ReservationEntity(String guestName, AccommodationEntity accommodation, Date startDate, Date endDate, double totalPrice) {
         this.guestName = guestName;
         this.accommodation = accommodation;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
@@ -75,6 +80,14 @@ public class ReservationEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
 }
