@@ -15,17 +15,33 @@ public class ReservationListServlet extends HttpServlet {
     private ReservationDelegate reservationDelegate = new ReservationDelegate();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            List<ReservationEntity> reservations = this.reservationDelegate.getReservationForGuest("Mock Guest");
-            ReservationListModel reservationListModel = new ReservationListModel(reservations, "Mock Guest");
-            request.setAttribute("model", reservationListModel);
-            this.getServletContext()
-                    .getRequestDispatcher("/views/reservation/ReservationListView.jsp")
-                    .forward(request, response);
-        } catch (NamingException exception) {
-            exception.printStackTrace();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+
+        if (firstName != null && lastName != null && firstName.length() > 0 && lastName.length() > 0) {
+            String guestName = firstName.trim() + " " + lastName.trim();
+            try {
+                List<ReservationEntity> reservations = this.reservationDelegate.getReservationForGuest(guestName);
+                ReservationListModel reservationListModel = new ReservationListModel(reservations, guestName);
+                request.setAttribute("model", reservationListModel);
+                this.getServletContext()
+                        .getRequestDispatcher("/views/reservation/ReservationListView.jsp")
+                        .forward(request, response);
+            } catch (NamingException exception) {
+                exception.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.getServletContext()
+                .getRequestDispatcher("/views/reservation/ReservationGetMyView.jsp")
+                .forward(request, response);
     }
 
 }
