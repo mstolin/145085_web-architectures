@@ -53,7 +53,8 @@ public class AccommodationBean implements AccommodationService {
                 "WHERE (((a.isAvailable IS TRUE AND a.accommodation.maxPersons >= ?0) OR ((a.accommodation.places - a.totalReservations) >= ?0))) " +
                 "AND a.dayOfYear BETWEEN ?1 AND ?2 " +
                 "GROUP BY a.accommodation.id " +
-                "HAVING COUNT(*) = ?3";
+                "HAVING COUNT(*) = ?3 " +
+                "ORDER BY a.accommodation.price";
         Date exclusiveEndDate = Date.valueOf(endDate.toLocalDate().minusDays(1));
         long daysDiff = this.getDifferenceOfDates(startDate, endDate);
         Object[] parameters = new Object[]{persons, startDate, exclusiveEndDate, daysDiff};
