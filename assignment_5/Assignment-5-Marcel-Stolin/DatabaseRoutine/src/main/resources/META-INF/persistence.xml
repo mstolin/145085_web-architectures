@@ -9,9 +9,9 @@
         <class>it.unitn.disi.webarch.mstolin.entities.accommodation.HotelEntity</class>
         <class>it.unitn.disi.webarch.mstolin.entities.reservation.ReservationEntity</class>
         <class>it.unitn.disi.webarch.mstolin.entities.reservation.HotelReservationEntity</class>
-        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancy</class>
-        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.ApartmentOccupancy</class>
-        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.HotelOccupancy</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.AccommodationOccupancyEntity</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.ApartmentOccupancyEntity</class>
+        <class>it.unitn.disi.webarch.mstolin.entities.occupancy.HotelOccupancyEntity</class>
         <properties>
             <property name="hibernate.connection.url"
                       value="jdbc:h2:tcp://localhost/~/workspace/145085_web-architectures/assignment_5/accommodations"/>
@@ -22,7 +22,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>
