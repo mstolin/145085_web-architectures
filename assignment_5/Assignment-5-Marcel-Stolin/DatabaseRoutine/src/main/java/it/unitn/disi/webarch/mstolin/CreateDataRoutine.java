@@ -19,8 +19,8 @@ import java.util.*;
 
 public class CreateDataRoutine {
 
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-    private EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+    private final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     private CreateDataRoutine(Set<Map<String, Object>> apartments, Set<Map<String, Object>> hotels) {
         EntityTransaction transaction = this.entityManager.getTransaction();
