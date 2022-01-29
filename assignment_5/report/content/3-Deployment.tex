@@ -2,43 +2,50 @@
 % Explain section
 This section explains the deployment of the application.
 % Requirements
-The only requirement to run this application is to have \textit{Tomcat 9} installed.
-% Process Fig
-\Fig{fig:subsubsec:03_depl_process} illustrates the process of deploying the \path{marcel-stolin.war} file using \textit{Tomcat}.
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{images/03_depl/process}
-\caption{Deployment process using \texttt{marcel-stolin.war}}
-\label{fig:subsubsec:03_depl_process}
-\end{figure}
+The requirements to run all applications are the following:
+\begin{itemize}
+\item H2
+\item Wildfly
+\item Java 11
+\item Tomcat
+\item Maven
+\end{itemize}
 
-\paragraph{1.}
-The first step, is to copy the \path{marcel-stolin.war} file to the \path{webapps/} folder of the \textit{Tomcat} installation.\newline
-This can be done using \texttt{\$ cp marcel-stolin.war TOMCAT\_DIRECTORY/webapps}.
 
-\paragraph{2.}
-Next, the remaining step is to start the \textit{Tomcat} server using \texttt{\$ catalina start}. Tomcat will automatically extract the \path{marcel-stolin.war} to a directory called \path{marcel-stolin/}.
+%
+\subsection{Creating the Database}
+% What
+As mentioned before, this application uses a local H2 database, that is not integrated in the project itself, but is located somewhere on the users computer.
 
-\paragraph{3.}
-After that, the application is available via \url{http://localhost:8080/marcel-stolin/}. \Fig{fig:subsubsec:03_depl_list} shows the list page, and \Fig{fig:subsubsec:03_depl_detail} shows the detail page of one parliament member using Firefox.
+% Create a Database
+First, it is necessary to create a local database. Fig XY illustrates the process of creating a local database. First, it is necessary to change the directory to \path{H2_DIRECTORY/bin}. Then, execute the command \texttt{\$ java -cp h2-*.jar org.h2.tools.Shell}. It is important, that the databse is called \textit{accommodations}, and the username is \textit{sa}, and the the password is \textit{sa} as well.
 
-\newpage
+% Start H2
+After the database has been created, it is needed to start H2 via the terminal. To accomplish this, execute the command \texttt{\$ java -jar h2*.jar} in the directory \path{H2_DIRECTORY/bin}. This process is shown in FIG AB.
+% Web browser
+After that, the web browser should open the H2 console automatically. At the H2 console, it is possible to test the database connection to see if the database has been created successfully.
+% How to test
+First, it is necessary to put in the correct JDBC URL in the format \texttt{jdbc:h2:tcp://localhost/PATH\_TO\_DATABASE/accommodations}. The username is \textit{sa}, and the password is \textit{sa} as well. After that, by clicking on \textit{Test Connection} it is possible to test the connection. Fig AB shows the message if the test was successful. After that, the database can be used in the application.
 
-% List page Fig
-\begin{figure}[h]
-\centering
-\includegraphics[scale=1]{images/03_depl/member-list}
-\caption{List page}
-\label{fig:subsubsec:03_depl_list}
-\end{figure}
 
-\newpage
+\subsection{Seeding the Database}
+% What
+After the database has been created, it is important to write dummy data to it using the \textit{DatabaseRoutine} application.
 
-% Detail Fig
-\begin{figure}[h]
-\centering
-\includegraphics[scale=1]{images/03_depl/member-detail}
-\caption{Detail page}
-\label{fig:subsubsec:03_depl_detail}
-\end{figure}
-\newpage
+\subsubsection{Set up the DatabaseRoutine application}
+% How
+It is important to set the path to the database in the persistance.xml of the \textit{DatabaseRoutine} application. FIG AB shows a correct configuration. The property \texttt{hibernate.connection.url} has to be set to the URL used in SEC AB.
+
+\subsubsection{Execute the DatabaseRoutine application}
+% How
+To execute the DatabaseRoutine application, open the project in IntelliJ, right-click on the DataRoutine.java file, and select \textit{Run 'DataRoutine.main()'}. Then, the file gets executes and write dummy data to the database.
+
+% Check
+After that, it is possible to check if the data has been written to the database by connecting to the database using the H2 console, introduced in SEC AB. FIG AB shows the newly created tables in the database.
+
+
+
+\subsection{Setting up Wildfly}
+
+
+\subsection{Starting the Web Application}

@@ -1,23 +1,10 @@
 \section{Implementation}\label{sec:02_impl}
 % What
-This section describes the most important parts of the implementation of the application.
-% What technology
+This section describes the most important parts of the implementation of the application. It highlihtes the databse structure, and the behaviour of the Beans.
 
 
-\subsection{Database Routine}
-% Intro
-A database routine needs to be implemented to seed the database, that is supposed to be used in the application.
-% No EJB
-This routine is not implemented as a EJB, instead, it will run as a standalone Java application.
-% What data
-The accommodations, as well as the occupancies of accommodatios are given by the task description.
+\subsection{Database}
 
-% Technology
-The following technologies are used to implement the database routine:
-\begin{itemize}
-\item Hibernate
-\item JPA
-\end{itemize}
 
 \subsubsection{Entities}
 % What
@@ -61,6 +48,53 @@ To implement the occupancies, a parent class called HotelOccupancy exists, that 
 \paragraph{Reservations}
 % What 
 A user can make reservation that are saved to the database. A reservation consists of a start date and an end date that represent the date interval of the stay, and the name of the guest. These informations are saved by the ReservationEntity. Additionally, a classes called HotelReservationEntity, which inherits the ReservationEntity, is used to save the number of guests for on reservation of a hotel. An apartment does not need extra information, because it is either avaible or not, which is represented by the existance of a ReservationEntity in the table for the specific apartment for a specific date interval.
+
+
+\subsubsection{Structure}
+% What Tables
+The database consists of three tables:
+\begin{itemize}
+\item Accommodation
+\item Occupancy
+\item Reservation
+\end{itemize}
+% For what
+Each table is associated with an entity that are described in SEC XY.
+
+% Explain Tables
+\paragraph{Accommodation}
+% Columns
+FIG AB describes the structure of the Accommodation table. It is used to save the AccommodationEntity, as well as the child entities ApartmentEntity and HotelEntity.
+% DB inheritance
+To accomplish inheritance, the Single Table per Class Hierarchy strategy is used.
+
+\paragraph{Occupancy}
+% Figure
+FIG BH describes the structure of the Occupancy table. It is used to save the OccupancyEntity and the HotelOccupancyEntity.
+% Strategy
+The Single Table per Class Hierarchy strategy is used as well to enable inheritance.
+
+\paragraph{Reservation}
+% Figure
+FIG HJ describes the structure of the Reservations table. It saves the ApartmentEntity and the HotelEntity.
+% Inheritance
+For inheritance, it uses the Single Table per Class Hierarchy as well.
+
+
+\subsubsection{Database Routine}
+% Intro
+A database routine needs to be implemented to seed the database, that is supposed to be used in the application.
+% No EJB
+This routine is not implemented as a EJB, instead, it will run as a standalone Java application.
+% What data
+The accommodations, as well as the occupancies of accommodatios are given by the task description.
+
+% Technology
+The following technologies are used to implement the database routine:
+\begin{itemize}
+\item Hibernate
+\item JPA
+\end{itemize}
 
 
 % =====================
