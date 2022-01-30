@@ -78,7 +78,13 @@ Before starting the web application it is important, that the following steps ha
 After those steps have been executed, the web application can be deployed and started using Tomcat.
 
 % Create executable
-First, it is necessary to create the \texttt{.war} artifact of the \textit{WebApp} project, using the command \texttt{\$ mvn clean package} that has to be executed in the WebApp projects root directory. After that, a new directory called \texttt{target/} has been created which contains the artifact \texttt{WebApp-1.0-SNAPSHOT.war}.
+First, it is necessary to create the \texttt{.war} artifact of the \textit{WebApp} project, using the command \texttt{\$ mvn clean package} which has to be executed in the \textit{WebApp} projects root directory. After that, a new directory called \texttt{target/} has been created which contains the artifact \texttt{marcel-stolin-web-app.war}.
 
 % Deploy executable
+After the artifact has been built, it needs to be deployed to the \path{webapps/} directory of the Apache Tomcat directory using the command \texttt{\$ cp target/marcel-stolin-web-app.war APACHE\_TOMCAT/webapps}.
 
+% Set port
+One problem is, Apache Tomcat starts its service on port 8080 by default, which is also the default port of Wildfly. Therefore, the port of Apache Tomcat has to be changed to anaother port, e.g. 8000. The default port can be changed in the file \path{server.xml}, which can be seen in LST AB.
+
+% Start server
+Finally, the Apache Tomcat server can be started using the command \texttt{\$ APACHE\_TOMCAT/bin/catalina.sh start}. After that, the web application is available at \url{http://localhost:8000/marcel-stolin-web-app/}, as shown in FIG XY.
