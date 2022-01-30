@@ -46,7 +46,7 @@
                             <li class="list-group-item"><strong>Total Price:</strong> <span>${reservationSummary.getTotalPrice()}€</span></li>
                         </ul>
                         <div class="card-body">
-                            <form method="POST" action="<% config.getServletContext(); %>/reservation/confirm">
+                            <form method="POST" action="${pageContext.request.contextPath}/reservation/confirm">
                                 <input type="hidden" name="accommodationId" value="${param.accommodationId}"/>
                                 <input type="hidden" name="numberPersons" value="${param.numberPersons}"/>
                                 <input type="hidden" name="startDate" value="${param.startDate}"/>
@@ -73,7 +73,7 @@
                                     <input class="form-control" type="text" id="creditCard" name="creditCard" value="4000-1234-5678-9010"/>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Confirm Reservation</button>
-                                <a class="btn btn-secondary" href="<% config.getServletContext(); %>/results?startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Cancel</a>
+                                <a class="btn btn-secondary" href="${pageContext.request.contextPath}/results?startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Cancel</a>
                             </form>
                         </div>
                     </div>

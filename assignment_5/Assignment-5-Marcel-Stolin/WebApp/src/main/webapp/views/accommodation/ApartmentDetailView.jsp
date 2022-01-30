@@ -9,6 +9,6 @@
         <li class="list-group-item"><strong>Max. Persons:</strong> <span>${param.maxPersons}</span></li>
     </ul>
     <div class="card-body">
-        <a class="btn btn-primary" href="<% config.getServletContext(); %>/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book Apartment for ${param.totalPrice}€</a>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/reservation?accommodationId=${param.id}&startDate=${param.startDate}&endDate=${param.endDate}&numberPersons=${param.numberPersons}">Book Apartment for ${param.totalPrice}€</a>
     </div>
 </div>

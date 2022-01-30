@@ -14,7 +14,7 @@
                         <h2 class="alert-heading">Reservation Confirmation</h2>
                         <p>Your reservation is confirmed.</p>
                         <hr>
-                        <p class="mb-0">Go to <a href="<% config.getServletContext(); %>/reservations" class="alert-link">My Reservation</a> or go back to <a href="/" class="alert-link">Search</a></p>
+                        <p class="mb-0">Go to <a href="${pageContext.request.contextPath}/reservations" class="alert-link">My Reservation</a> or go back to <a href="${pageContext.request.contextPath}" class="alert-link">Search</a></p>
                     </div>
                 </div>
             </div>

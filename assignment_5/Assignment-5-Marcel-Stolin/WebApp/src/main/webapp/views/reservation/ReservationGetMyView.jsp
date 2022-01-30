@@ -13,7 +13,7 @@
                     <h2>Get My Reservations</h2>
                 </div>
                 <div class="row">
-                    <form method="POST" action="<% config.getServletContext(); %>">
+                    <form method="POST" action="${pageContext.request.contextPath}/reservations">
                         <div class="mb-3">
                             <label for="firstName" class="form-label">First Name:</label>
                             <input class="form-control" type="text" id="firstName" name="firstName" placeholder="First Name">

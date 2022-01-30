@@ -13,7 +13,7 @@
                     <h2>Search for Accommodations</h2>
                 </div>
                 <div class="row">
-                    <form method="GET" action="<% config.getServletContext(); %>/results">
+                    <form method="GET" action="${pageContext.request.contextPath}/results">
                         <div class="row">
                             <div class="col">
                                 <div class="mb-3">

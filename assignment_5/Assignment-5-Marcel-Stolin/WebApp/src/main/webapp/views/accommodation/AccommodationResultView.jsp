@@ -49,7 +49,7 @@
                         <c:otherwise>
                             <div class="alert alert-warning">
                                 Sorry, no accommodations available for the given date and number of persons.
-                                <a href="<% config.getServletContext(); %>/" class="alert-link">Go back</a>
+                                <a href="${pageContext.request.contextPath}" class="alert-link">Go back</a>
                             </div>
                         </c:otherwise>
                     </c:choose>
