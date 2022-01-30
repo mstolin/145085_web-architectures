@@ -46,6 +46,39 @@ After that, it is possible to check if the data has been written to the database
 
 
 \subsection{Setting up Wildfly}
+% Set up Wildfly
+At first, it is important to make sure, that Wildfly (mentioned in SEC AB) is available locally.
+
+% Set up the datasource
+Second, to access the database, the path to the previously created H2 database need to be set as a datasource in the configuration file of Wildfly. The configuration file is located at \path{WILDFLY_DIRECTORY/standalone/configuration/standalone.xml}. LST AB shows how the in SEC AB created H2 database can be added as a datasource in Wildfly.
+
+% Build EJB jar
+Third, the EJB`s need to to be deployed to the Wildfly server. Therefore, it is necessary to run the command \texttt{\$ mvn clean package} in the directory of the \textit{WebServices} project. After that, a new directory called \path{/target} was created in the root folder of the \textit{WebServices} project, where the EJB JAR \path{WebServices.1.0-SNAPSHOT.jar} is located, which is shown at FIG AB.
+
+% Deploy jar
+After the \texttt{.jar} artifact has been created, it need to be copied to the deployment directory of the Wildfly server. LST XY shows how to copy the artifact from the target directory to the deployment directory which is located at \path{WILDFLY_DIRECTORY/standalone/deployments}.
+
+% Start Wildfly server
+Finally, the Wildfly server can be started as shown in LST AB. Additionally, the log shows the lookup address of both the AccommodationService (mentioned in SEC XY) and the ReservationService (mentioned in SEC AB), which is illustrated in FIG AB.
 
 
 \subsection{Starting the Web Application}
+% Important things
+Before starting the web application it is important, that the following steps have been done in the given order:
+% Steps
+\begin{enumerate}
+\item Start H2 database
+\item Add data to H2 database
+\item Set up H2 database as a Wildfly datasource
+\item Compile and deploy EJB JAR artifact to Wildfly
+\item Start Wildfly application server
+\end{enumerate}
+
+% Next
+After those steps have been executed, the web application can be deployed and started using Tomcat.
+
+% Create executable
+First, it is necessary to create the \texttt{.war} artifact of the \textit{WebApp} project, using the command \texttt{\$ mvn clean package} that has to be executed in the WebApp projects root directory. After that, a new directory called \texttt{target/} has been created which contains the artifact \texttt{WebApp-1.0-SNAPSHOT.war}.
+
+% Deploy executable
+
