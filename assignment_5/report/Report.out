@@ -21,7 +21,15 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Set up the DatabaseRoutine application}{subsection.3.2}% 21
 \BOOKMARK [3][-]{subsubsection.3.2.2}{Execute the DatabaseRoutine application}{subsection.3.2}% 22
 \BOOKMARK [2][-]{subsection.3.3}{Setting up Wildfly}{section.3}% 23
-\BOOKMARK [2][-]{subsection.3.4}{Starting the Web Application}{section.3}% 24
-\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 25
-\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 26
-\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Add H2 database datasource}{subsection.3.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Compile EJB Jar}{subsection.3.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.3}{EJB Jar Deployment}{subsection.3.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Start Wildfly Application Server}{subsection.3.3}% 27
+\BOOKMARK [2][-]{subsection.3.4}{Starting the Web Application}{section.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Build Artifact}{subsection.3.4}% 29
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Deploy Artifact}{subsection.3.4}% 30
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Configure Port}{subsection.3.4}% 31
+\BOOKMARK [3][-]{subsubsection.3.4.4}{Start Server}{subsection.3.4}% 32
+\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 33
+\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 34
+\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 35
