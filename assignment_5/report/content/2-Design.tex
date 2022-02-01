@@ -3,10 +3,10 @@
 This section describes the most important parts of the implementation of the application. It highlihtes the databse structure, and the behaviour of the Beans.
 
 
-\subsection{Database}
+\subsection{Database}\label{sec:02_impl_db}
 
 
-\subsubsection{Entities}
+\subsubsection{Entities}\label{sec:02_impl_db_entities}
 % What
 \Fig{fig:02_impl_db_entities} visualizes the UML diagram of the entities, used for the database.
 % Overall
@@ -50,7 +50,7 @@ To implement the occupancies, a parent class called HotelOccupancy exists, that 
 A user can make reservation that are saved to the database. A reservation consists of a start date and an end date that represent the date interval of the stay, and the name of the guest. These informations are saved by the ReservationEntity. Additionally, a classes called HotelReservationEntity, which inherits the ReservationEntity, is used to save the number of guests for on reservation of a hotel. An apartment does not need extra information, because it is either avaible or not, which is represented by the existance of a ReservationEntity in the table for the specific apartment for a specific date interval.
 
 
-\subsubsection{Structure}
+\subsubsection{Structure}\label{sec:02_impl_db_structure}
 % What Tables
 The database consists of three tables:
 \begin{itemize}
@@ -81,7 +81,7 @@ FIG HJ describes the structure of the Reservations table. It saves the Apartment
 For inheritance, it uses the Single Table per Class Hierarchy as well.
 
 
-\subsubsection{Database Routine}
+\subsubsection{Database Routine}\label{sec:02_impl_db_routine}
 % Intro
 A database routine needs to be implemented to seed the database, that is supposed to be used in the application.
 % No EJB
@@ -99,7 +99,7 @@ The following technologies are used to implement the database routine:
 
 % =====================
 % =====================
-\subsection{Enterprise Java Beans}
+\subsection{Enterprise Java Beans}\label{sec:02_impl_beans}
 % Business logic
 The business logic of this application is implemented using EJB 3. It is composed of three parts:
 \begin{itemize}
@@ -114,7 +114,7 @@ All services are part of a single Maven project called \textit{WebServices}.
 Each part (service) is an independent Baen. The client is able to lookup the Bean given an address and invoke methods on it. Only the Accommodation Service and the Reservation Service is available for the client. The Database Service is implemented using a local bean, because it is not intended, for the user, to interact with the database directly.
 
 
-\subsubsection{LocalDatabaseBean}
+\subsubsection{LocalDatabaseBean}\label{sec:02_impl_beans_local}
 % What
 The \texttt{LocalDatabaseBean} is used to interact with the H2 database. It initiates the \texttt{EntityManager}, given by JPA, bu establishing a connection to a JTA datasource. Other services can use the Database Service to send queries and receive results from the database.
 
@@ -135,7 +135,7 @@ public class ReservationBean implements ReservationService  {
 \end{lstlisting}
 
 
-\subsubsection{AccommodationService}
+\subsubsection{AccommodationService}\label{sec:02_impl_beans_acc}
 % What
 The Accommodation is used by the client to interact with the \texttt{AccommdationEntity} and its child classes \texttt{ApartmentEntity}, and \texttt{HotelEntity}. It uses the LocalDatabaseBean to send HQL queries to the H2 database.
 
@@ -163,7 +163,7 @@ These constraints are checked for the range between the start date (1. February 
 After that it is important, thte the count of numbers of the accommodation, in that specific date range, is euqal to the number of days between the start and end date.
 
 
-\subsubsection{ReservationService}
+\subsubsection{ReservationService}\label{sec:02_impl_beans_reservation}
 % Describe
 To read from and write to the reservation table of the database, the ReservationService is used. It allows to persist new reservations to the database, and to get all reservations for a specific customer name.
 
@@ -174,7 +174,7 @@ When adding a new reservation to the database, the \texttt{ReservationService} i
 Additionally, the ReservationService provides an interface to calculate the price of a reservation for either a Hotel or an Apartment.
 
 
-\subsubsection{Build Process}
+\subsubsection{Build Process}\label{sec:02_impl_beans_build}
 % Jar
 The project is build using the \texttt{maven-ejb-plugin} maven plugin to create a EJB-Jar file.
 % How
@@ -202,15 +202,15 @@ Then, the artifact can be built using the \texttt{mvn clean build} command.
 
 % =====================
 % =====================
-\subsection{Web Application}
+\subsection{Web Application}\label{sec:02_impl_web}
 % What parts
 
-\subsubsection{Search}
+\subsubsection{Search}\label{sec:02_impl_web_search}
 
-\subsubsection{Results}
+\subsubsection{Results}\label{sec:02_impl_web_results}
 
-\subsubsection{Reservation Summary}
+\subsubsection{Reservation Summary}\label{sec:02_impl_web_reservationsummary}
 
-\subsubsection{Reservation Confirm}
+\subsubsection{Reservation Confirm}\label{sec:02_impl_web_reservationconfirm}
 
-\subsubsection{My Reservations}
+\subsubsection{My Reservations}\label{sec:02_impl_web_myreservations}
