@@ -4,7 +4,7 @@ import javax.naming.NamingException;
 
 public class ServiceFactory {
 
-    private final static String APP_NAME = "WebServices.1.0-SNAPSHOT";
+    private final static String APP_NAME = "marcel-stolin-web-services";
 
     public final static String ACCOMMODATION_BEAN = "AccommodationBean";
     public final static String RESERVATION_BEAN = "ReservationBean";
