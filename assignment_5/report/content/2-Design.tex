@@ -1,6 +1,6 @@
-\section{Implementation}\label{sec:02_impl}
+\section{Design}\label{sec:02_impl}
 % What
-This section describes the most important parts of the implementation of the application. It highlihtes the databse structure, and the behaviour of the Beans.
+This section describes the most important parts of the implementation of the application. It highlihtes the database structure, and the behaviour of the Beans.
 
 
 \subsection{Database}\label{sec:02_impl_db}
@@ -203,14 +203,66 @@ Then, the artifact can be built using the \texttt{mvn clean build} command.
 % =====================
 % =====================
 \subsection{Web Application}\label{sec:02_impl_web}
+% What
+The \textit{WebApp} project implements the presentation layer of the application. Additionally, it executes the EJB`s (introduced in SEC AB) for the business logic, and presents the results to the client.
+ 
 % What parts
+It consists of the following Servlets:
+\begin{itemize}
+\item \textit{AccommodationSearchServlet}
+\item \textit{AccommodationResultServlet}
+\item \textit{ReservationSummaryServlet}
+\item \textit{ReservationConfirmServlet}
+\item \textit{ReservationListServlet}
+\end{itemize}
 
-\subsubsection{Search}\label{sec:02_impl_web_search}
+\subsubsection{Patterns}
 
-\subsubsection{Results}\label{sec:02_impl_web_results}
+\subsubsection{AccommodationSearchServlet}\label{sec:02_impl_web_search}
+% What
+The \textit{AccommodationSearchServlet} is the start page of the \textit{WebApp}, and provides the search to search for available accommodations, as shown in FIG XY.
 
-\subsubsection{Reservation Summary}\label{sec:02_impl_web_reservationsummary}
+% Form
+The user is able to set the start, and end date of the duration, as well as the number of persons who intend to be in the accommodation during that time.
+% Request
+After submitting the form, the servelt sends a GET request with the given data to the \textit{AccommodationResultServlet}.
 
-\subsubsection{Reservation Confirm}\label{sec:02_impl_web_reservationconfirm}
+\subsubsection{AccommodationResultServlet}\label{sec:02_impl_web_results}
+% What
+After submitting the search form, the \textit{AccommodationResultServlet} is responsible to present the results.
+% No results
+If no accommodations are available for the given specifications, a message is shown as illustrated in FIG AB.
+% We have results
+Otherwise, a grid of all available results, order by the daily price, is presented to the user, as shown in FIG AB. There, the user can click on the \textit{Book} button to open the \textit{ReservationSummaryServlet}. If the accommodation is a \textit{Hotel} entity, two button are shown, one for the total price without half-board, and on including half-board.
 
-\subsubsection{My Reservations}\label{sec:02_impl_web_myreservations}
+% AccommodationService
+To receive a list of all available accommodations, the \textit{AccommodationResultServlet} delegates the request details to the \textit{AccommodationService} (introduced in \Sec{sec:02_impl_beans_acc}) to call the \texttt{getAvailableAccommodations} method of the Bean.
+% ReservationService
+The total prices are calculated by delegating the details to the \texttt{calculateApartmentReservationPrice} and \texttt{calculateHotelReservationPrice} methods of the \textit{ReservationService} (introduced in \Sec{sec:02_impl_beans_reservation}) respectively.
+
+\subsubsection{ReservationSummaryServlet}\label{sec:02_impl_web_reservationsummary}
+% What
+In the \textit{ReservationSummaryServlet} the user is able to see a summary after selecting an accommodation at the \textit{AccommodationResultServlet}, as shown in FIG AB.
+% Submitting reservation
+Additionally, at this point, the user has the opportunity to confirm the reservation by clicking the \textit{Confirm} button, or canceling the reservation by clicking the \textit{Cancel} button.
+% POST
+If the user decides to confirm the reservation, the user has to provide a first name, a last name, and a credit card number. Then, a POST request is sedn to the \textit{ReservationConfirmServlet}.
+
+% Beans
+To get the information about the accommodation, the servelt uses the \textit{AccommodationService} bean, and to get the total price of the reservation it uses the \textit{ReservationService} bean respectively.
+
+\subsubsection{ReservationConfirmServlet}\label{sec:02_impl_web_reservationconfirm}
+% What
+The \textit{ReservationConfirmServlet} is responsible to save a reservation, and show the user a success message, as illustrated in FIG AB.
+
+% Beans
+To presist a new \textit{ReservationEntity} to the database, the \textit{ReservationConfirmServlet} delegates the details to the \textit{ReservationService} to call the \texttt{persistReservation} method.
+
+\subsubsection{ReservationListServlet}\label{sec:02_impl_web_myreservations}
+% What 
+After a reservation has been confirmed, the user is able to lookup all reservations at the \textit{ReservationListServlet}. 
+% How
+There, the user has to provide the first name, and last name, same as given at the \textit{ReservationSummaryServlet} (introduced in \Sec{sec:02_impl_web_reservationsummary}), shown in FIG XY. After submitting, the \textit{ReservationListServlet} sends a POST request to itself to present all reservation made by the given user, shown in FIG AB.
+
+% Beans
+To present all needed informations, the ReservationListServlet uses the \textit{AccommodationDelegate} and \textit{ReservationDelegate} respectively.
