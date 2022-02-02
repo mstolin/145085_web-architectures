@@ -29,7 +29,9 @@
 \BOOKMARK [3][-]{subsubsection.3.3.3}{EJB JAR Deployment}{subsection.3.3}% 29
 \BOOKMARK [3][-]{subsubsection.3.3.4}{Start Wildfly Application Server}{subsection.3.3}% 30
 \BOOKMARK [2][-]{subsection.3.4}{Starting the Web Application}{section.3}% 31
-\BOOKMARK [3][-]{subsubsection.3.4.1}{IntelliJ Configuration}{subsection.3.4}% 32
-\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 33
-\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 34
-\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 35
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Server Settings}{subsection.3.4}% 32
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Deployment Settings}{subsection.3.4}% 33
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Starting the Application}{subsection.3.4}% 34
+\BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 35
+\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 36
+\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 37
