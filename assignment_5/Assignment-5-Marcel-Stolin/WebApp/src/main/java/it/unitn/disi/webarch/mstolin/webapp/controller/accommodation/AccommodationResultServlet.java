@@ -43,7 +43,7 @@ public class AccommodationResultServlet extends HttpServlet {
         String numberOfPersonsParameter = request.getParameter("numberPersons");
 
         // check if parameters are given
-        if (startDateParameter != null && endDateParameter != null && numberOfPersonsParameter != null) {
+        if (startDateParameter != null && startDateParameter.length() > 0 && endDateParameter != null && endDateParameter.length() > 0 && numberOfPersonsParameter != null && numberOfPersonsParameter.length() > 0) {
             try {
                 // parse parameters to objects
                 Date startDate = ControllerHelper.parseStringToDate(startDateParameter);
