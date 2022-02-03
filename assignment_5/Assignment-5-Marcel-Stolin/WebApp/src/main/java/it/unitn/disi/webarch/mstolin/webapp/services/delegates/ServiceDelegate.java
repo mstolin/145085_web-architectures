@@ -14,7 +14,6 @@ public abstract class ServiceDelegate <T extends Object> {
         this.serviceClassName = serviceClassName;
     }
 
-
     protected T getService() throws NamingException {
         return ServiceFactory.initializeService(
             beanName,
