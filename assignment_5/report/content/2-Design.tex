@@ -3,6 +3,20 @@
 This section describes the most important parts of the design of the application. It highlightes the database structure and its entitie (\Sec{sec:02_design_db}), the purpose and behaviour of the EJB`s (\Sec{sec:02_design_beans}), and the behaviour about the servlets (\Sec{sec:02_design_web}).
 
 
+\subsection{Multimodule Project Design}\label{sec:02_design_project}
+% What
+This application is delivered as a multimodule project. It contains the \textit{DatabaseRoutine}, \textit{WebServices}, and \textit{WebApp} projects, as shown in \Fig{fig:02_design_project_structure}.
+% What is what
+The \textit{DatabaseRoutine} (introduced in \Sec{sec:02_design_db_routine}) implements the routine to seed the database with test data, \textit{WebServices} contains the business logic, and the \textit{WebApp} project contains the servlets.
+% Diagram
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{images/02_design/design-project}
+\caption{Multimodule project structure}
+\label{fig:02_design_project_structure}
+\end{figure}
+
+
 \subsection{Database}\label{sec:02_design_db}
 % What
 To persist all accommodations, the occupancy of an accommodation, and reservations made by the users a database is needed. This application uses a H2 database.
@@ -111,7 +125,7 @@ The business logic of this application is implemented using three EJB`s:
 All services are part of a single Maven project called \textit{WebServices}.
 
 % What
-Each part (service) is an independent EJB. The client is able to lookup the EJB given an address and invoke methods on it. Only the \textit{AccommodationService} and the \textit{ReservationService} are available for the client. The \textit{DatabaseService} is implemented as a local bean, because it is not intended for the user to interact with the database directly.
+Each part (service) is an independent EJB. The client is able to lookup the EJB given an address and invoke methods on it. Only the \textit{AccommodationService} and the \textit{ReservationService} are available for the client. Both utilize the \textit{Facade} pattern, to encapsulate the complexity to work with entities (introduced in \Sec{sec:02_design_db_entities}) directly. The \textit{DatabaseService} is implemented as a local bean, because it is not intended for the user to interact with the database directly.
 
 
 \subsubsection{LocalDatabaseBean}\label{sec:02_design_beans_local}
