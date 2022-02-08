@@ -16,7 +16,7 @@ The requirements to run all applications are the following (the versions corresp
 % Create database
 \subsection{H2 Database}\label{sec:03_depl_h2}
 % What
-As mentioned before, this application uses a local H2 database, that is not integrated in the project itself, but is located somewhere, on the users computer.
+As mentioned before, this application uses a local H2 database, that is not integrated into the project itself, but is located somewhere, on the user's computer.
 
 % Start H2
 \subsubsection{Start H2}\label{sec:03_depl_h2_start}
@@ -30,7 +30,7 @@ At first, it is important to start the H2 service via the terminal. This can be 
 
 % Create a Database
 \subsubsection{Create a Database}\label{sec:03_depl_h2_create}
-After the H2 service has been started, it is needed to create a new local database using the shell tool of H2. This process is shown in \Fig{fig:03_depl_createdb_create}, where the command \texttt{\$ java -cp h2-*.jar org.h2.tools.Shell} needs to get executed in the \path{\$H2/bin} directory. It is important, that the database is called \textit{accommodations}, and the username is \textit{sa}, and the the password is \textit{sa} as well.
+After the H2 service has been started, it is needed to create a new local database using the shell tool of H2. This process is shown in \Fig{fig:03_depl_createdb_create}, where the command \texttt{\$ java -cp h2-*.jar org.h2.tools.Shell} needs to get executed in the \path{\$H2/bin} directory. It is important, that the database is called \textit{accommodations}, the username is \textit{sa}, and the password is \textit{sa} as well.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.18]{images/03_depl/create-db}
@@ -42,7 +42,7 @@ After the H2 service has been started, it is needed to create a new local databa
 \subsubsection{Test Database Connection}\label{sec:03_depl_h2_test}
 After creating the \textit{accommodations} database, it is possible to test the connection using the H2 console mentioned in \Sec{sec:03_depl_h2_start}.
 % How to test
-First, it is necessary to fill in the correct informations: The JDBC URL in the format \texttt{jdbc:h2:tcp://localhost/PATH\_TO\_DATABASE/accommodations}, and the previousely used username and password from \Sec{sec:03_depl_h2_create} (username: \texttt{sa}, password: \texttt{sa}).
+First, it is necessary to fill in the correct information: The JDBC URL in the format \texttt{jdbc:h2:tcp://localhost/PATH\_TO\_DATABASE/accommodations}, and the previously used username and password from \Sec{sec:03_depl_h2_create} (username: \texttt{sa}, password: \texttt{sa}).
 % Test
 Then, by clicking on \textit{Test Connection}, a status message is shown as illustrated in \Fig{fig:03_depl_createdb_h2test}. If the connection is successful, the database can be used in the application.
 \begin{figure}[h]
@@ -93,10 +93,10 @@ After the H2 database is created, the EJB`s can be deployed to the WildFly appli
 It is important to mention, that at this point the H2 database (explained in \Sec{sec:03_depl_h2}) has to be running.
 
 % Set up the datasource
-\subsubsection{Add H2 database datasource}\label{sec:03_depl_wildfly_datasource}
-To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a datasource in the configuration file of WildFly. The configuration file is located at \path{\$JBOSS\_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
+\subsubsection{Add H2 database data source}\label{sec:03_depl_wildfly_datasource}
+To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a data source in the configuration file of WildFly. The configuration file is located at \path{\$JBOSS\_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
 % How
-\Lst{lst:03_depl_wildfly_datasource_config} shows how the \textit{accommodations} database, created in \Sec{sec:03_depl_h2}, has been added as a datasource in WildFly given the name \texttt{AccommodationsDS}.
+\Lst{lst:03_depl_wildfly_datasource_config} shows how the \textit{accommodations} database, created in \Sec{sec:03_depl_h2}, has been added as a data source in WildFly given the name \texttt{AccommodationsDS}.
 \begin{lstlisting}[label=lst:03_depl_wildfly_datasource_config, caption=WildFly datasource configuration, language=xml]
 ...
 <subsystem xmlns="urn:jboss:domain:datasources:6.0">
@@ -116,9 +116,9 @@ To give the EJB`s the ability to access the \textit{accommodations} database, it
 \end{lstlisting}
 
 % Also to the project
-Additionally, this datasource has to be added to the \path{persistance.xml} configuration file of the \textit{WebServices} project as well, which is located at \path{WebServices/src/main/resources/META-INF/persistance.xml}.
+Additionally, this data source has to be added to the \path{persistance.xml} configuration file of the \textit{WebServices} project as well, which is located at \path{WebServices/src/main/resources/META-INF/persistance.xml}.
 % Which name
-Therefore, a new \textit{jta-data-source} with the value \texttt{java:jboss/datasources/AccommodationsDS} is added to the default \textit{persistence-unit}, as shown in \Lst{lst:03_depl_wildfly_datasource_persistance}.
+Therefore, a new \textit{jta-data-source} with the value \texttt{java:jboss/datasources/AccommodationsDS} is added to the default \textit{persistence unit}, as shown in \Lst{lst:03_depl_wildfly_datasource_persistance}.
 
 \begin{lstlisting}[label=lst:03_depl_wildfly_datasource_persistance, caption=Default data source configuration, language=xml]
 ...
@@ -131,12 +131,12 @@ Therefore, a new \textit{jta-data-source} with the value \texttt{java:jboss/data
   </properties>
 </persistence-unit>
 ...
-%\end{lstlisting}
+\end{lstlisting}
 
 
 % Build EJB jar
 \subsubsection{Compile EJB Jar}\label{sec:03_depl_wildfly_jar}
-Next, the EJB`s need to to be deployed to the WildFly server. Therefore, it is necessary to run the command \texttt{\$ mvn clean package} in the directory of the \textit{WebServices} project, which builds the \texttt{.jar} artifact containing all EJB`s. After that, a new directory called \path{/target} was created in the root folder of the \textit{WebServices} project, where the EJB JAR  \path{marcel-stolin-web-services.jar} is located, which is shown at \Fig{fig:03_depl_wildfly_jar_build}.
+Next, the EJB`s need to be deployed to the WildFly server. Therefore, it is necessary to run the command \texttt{\$ mvn clean package} in the directory of the \textit{WebServices} project, which builds the \texttt{.jar} artifact containing all EJB`s. After that, a new directory called \path{/target} was created in the root folder of the \textit{WebServices} project, where the EJB JAR  \path{marcel-stolin-web-services.jar} is located, which is shown in \Fig{fig:03_depl_wildfly_jar_build}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{images/03_depl/web-services-artifact}
@@ -163,7 +163,7 @@ $ cp target/marcel-stolin-web-services.jar $JBOSS_HOME/standalone/deployments
 
 % Start Wildfly server
 \subsubsection{Start Wildfly Application Server}\label{sec:03_depl_wildfly_start}
-Finally, the WildFly server can be started using the command \texttt{\$ bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_impl_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_impl_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
+Finally, the WildFly server can be started using the command \texttt{\$ bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_design_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_design_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.13]{images/03_depl/deployed-beans}
@@ -184,7 +184,7 @@ For this project, the IntelliJ IDEA is used to start and deploy the \textit{WebA
 
 % Server
 \subsubsection{Server Settings}
-The \textit{Server} settings for IntelliJ are shown in \Fig{fig:03_depl_webapp_intellij_config1}. It is important, that the URL is set to \url{http://localhost:8000/marcel-stolin-web-app/}, and the HTTP port, at \textit{Tomcat Server Settings},  is set to 8000. In addition, under \textit{Before launch} it is import to build the \textit{WebApp:war exploded} artifact.
+The \textit{Server} settings for IntelliJ are shown in \Fig{fig:03_depl_webapp_intellij_config1}. It is important, that the URL is set to \url{http://localhost:8000/marcel-stolin-web-app/} and the HTTP port, at \textit{Tomcat Server Settings},  is set to 8000. In addition, under \textit{Before launch} it is important to build the \textit{WebApp:war exploded} artifact.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{images/03_depl/tomcat-config-1}
@@ -194,7 +194,7 @@ The \textit{Server} settings for IntelliJ are shown in \Fig{fig:03_depl_webapp_i
 
 % Deployment
 \subsubsection{Deployment Settings}
-\Fig{fig:03_depl_webapp_intellij_config2} shows the settings for the \textit{Deployment} section. It is neccessary to deploy the \textit{WebApp:war exploded} artifact on server startup. Additionally, the \textit{Application Context} need to be set to \texttt{marcel-stolin-web-app}.
+\Fig{fig:03_depl_webapp_intellij_config2} shows the settings for the \textit{Deployment} section. It is necessary to deploy the \textit{WebApp:war exploded} artifact on server startup. Additionally, the \textit{Application Context} needs to be set to \texttt{marcel-stolin-web-app}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{images/03_depl/tomcat-config-2}

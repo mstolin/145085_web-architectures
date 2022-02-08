@@ -26,7 +26,7 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Set up the DatabaseRoutine application}{subsection.3.2}% 26
 \BOOKMARK [3][-]{subsubsection.3.2.2}{Execute the DatabaseRoutine application}{subsection.3.2}% 27
 \BOOKMARK [2][-]{subsection.3.3}{Setting up WildFly}{section.3}% 28
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Add H2 database datasource}{subsection.3.3}% 29
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Add H2 database data source}{subsection.3.3}% 29
 \BOOKMARK [3][-]{subsubsection.3.3.2}{Compile EJB Jar}{subsection.3.3}% 30
 \BOOKMARK [3][-]{subsubsection.3.3.3}{EJB JAR Deployment}{subsection.3.3}% 31
 \BOOKMARK [3][-]{subsubsection.3.3.4}{Start Wildfly Application Server}{subsection.3.3}% 32
@@ -35,5 +35,6 @@
 \BOOKMARK [3][-]{subsubsection.3.4.2}{Deployment Settings}{subsection.3.4}% 35
 \BOOKMARK [3][-]{subsubsection.3.4.3}{Starting the Application}{subsection.3.4}% 36
 \BOOKMARK [1][-]{section.4}{Comments and Notes}{}% 37
-\BOOKMARK [2][-]{subsection.4.1}{Routing}{section.4}% 38
-\BOOKMARK [2][-]{subsection.4.2}{Building the Angular Application}{section.4}% 39
+\BOOKMARK [2][-]{subsection.4.1}{Deploying the WebApp manually}{section.4}% 38
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Build and Deploy the WebApp Artifact}{subsection.4.1}% 39
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Configure Apache Tomcat}{subsection.4.1}% 40
