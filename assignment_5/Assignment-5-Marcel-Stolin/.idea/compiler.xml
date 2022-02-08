@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="DatabaseRoutine" />
         <module name="WebServices" />
         <module name="WebApp" />
       </profile>
@@ -14,6 +15,7 @@
       <module name="AccommodationService" target="1.5" />
       <module name="AccommodationWebApp" target="1.8" />
       <module name="AccommodationWebServices" target="1.5" />
+      <module name="DatabaseRoutine" target="1.8" />
       <module name="WebApp" target="1.8" />
       <module name="WebServices" target="11" />
     </bytecodeTargetLevel>

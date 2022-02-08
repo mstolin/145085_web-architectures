@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/AccommodationWebServices/pom.xml" />
         <option value="$PROJECT_DIR$/WebServices/pom.xml" />
         <option value="$PROJECT_DIR$/WebApp/pom.xml" />
+        <option value="$PROJECT_DIR$/DatabaseRoutine/pom.xml" />
       </list>
     </option>
   </component>
