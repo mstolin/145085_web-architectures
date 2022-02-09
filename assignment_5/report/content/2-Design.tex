@@ -242,7 +242,7 @@ The helper classes, which uses these patterns are:
 
 \paragraph{ServiceLocator}
 % What pattern
-The \textit{ServiceLocator} is responsible for lookup for a remote Bean given an address. After that, it can be used recreated and used on the client. Internally, it uses the \textit{Singleton} pattern. \Lst{lst:02_design_web_pattern_servicelocator} shows an example of how the AccommodationServe can be constructed using the \textit{ServiceLocator}.
+The \textit{ServiceLocator} is responsible for lookup for a remote Bean given an address. After that, it can be recreated and used on the client. Internally, it uses the \textit{Singleton} pattern. \Lst{lst:02_design_web_pattern_servicelocator} shows an example of how the \textit{AccommodationService} can be constructed using the \textit{ServiceLocator}.
 % Example
 \begin{lstlisting}[label=lst:02_design_web_pattern_servicelocator, caption=Example usage of the \textit{ServiceLocator}, language=java]
 String serviceAddress = getAccommodationbeanAddress();
@@ -252,7 +252,7 @@ service.getAccommodations();
 
 \paragraph{ServiceFactory}
 % What
-The usage of the \textit{ServiceLocator} still requires some boilerplate code, each time an EJB Bean needs to be constructed, for example, the generator of the Bean address. To simplify this process, the \textit{ServiceFactory} uses the \textit{Simple Factory} pattern to construct EJB Beans based on its name. \Lst{lst:02_design_web_pattern_servicefactory} shows an example of how to use the \textit{ServiceFactory} to construct the \textit{AccommodationService}.
+The usage of the \textit{ServiceLocator} still requires some boilerplate code, each time an EJB Bean needs to be constructed, for example, the creation of the Bean address. To simplify this process, the \textit{ServiceFactory} uses the \textit{Simple Factory} pattern to construct EJB Beans based on its name. \Lst{lst:02_design_web_pattern_servicefactory} shows an example of how to use the \textit{ServiceFactory} to construct the \textit{AccommodationService}.
 \begin{lstlisting}[label=lst:02_design_web_pattern_servicefactory, caption=Example usage of the \textit{ServiceFactory}, language=java]
 AccommodationService service = ServiceFactory.initializeService(
   "AccommodationService",
@@ -287,7 +287,7 @@ After submitting the search form, the \textit{AccommodationResultServlet} is res
 % No results
 If no accommodations are available for the given specifications, a message is shown.
 % We have results
-Otherwise, a grid of all available results, order by the daily price, is presented to the user, as shown in \Fig{fig:02_design_web_results_page}. There, the user can click on the \textit{Book} button to open the \textit{ReservationSummaryServlet}. If the accommodation is a \textit{Hotel} entity, two buttons are shown, one for the total price without half-board, and on including half-board.
+Otherwise, a grid of all available results, order by the daily price, is presented to the user, as shown in \Fig{fig:02_design_web_results_page}. There, the user can click on the \textit{Book} button to open the \textit{ReservationSummaryServlet}. If the accommodation is a \textit{Hotel} entity, two buttons are shown, one for the total price without half-board, and one including half-board.
 % Figure
 \begin{figure}[h]
 \centering

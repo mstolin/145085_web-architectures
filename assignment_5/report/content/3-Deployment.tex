@@ -20,7 +20,7 @@ As mentioned before, this application uses a local H2 database, that is not inte
 
 % Start H2
 \subsubsection{Start H2}\label{sec:03_depl_h2_start}
-At first, it is important to start the H2 service via the terminal. This can be accomplished by executing the command \texttt{\$ java -jar h2*.jar} in the directory \path{$H2/bin}, where \texttt{\$H2} is the path of the H2 database. This process is shown in \Fig{fig:03_depl_h2_h2start}. After executing the command, the \textit{H2} console is automatically started in the default web browser, which is needed later.
+At first, it is important to start the H2 service via the terminal. This can be accomplished by executing the command \texttt{\$ java -jar h2*.jar} in the directory \path{$H2/bin}, where \texttt{\$H2} is the path of the H2 database. This process is shown in \Fig{fig:03_depl_h2_h2start}. After executing the command, the H2 console is automatically started in the default web browser, which is needed later.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.23]{images/03_depl/h2_start}
@@ -95,7 +95,7 @@ It is important to mention, that at this point the H2 database (explained in \Se
 
 % Set up the datasource
 \subsubsection{Add H2 database data source}\label{sec:03_depl_wildfly_datasource}
-To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a data source in the configuration file of WildFly. The configuration file is located at \path{$JBOSS\_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
+To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a data source in the configuration file of WildFly. The configuration file is located at \path{$JBOSS_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
 % How
 \Lst{lst:03_depl_wildfly_datasource_config} shows how the \textit{accommodations} database, created in \Sec{sec:03_depl_h2}, has been added as a data source in WildFly given the name \texttt{AccommodationsDS}.
 \begin{lstlisting}[label=lst:03_depl_wildfly_datasource_config, caption=WildFly datasource configuration, language=xml]
