@@ -125,7 +125,7 @@ The business logic of this application is implemented using three EJB`s:
 All services are part of a single Maven project called \textit{WebServices}.
 
 % What
-Each part (service) is an independent EJB. The client can look up the EJB given an address and invoke methods on it. Only the \textit{AccommodationService} and the \textit{ReservationService} are available for the client. Both utilize the \textit{Facade} pattern, to encapsulate the complexity to work with entities (introduced in \Sec{sec:02_design_db_entities}) directly. The \textit{DatabaseService} is implemented as a local bean because it is not intended for the user to interact with the database directly.
+Each part (service) is an independent EJB. The client can look up the EJB given an address and invoke methods on it. Only the \textit{AccommodationService} and the \textit{ReservationService} are available for the client. Both utilize the \textit{Facade} pattern, to encapsulate the complexity to work with entities (introduced in \Sec{sec:02_design_db_entities}) directly and are stateless Beans, because this project does not require any authentication, and therefore keeping state is not required. The \textit{DatabaseService} is implemented as a local bean because it is not intended for the user to interact with the database directly.
 
 
 \subsubsection{LocalDatabaseBean}\label{sec:02_design_beans_local}

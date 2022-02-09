@@ -20,7 +20,7 @@ As mentioned before, this application uses a local H2 database, that is not inte
 
 % Start H2
 \subsubsection{Start H2}\label{sec:03_depl_h2_start}
-At first, it is important to start the H2 service via the terminal. This can be accomplished by executing the command \texttt{\$ java -jar h2*.jar} in the directory \path{\$H2/bin}, where \texttt{\$H2} is the path of the H2 database. This process is shown in \Fig{fig:03_depl_h2_h2start}. After executing the command, the \textit{H2} console is automatically started in the default web browser, which is needed later.
+At first, it is important to start the H2 service via the terminal. This can be accomplished by executing the command \texttt{\$ java -jar h2*.jar} in the directory \path{$H2/bin}, where \texttt{\$H2} is the path of the H2 database. This process is shown in \Fig{fig:03_depl_h2_h2start}. After executing the command, the \textit{H2} console is automatically started in the default web browser, which is needed later.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.23]{images/03_depl/h2_start}
@@ -30,7 +30,7 @@ At first, it is important to start the H2 service via the terminal. This can be 
 
 % Create a Database
 \subsubsection{Create a Database}\label{sec:03_depl_h2_create}
-After the H2 service has been started, it is needed to create a new local database using the shell tool of H2. This process is shown in \Fig{fig:03_depl_createdb_create}, where the command \texttt{\$ java -cp h2-*.jar org.h2.tools.Shell} needs to get executed in the \path{\$H2/bin} directory. It is important, that the database is called \textit{accommodations}, the username is \textit{sa}, and the password is \textit{sa} as well.
+After the H2 service has been started, it is needed to create a new local database using the shell tool of H2. This process is shown in \Fig{fig:03_depl_createdb_create}, where the command \texttt{\$ java -cp h2-*.jar org.h2.tools.Shell} needs to get executed in the \path{$H2/bin} directory. It is important, that the database is called \textit{accommodations}, the username is \textit{sa}, and the password is \textit{sa} as well.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.18]{images/03_depl/create-db}
@@ -94,7 +94,7 @@ It is important to mention, that at this point the H2 database (explained in \Se
 
 % Set up the datasource
 \subsubsection{Add H2 database data source}\label{sec:03_depl_wildfly_datasource}
-To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a data source in the configuration file of WildFly. The configuration file is located at \path{\$JBOSS\_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
+To give the EJB`s the ability to access the \textit{accommodations} database, it has to be defined as a data source in the configuration file of WildFly. The configuration file is located at \path{$JBOSS\_HOME/standalone/configuration/standalone.xml}, where \texttt{\$JBOSS\_HOME} is the path to WildFly. 
 % How
 \Lst{lst:03_depl_wildfly_datasource_config} shows how the \textit{accommodations} database, created in \Sec{sec:03_depl_h2}, has been added as a data source in WildFly given the name \texttt{AccommodationsDS}.
 \begin{lstlisting}[label=lst:03_depl_wildfly_datasource_config, caption=WildFly datasource configuration, language=xml]
@@ -163,7 +163,7 @@ $ cp target/marcel-stolin-web-services.jar $JBOSS_HOME/standalone/deployments
 
 % Start Wildfly server
 \subsubsection{Start Wildfly Application Server}\label{sec:03_depl_wildfly_start}
-Finally, the WildFly server can be started using the command \texttt{\$ bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_design_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_design_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
+Finally, the WildFly server can be started using the command \texttt{\$ \$JBOSS\_HOME/bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_design_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_design_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.13]{images/03_depl/deployed-beans}
