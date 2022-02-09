@@ -10,8 +10,8 @@ This section describes the problems encountered during the development of the ap
 
 \subsubsection{Build and Deploy the WebApp Artifact}\label{sec:04_comments_webapp_artifact}
 % Build
-To create the \texttt{.war} artifact, the command \texttt{\$ mvn clean build} has to be executed in the root of the \textit{WebApp} project directory.
-After the artifact has been built, it is located at \path{WebApp/target/marcel-stolin-web-app.war}, as shown in \Fig{fig:04_comments_webapp_artifact_created}. Next, to deploy the artifact to Apache Tomcat, it needs to be copied to the path \path{\$TOMCAT_HOME\webapps}, where \texttt{\$TOMCAT\_HOME} is the directory of Apache Tomcat. This process is shown in \Lst{lst:04_comments_webapp_artifact_deploy}.
+To create the \texttt{.war} artifact, the command \texttt{\$ mvn clean package} has to be executed in the root of the \textit{WebApp} project directory.
+After the artifact has been built, it is located at \path{WebApp/target/marcel-stolin-web-app.war}, as shown in \Fig{fig:04_comments_webapp_artifact_created}. Next, to deploy the artifact to Apache Tomcat, it needs to be copied to the path \path{$TOMCAT_HOME\webapps}, where \texttt{\$TOMCAT\_HOME} is the directory of Apache Tomcat. This process is shown in \Lst{lst:04_comments_webapp_artifact_deploy}.
 
 % Figure
 \begin{figure}[h]
@@ -28,7 +28,7 @@ $ cp target/marcel-stolin-web-app.war $TOMCAT_HOME/webapps
 
 \subsubsection{Configure Apache Tomcat}
 % Change port
-As described in \Sec{sec:03_depl_webapp}, the port of Apache Tomcat needs to be changed to port 8000. Therefore, the file \path{\$TOMCAT_HOME/conf/server.xml} has to be changed as given in \Lst{lst:04_comments_webapp_artifact_config}. This will change the default port to 8000.
+As described in \Sec{sec:03_depl_webapp}, the port of Apache Tomcat needs to be changed to port 8000. Therefore, the file \path{$TOMCAT_HOME/conf/server.xml} has to be changed as given in \Lst{lst:04_comments_webapp_artifact_config}. This will change the default port to 8000.
 % Server config
 \begin{lstlisting}[label=lst:04_comments_webapp_artifact_config, caption=Apache Tomcat configuration, language=xml]
 <Service name="Catalina">
