@@ -41,6 +41,7 @@ After the H2 service has been started, it is needed to create a new local databa
 % Web browser
 \subsubsection{Test Database Connection}\label{sec:03_depl_h2_test}
 After creating the \textit{accommodations} database, it is possible to test the connection using the H2 console mentioned in \Sec{sec:03_depl_h2_start}.
+
 % How to test
 First, it is necessary to fill in the correct information: The JDBC URL in the format \texttt{jdbc:h2:tcp://localhost/PATH\_TO\_DATABASE/accommodations}, and the previously used username and password from \Sec{sec:03_depl_h2_create} (username: \texttt{sa}, password: \texttt{sa}).
 % Test
@@ -163,7 +164,7 @@ $ cp target/marcel-stolin-web-services.jar $JBOSS_HOME/standalone/deployments
 
 % Start Wildfly server
 \subsubsection{Start Wildfly Application Server}\label{sec:03_depl_wildfly_start}
-Finally, the WildFly server can be started using the command \texttt{\$ \$JBOSS\_HOME/bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_design_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_design_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
+Finally, the WildFly server can be started using the command \linebreak \texttt{\$ \$JBOSS\_HOME/bin/standalone.sh}. Additionally, the log prints the lookup addresses of both the \textit{AccommodationService} (mentioned in \Sec{sec:02_design_beans_acc}) and the \textit{ReservationService} (mentioned in \Sec{sec:02_design_beans_reservation}), which is illustrated in \Fig{fig:03_depl_wildfly_start_addresses}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.13]{images/03_depl/deployed-beans}
